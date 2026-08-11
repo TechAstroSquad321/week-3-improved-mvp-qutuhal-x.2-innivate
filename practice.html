@@ -1,1 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SignLearn | AI Practice</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <a href="index.html" class="logo">🤟 SignLearn</a>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="learn.html">Learn</a>
+        <a href="practice.html" class="active">Practice</a>
+        <a href="quiz.html">Quiz</a>
+        <a href="progress.html">Progress</a>
+    </nav>
+
+</header>
+
+
+<main class="page">
+
+    <section class="page-heading">
+
+        <span class="badge">🤖 AI PRACTICE</span>
+
+        <h1>Practice Your Signs</h1>
+
+        <p>
+            Use your camera to practice hand positions.
+        </p>
+
+    </section>
+
+
+    <section class="practice-layout">
+
+        <div class="camera-panel">
+
+            <video id="camera" autoplay playsinline></video>
+
+            <div id="cameraPlaceholder">
+                📷
+                <h2>Camera Ready</h2>
+                <p>Press Start Camera to begin.</p>
+            </div>
+
+            <div class="camera-status" id="cameraStatus">
+                Camera offline
+            </div>
+
+        </div>
+
+
+        <aside class="practice-panel">
+
+            <div class="target-card">
+
+                <span>YOUR TARGET</span>
+
+                <div class="target-letter" id="targetSign">
+                    A
+                </div>
+
+                <h2>Letter A</h2>
+
+                <p>
+                    Try making the correct hand sign.
+                </p>
+
+            </div>
+
+
+            <button class="btn primary full" id="startCamera">
+                📷 Start Camera
+            </button>
+
+            <button class="btn secondary full" id="stopCamera">
+                ⏹ Stop Camera
+            </button>
+
+            <button class="btn outline full" id="checkSign">
+                🔍 Check My Sign
+            </button>
+
+
+            <div class="recognition-result">
+
+                <span>RECOGNITION RESULT</span>
+
+                <h2 id="recognitionText">
+                    Waiting...
+                </h2>
+
+                <div class="confidence-bar">
+
+                    <div
+                        class="confidence-fill"
+                        id="confidenceFill">
+                    </div>
+
+                </div>
+
+                <p id="confidenceText">
+                    0% confidence
+                </p>
+
+            </div>
+
+
+            <div class="feedback">
+
+                <h3>💡 Feedback</h3>
+
+                <p id="practiceFeedback">
+                    Start the camera and practice your target sign.
+                </p>
+
+            </div>
+
+        </aside>
+
+    </section>
+
+</main>
+
+
+<footer>
+    <h3>🤟 SignLearn</h3>
+    <p>Learn • Practice • Connect</p>
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>
