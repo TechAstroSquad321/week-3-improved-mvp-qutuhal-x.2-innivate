@@ -1,1 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignLearn | Learn</title>
+    <link rel="stylesheet" href="style.css">
+</head>
 
+<body>
+
+<header class="navbar">
+
+    <a href="index.html" class="logo">🤟 SignLearn</a>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="learn.html" class="active">Learn</a>
+        <a href="practice.html">Practice</a>
+        <a href="quiz.html">Quiz</a>
+        <a href="progress.html">Progress</a>
+    </nav>
+
+</header>
+
+
+<main class="page">
+
+    <section class="page-heading">
+        <span class="badge">📚 LEARNING CENTER</span>
+
+        <h1>Learn Sign Language</h1>
+
+        <p>
+            Choose a category and start learning.
+        </p>
+    </section>
+
+
+    <div class="search-box">
+        🔍
+        <input
+            type="text"
+            id="signSearch"
+            placeholder="Search for a sign..."
+        >
+    </div>
+
+
+    <div class="category-buttons">
+
+        <button class="category active-category" data-category="all">
+            All
+        </button>
+
+        <button class="category" data-category="alphabet">
+            🔤 Alphabet
+        </button>
+
+        <button class="category" data-category="numbers">
+            🔢 Numbers
+        </button>
+
+        <button class="category" data-category="common">
+            💬 Common Signs
+        </button>
+
+    </div>
+
+
+    <section class="sign-grid" id="signGrid">
+
+        <article class="sign-card" data-category="alphabet">
+            <div class="sign-symbol">A</div>
+            <h3>Letter A</h3>
+            <p>Alphabet</p>
+            <button onclick="speakWord('A')">🔊 Hear</button>
+        </article>
+
+        <article class="sign-card" data-category="alphabet">
+            <div class="sign-symbol">B</div>
+            <h3>Letter B</h3>
+            <p>Alphabet</p>
+            <button onclick="speakWord('B')">🔊 Hear</button>
+        </article>
+
+        <article class="sign-card" data-category="alphabet">
+            <div class="sign-symbol">C</div>
+            <h3>Letter C</h3>
+            <p>Alphabet</p>
+            <button onclick="speakWord('C')">🔊 Hear</button>
+        </article>
+
+        <article class="sign-card" data-category="numbers">
+            <div class="sign-symbol">1</div>
+            <h3>Number One</h3>
+            <p>Numbers</p>
+            <button onclick="speakWord('one')">🔊 Hear</button>
+        </article>
+
+        <article class="sign-card" data-category="numbers">
+            <div class="sign-symbol">2</div>
+            <h3>Number Two</h3>
+            <p>Numbers</p>
+            <button onclick="speakWord('two')">🔊 Hear</button>
+        </article>
+
+        <article class="sign-card" data-category="common">
+            <div class="sign-symbol">👋</div>
+            <h3>Hello</h3>
+            <p>Common Sign</p>
+            <button onclick="speakWord('Hello')">🔊 Hear</button>
+        </article>
+
+        <article class="sign-card" data-category="common">
+            <div class="sign-symbol">❤️</div>
+            <h3>Love</h3>
+            <p>Common Sign</p>
+            <button onclick="speakWord('Love')">🔊 Hear</button>
+        </article>
+
+        <article class="sign-card" data-category="common">
+            <div class="sign-symbol">🙏</div>
+            <h3>Thank You</h3>
+            <p>Common Sign</p>
+            <button onclick="speakWord('Thank you')">🔊 Hear</button>
+        </article>
+
+    </section>
+
+</main>
+
+
+<footer>
+    <h3>🤟 SignLearn</h3>
+    <p>Learn • Practice • Connect</p>
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>
