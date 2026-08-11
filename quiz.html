@@ -1,1 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SignLearn | Quiz</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <a href="index.html" class="logo">🤟 SignLearn</a>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="learn.html">Learn</a>
+        <a href="practice.html">Practice</a>
+        <a href="quiz.html" class="active">Quiz</a>
+        <a href="progress.html">Progress</a>
+    </nav>
+
+</header>
+
+
+<main class="page">
+
+    <section class="page-heading">
+
+        <span class="badge">🧠 KNOWLEDGE CHECK</span>
+
+        <h1>Sign Language Quiz</h1>
+
+        <p>
+            Test what you've learned.
+        </p>
+
+    </section>
+
+
+    <section class="quiz-card">
+
+        <div class="quiz-top">
+            <span id="questionNumber">Question 1 / 5</span>
+            <span id="quizScore">Score: 0</span>
+        </div>
+
+        <div class="quiz-progress">
+            <div id="quizProgress"></div>
+        </div>
+
+        <h2 id="question">
+            Which letter are you learning?
+        </h2>
+
+        <div class="answers" id="answers"></div>
+
+        <button
+            class="btn primary"
+            id="nextQuestion"
+            disabled>
+            Next →
+        </button>
+
+        <div id="quizResult" class="quiz-result"></div>
+
+    </section>
+
+</main>
+
+
+<footer>
+    <h3>🤟 SignLearn</h3>
+    <p>Learn • Practice • Connect</p>
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>
