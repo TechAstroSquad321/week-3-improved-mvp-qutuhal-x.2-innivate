@@ -1,100 +1,91 @@
-const video = document.getElementById("camera");
-const startButton = document.getElementById("startCamera");
-const stopButton = document.getElementById("stopCamera");
+document.addEventListener("DOMContentLoaded", function () {
 
-const statusText = document.getElementById("status");
-const signName = document.getElementById("signName");
-const confidence = document.getElementById("confidence");
+    const video = document.getElementById("camera");
+    const startButton = document.getElementById("startCamera");
+    const stopButton = document.getElementById("stopCamera");
 
-let stream = null;
+    const statusText = document.getElementById("status");
+    const signName = document.getElementById("signName");
+    const confidence = document.getElementById("confidence");
+
+    let stream = null;
 
 
-// ============================
-// START CAMERA
-// ============================
+    // START CAMERA
+    startButton.addEventListener("click", async function () {
 
-startButton.addEventListener("click", async () => {
+        if (!navigator.mediaDevices ||
+            !navigator.mediaDevices.getUserMedia) {
 
-    try {
+            statusText.textContent =
+                "Camera is not supported in this browser.";
 
-        statusText.textContent = "Requesting camera access...";
+            return;
+        }
 
-        stream = await navigator.mediaDevices.getUserMedia({
-            video: {
-                facingMode: "user"
-            },
-            audio: false
-        });
+        try {
 
-        video.srcObject = stream;
+            statusText.textContent =
+                "Requesting camera permission...";
 
-        video.style.display = "block";
+            stream = await navigator.mediaDevices.getUserMedia({
+                video: true,
+                audio: false
+            });
+
+            video.srcObject = stream;
+
+            await video.play();
+
+            statusText.textContent =
+                "✅ Camera is working!";
+
+            signName.textContent =
+                "Hand detection ready ✋";
+
+            confidence.textContent =
+                "Show your hand clearly to the camera.";
+
+        } catch (error) {
+
+            console.log(error);
+
+            statusText.textContent =
+                "❌ Camera permission was not granted.";
+
+            signName.textContent =
+                "Camera unavailable";
+
+            confidence.textContent =
+                "Check your browser's camera permission.";
+        }
+
+    });
+
+
+    // STOP CAMERA
+    stopButton.addEventListener("click", function () {
+
+        if (stream) {
+
+            stream.getTracks().forEach(function (track) {
+                track.stop();
+            });
+
+            stream = null;
+        }
+
+        video.srcObject = null;
 
         statusText.textContent =
-            "✅ Camera is working! Show your hand.";
+            "Camera is stopped.";
 
         signName.textContent =
-            "Hand detection ready ✋";
+            "Waiting...";
 
         confidence.textContent =
-            "Position your hand clearly in front of the camera.";
+            "Press Start Camera to practice.";
 
-    } catch (error) {
-
-        console.error(error);
-
-        statusText.textContent =
-            "❌ Camera could not start.";
-
-        signName.textContent =
-            "Camera permission needed";
-
-        confidence.textContent =
-            "Please allow camera access in your browser.";
-
-    }
+    });
 
 });
-
-
-// ============================
-// STOP CAMERA
-// ============================
-
-stopButton.addEventListener("click", () => {
-
-    if (stream) {
-
-        stream.getTracks().forEach(track => {
-            track.stop();
-        });
-
-        stream = null;
-
-    }
-
-    video.srcObject = null;
-
-    statusText.textContent =
-        "Camera is stopped.";
-
-    signName.textContent =
-        "Waiting...";
-
-    confidence.textContent =
-        "Press Start Camera to practice.";
-
-});
-
-
-// ============================
-// CHECK CAMERA SUPPORT
-// ============================
-
-if (!navigator.mediaDevices ||
-    !navigator.mediaDevices.getUserMedia) {
-
-    statusText.textContent =
-        "This browser does not support camera access.";
-
-}
