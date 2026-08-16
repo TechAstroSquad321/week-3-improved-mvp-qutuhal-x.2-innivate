@@ -686,3 +686,44 @@ footer small {
     border-radius: 15px;
     background: #000;
 }
+/* BIG QUIZ ANSWER BUTTONS */
+.quiz-option {
+    width: 100%;
+    min-height: 70px;
+    padding: 18px 24px;
+    margin: 12px 0;
+    font-size: 22px;
+    font-weight: 600;
+    border-radius: 18px;
+    border: 2px solid #ddd;
+    background: white;
+    cursor: pointer;
+}
+
+/* Bigger Next button */
+#nextButton {
+    min-width: 180px;
+    min-height: 65px;
+    padding: 16px 30px;
+    font-size: 22px;
+    font-weight: 700;
+    border-radius: 18px;
+    margin-top: 15px;
+}
+
+/* Bigger Try Again button */
+#restartButton {
+    min-width: 200px;
+    min-height: 65px;
+    padding: 16px 30px;
+    font-size: 22px;
+    font-weight: 700;
+    border-radius: 18px;
+}
+
+/* Make buttons easier to tap on phone */
+.quiz-option:active,
+#nextButton:active,
+#restartButton:active {
+    transform: scale(0.97);
+}
