@@ -20,7 +20,7 @@
 
     <nav>
         <a href="./index.html">Home</a>
-        <a href="./Learn.html" class="active">Learn</a>
+        <a href="./learn.html" class="active">Learn</a>
         <a href="./practice.html">Practice</a>
         <a href="./quiz.html">Quiz</a>
         <a href="./progress.html">Progress</a>
@@ -30,8 +30,6 @@
 
 
 <main>
-
-    <!-- INTRO -->
 
     <section class="hero">
 
@@ -46,9 +44,8 @@
             </h1>
 
             <p>
-                Learn sign language step by step,
-                starting with basic signs and moving
-                toward everyday communication.
+                Learn basic signs step by step
+                and build your communication skills.
             </p>
 
         </div>
@@ -56,22 +53,17 @@
     </section>
 
 
-    <!-- CATEGORIES -->
-
     <section class="features">
 
-        <h2>
-            Choose a Lesson
-        </h2>
+        <h2>Choose What You Want To Learn</h2>
 
         <p class="section-subtitle">
-            Start with the basics and build your skills.
+            Start with the basics.
         </p>
 
 
         <div class="feature-grid">
 
-            <!-- ALPHABET -->
 
             <div class="feature-card">
 
@@ -79,27 +71,22 @@
                     🔤
                 </div>
 
-                <h3>
-                    Alphabet
-                </h3>
+                <h3>Alphabet</h3>
 
                 <p>
-                    Learn the basic hand signs
-                    for letters A–Z.
+                    Learn letters A to Z.
                 </p>
 
                 <button
-                    class="learn-button"
-                    onclick="showLesson('alphabet')">
+                    class="primary-btn"
+                    onclick="showAlphabet()">
 
-                    Start Alphabet →
+                    Learn Alphabet →
 
                 </button>
 
             </div>
 
-
-            <!-- NUMBERS -->
 
             <div class="feature-card">
 
@@ -107,18 +94,15 @@
                     🔢
                 </div>
 
-                <h3>
-                    Numbers
-                </h3>
+                <h3>Numbers</h3>
 
                 <p>
-                    Practice signing numbers
-                    and counting.
+                    Learn numbers 1 to 10.
                 </p>
 
                 <button
-                    class="learn-button"
-                    onclick="showLesson('numbers')">
+                    class="primary-btn"
+                    onclick="showNumbers()">
 
                     Learn Numbers →
 
@@ -127,26 +111,21 @@
             </div>
 
 
-            <!-- COMMON SIGNS -->
-
             <div class="feature-card">
 
                 <div class="feature-icon">
                     👋
                 </div>
 
-                <h3>
-                    Common Signs
-                </h3>
+                <h3>Common Signs</h3>
 
                 <p>
-                    Learn useful everyday signs
-                    for communication.
+                    Learn useful everyday signs.
                 </p>
 
                 <button
-                    class="learn-button"
-                    onclick="showLesson('common')">
+                    class="primary-btn"
+                    onclick="showSigns()">
 
                     Learn Signs →
 
@@ -155,46 +134,19 @@
             </div>
 
 
-            <!-- PHRASES -->
-
-            <div class="feature-card">
-
-                <div class="feature-icon">
-                    💬
-                </div>
-
-                <h3>
-                    Phrases
-                </h3>
-
-                <p>
-                    Practice simple phrases
-                    used in conversations.
-                </p>
-
-                <button
-                    class="learn-button"
-                    onclick="showLesson('phrases')">
-
-                    Learn Phrases →
-
-                </button>
-
-            </div>
-
         </div>
 
     </section>
 
 
-    <!-- LESSON AREA -->
+    <!-- LESSON DISPLAY -->
 
     <section
-        id="lessonArea"
-        class="lesson-area">
+        id="lesson"
+        class="features">
 
         <h2 id="lessonTitle">
-            👋 Choose a lesson above
+            👆 Choose a lesson above
         </h2>
 
         <p id="lessonText">
@@ -203,39 +155,7 @@
 
         <div
             id="lessonContent"
-            class="lesson-content">
-        </div>
-
-    </section>
-
-
-    <!-- PRACTICE -->
-
-    <section class="ai-section">
-
-        <div class="ai-content">
-
-            <span class="ai-label">
-                📷 PRACTICE
-            </span>
-
-            <h2>
-                Ready to practice?
-            </h2>
-
-            <p>
-                After learning a sign, use the
-                Practice page to try it with your camera.
-            </p>
-
-            <a
-                href="./practice.html"
-                class="primary-btn">
-
-                📷 Go to Practice →
-
-            </a>
-
+            class="feature-grid">
         </div>
 
     </section>
@@ -245,9 +165,7 @@
 
 <footer>
 
-    <h3>
-        🤟 SignLearn
-    </h3>
+    <h3>🤟 SignLearn</h3>
 
     <p>
         Learn • Practice • Connect
@@ -260,8 +178,137 @@
 </footer>
 
 
-<script src="./learn.js"></script>
+<script>
+
+function showAlphabet() {
+
+    document.getElementById("lessonTitle").textContent =
+        "🔤 Sign Language Alphabet";
+
+    document.getElementById("lessonText").textContent =
+        "Practice the letters A to Z.";
+
+    document.getElementById("lessonContent").innerHTML = `
+
+        ${"ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").map(letter => `
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    ✋
+                </div>
+
+                <h3>
+                    Letter ${letter}
+                </h3>
+
+                <p>
+                    Practice the sign for ${letter}.
+                </p>
+
+            </div>
+
+        `).join("")}
+
+    `;
+
+    document.getElementById("lesson")
+        .scrollIntoView({ behavior: "smooth" });
+}
+
+
+function showNumbers() {
+
+    document.getElementById("lessonTitle").textContent =
+        "🔢 Numbers";
+
+    document.getElementById("lessonText").textContent =
+        "Practice numbers 1 to 10.";
+
+    document.getElementById("lessonContent").innerHTML = `
+
+        ${[1,2,3,4,5,6,7,8,9,10].map(number => `
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    ✋
+                </div>
+
+                <h3>
+                    Number ${number}
+                </h3>
+
+                <p>
+                    Practice the sign for ${number}.
+                </p>
+
+            </div>
+
+        `).join("")}
+
+    `;
+
+    document.getElementById("lesson")
+        .scrollIntoView({ behavior: "smooth" });
+}
+
+
+function showSigns() {
+
+    document.getElementById("lessonTitle").textContent =
+        "👋 Common Signs";
+
+    document.getElementById("lessonText").textContent =
+        "Learn some useful everyday signs.";
+
+    document.getElementById("lessonContent").innerHTML = `
+
+        <div class="feature-card">
+
+            <div class="feature-icon">👋</div>
+
+            <h3>Hello</h3>
+
+            <p>
+                Practice the sign used for greeting someone.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">🙏</div>
+
+            <h3>Thank You</h3>
+
+            <p>
+                Practice the sign used to express thanks.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">❤️</div>
+
+            <h3>Love</h3>
+
+            <p>
+                Practice a sign associated with love.
+            </p>
+
+        </div>
+
+    `;
+
+    document.getElementById("lesson")
+        .scrollIntoView({ behavior: "smooth" });
+}
+
+</script>
 
 </body>
-
 </html>
