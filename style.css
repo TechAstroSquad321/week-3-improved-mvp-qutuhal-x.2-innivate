@@ -656,3 +656,33 @@ footer small {
         padding: 30px;
     }
 }
+/* Bigger Practice buttons */
+#startCamera,
+#stopCamera {
+    font-size: 18px;
+    padding: 16px 28px;
+    min-width: 180px;
+    min-height: 55px;
+    margin: 8px;
+    cursor: pointer;
+}
+
+/* Camera screen */
+.camera-box {
+    width: 100%;
+    max-width: 650px;
+    margin: 30px auto;
+    padding: 10px;
+    border-radius: 20px;
+    background: #111;
+    box-sizing: border-box;
+}
+
+#camera {
+    width: 100%;
+    min-height: 300px;
+    display: block;
+    object-fit: cover;
+    border-radius: 15px;
+    background: #000;
+}
