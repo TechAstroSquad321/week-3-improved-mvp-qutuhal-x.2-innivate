@@ -7,17 +7,26 @@
 
     <title>SignLearn | AI Practice</title>
 
+    <!-- YOUR EXISTING CSS -->
     <link rel="stylesheet" href="style.css">
+
+    <!-- MediaPipe Hands -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
 </head>
 
 <body>
 
-<header class="navbar">
+<header class="top-header">
 
-    <a href="index.html" class="logo">🤟 SignLearn</a>
+    <div class="logo">
+        🤟 SignLearn
+    </div>
 
     <nav>
-        <a href="index.html">Home</a>
+        <a href="idk.html">Home</a>
         <a href="learn.html">Learn</a>
         <a href="practice.html" class="active">Practice</a>
         <a href="quiz.html">Quiz</a>
@@ -27,107 +36,140 @@
 </header>
 
 
-<main class="page">
+<main>
 
-    <section class="page-heading">
+    <section class="hero">
 
-        <span class="badge">🤖 AI PRACTICE</span>
+        <div class="hero-text">
 
-        <h1>Practice Your Signs</h1>
+            <span class="welcome">
+                🤖 AI Practice
+            </span>
 
-        <p>
-            Use your camera to practice hand positions.
-        </p>
+            <h1>
+                Practice Your Signs
+            </h1>
+
+            <p>
+                Show your hand to the camera and let SignLearn
+                analyze your hand pattern.
+            </p>
+
+        </div>
 
     </section>
 
 
-    <section class="practice-layout">
+    <!-- CAMERA -->
 
-        <div class="camera-panel">
+    <section class="ai-section">
 
-            <video id="camera" autoplay playsinline></video>
+        <div class="ai-content">
 
-            <div id="cameraPlaceholder">
-                📷
-                <h2>Camera Ready</h2>
-                <p>Press Start Camera to begin.</p>
-            </div>
+            <h2>📷 Camera Practice</h2>
 
-            <div class="camera-status" id="cameraStatus">
-                Camera offline
-            </div>
+            <p>
+                Allow camera access and show your hand.
+                The system will detect your hand pattern.
+            </p>
+
+            <button id="startCamera" class="primary-btn">
+                Start Camera
+            </button>
+
+            <button id="stopCamera" class="secondary-btn">
+                Stop Camera
+            </button>
 
         </div>
 
 
-        <aside class="practice-panel">
+        <div class="ai-visual">
 
-            <div class="target-card">
+            <video
+                id="camera"
+                autoplay
+                playsinline
+                muted
+                style="width:100%; max-width:500px; border-radius:20px;">
+            </video>
 
-                <span>YOUR TARGET</span>
+            <canvas
+                id="output"
+                style="display:none;">
+            </canvas>
 
-                <div class="target-letter" id="targetSign">
-                    A
+        </div>
+
+    </section>
+
+
+    <!-- RESULT -->
+
+    <section class="features">
+
+        <h2>🤖 Recognition Result</h2>
+
+        <p id="status">
+            Camera is not started.
+        </p>
+
+        <div class="feature-grid">
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    ✋
                 </div>
 
-                <h2>Letter A</h2>
-
-                <p>
-                    Try making the correct hand sign.
-                </p>
-
-            </div>
-
-
-            <button class="btn primary full" id="startCamera">
-                📷 Start Camera
-            </button>
-
-            <button class="btn secondary full" id="stopCamera">
-                ⏹ Stop Camera
-            </button>
-
-            <button class="btn outline full" id="checkSign">
-                🔍 Check My Sign
-            </button>
-
-
-            <div class="recognition-result">
-
-                <span>RECOGNITION RESULT</span>
-
-                <h2 id="recognitionText">
+                <h3 id="signName">
                     Waiting...
-                </h2>
+                </h3>
 
-                <div class="confidence-bar">
-
-                    <div
-                        class="confidence-fill"
-                        id="confidenceFill">
-                    </div>
-
-                </div>
-
-                <p id="confidenceText">
-                    0% confidence
+                <p id="confidence">
+                    Show your hand to the camera.
                 </p>
 
             </div>
 
+        </div>
 
-            <div class="feedback">
+    </section>
 
-                <h3>💡 Feedback</h3>
 
-                <p id="practiceFeedback">
-                    Start the camera and practice your target sign.
+    <!-- INSTRUCTIONS -->
+
+    <section class="why-section">
+
+        <h2>How it works</h2>
+
+        <div class="why-grid">
+
+            <div>
+                <strong>📷</strong>
+                <h3>1. Camera</h3>
+                <p>
+                    Your camera captures your hand.
                 </p>
-
             </div>
 
-        </aside>
+            <div>
+                <strong>✋</strong>
+                <h3>2. Hand Tracking</h3>
+                <p>
+                    AI detects important points on your hand.
+                </p>
+            </div>
+
+            <div>
+                <strong>🤖</strong>
+                <h3>3. Pattern Detection</h3>
+                <p>
+                    The system analyzes the hand pattern.
+                </p>
+            </div>
+
+        </div>
 
     </section>
 
@@ -135,11 +177,17 @@
 
 
 <footer>
+
     <h3>🤟 SignLearn</h3>
-    <p>Learn • Practice • Connect</p>
+
+    <p>
+        Learn • Practice • Connect
+    </p>
+
 </footer>
 
-<script src="script.js"></script>
+
+<script src="practice.js"></script>
 
 </body>
 </html>
