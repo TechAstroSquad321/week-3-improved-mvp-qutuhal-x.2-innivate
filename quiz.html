@@ -12,61 +12,118 @@
 
 <body>
 
-<header class="navbar">
+<header class="top-header">
 
-    <a href="index.html" class="logo">🤟 SignLearn</a>
+    <div class="logo">
+        🤟 SignLearn
+    </div>
 
     <nav>
-        <a href="index.html">Home</a>
-        <a href="learn.html">Learn</a>
-        <a href="practice.html">Practice</a>
-        <a href="quiz.html" class="active">Quiz</a>
-        <a href="progress.html">Progress</a>
+        <a href="./index.html">Home</a>
+        <a href="./learn.html">Learn</a>
+        <a href="./practice.html">Practice</a>
+        <a href="./quiz.html" class="active">Quiz</a>
+        <a href="./progress.html">Progress</a>
     </nav>
 
 </header>
 
 
-<main class="page">
+<main>
 
-    <section class="page-heading">
+    <section class="quiz-section">
 
-        <span class="badge">🧠 KNOWLEDGE CHECK</span>
+        <div class="quiz-card">
 
-        <h1>Sign Language Quiz</h1>
+            <!-- TOP -->
+            <div class="quiz-top">
 
-        <p>
-            Test what you've learned.
-        </p>
+                <h3 id="questionNumber">
+                    Question 1 / 5
+                </h3>
 
-    </section>
+                <h3>
+                    Score: <span id="score">0</span>
+                </h3>
+
+            </div>
 
 
-    <section class="quiz-card">
+            <!-- PROGRESS -->
+            <div class="quiz-progress">
 
-        <div class="quiz-top">
-            <span id="questionNumber">Question 1 / 5</span>
-            <span id="quizScore">Score: 0</span>
+                <div
+                    id="quizProgress"
+                    class="quiz-progress-fill">
+                </div>
+
+            </div>
+
+
+            <!-- QUESTION -->
+            <h1 id="question">
+                Loading question...
+            </h1>
+
+
+            <!-- ANSWERS -->
+            <div
+                id="answerContainer"
+                class="quiz-options">
+            </div>
+
+
+            <!-- FEEDBACK -->
+            <p
+                id="feedback"
+                class="quiz-feedback">
+            </p>
+
+
+            <!-- NEXT -->
+            <button
+                id="nextButton"
+                class="primary-btn"
+                disabled>
+                Next →
+            </button>
+
         </div>
 
-        <div class="quiz-progress">
-            <div id="quizProgress"></div>
+
+        <!-- FINAL RESULT -->
+        <div
+            id="resultCard"
+            class="quiz-card result-card"
+            style="display: none;">
+
+            <div class="result-icon">
+                🎉
+            </div>
+
+            <h1>Quiz Complete!</h1>
+
+            <p>
+                Your final score is:
+            </p>
+
+            <div
+                id="finalScore"
+                class="final-score">
+                0 / 5
+            </div>
+
+            <p id="resultMessage">
+                Great job!
+            </p>
+
+            <button
+                id="restartButton"
+                class="primary-btn">
+                🔄 Try Again
+            </button>
+
         </div>
-
-        <h2 id="question">
-            Which letter are you learning?
-        </h2>
-
-        <div class="answers" id="answers"></div>
-
-        <button
-            class="btn primary"
-            id="nextQuestion"
-            disabled>
-            Next →
-        </button>
-
-        <div id="quizResult" class="quiz-result"></div>
 
     </section>
 
@@ -74,11 +131,22 @@
 
 
 <footer>
+
     <h3>🤟 SignLearn</h3>
-    <p>Learn • Practice • Connect</p>
+
+    <p>
+        Learn • Practice • Connect
+    </p>
+
+    <p class="copyright">
+        © 2026 SignLearn
+    </p>
+
 </footer>
 
-<script src="script.js"></script>
+
+<script src="./quiz.js"></script>
 
 </body>
+
 </html>
