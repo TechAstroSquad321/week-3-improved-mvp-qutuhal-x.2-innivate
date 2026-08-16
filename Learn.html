@@ -1,130 +1,242 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>SignLearn | Learn</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<header class="navbar">
+<header class="top-header">
 
-    <a href="index.html" class="logo">🤟 SignLearn</a>
+    <div class="logo">
+        🤟 SignLearn
+    </div>
 
     <nav>
-        <a href="index.html">Home</a>
-        <a href="learn.html" class="active">Learn</a>
-        <a href="practice.html">Practice</a>
-        <a href="quiz.html">Quiz</a>
-        <a href="progress.html">Progress</a>
+        <a href="./index.html">Home</a>
+        <a href="./learn.html" class="active">Learn</a>
+        <a href="./practice.html">Practice</a>
+        <a href="./quiz.html">Quiz</a>
+        <a href="./progress.html">Progress</a>
     </nav>
 
 </header>
 
 
-<main class="page">
+<main>
 
-    <section class="page-heading">
-        <span class="badge">📚 LEARNING CENTER</span>
+    <!-- INTRO -->
 
-        <h1>Learn Sign Language</h1>
+    <section class="hero">
 
-        <p>
-            Choose a category and start learning.
-        </p>
+        <div class="hero-text">
+
+            <span class="welcome">
+                📚 Sign Language Lessons
+            </span>
+
+            <h1>
+                Start Learning
+            </h1>
+
+            <p>
+                Learn sign language step by step,
+                starting with basic signs and moving
+                toward everyday communication.
+            </p>
+
+        </div>
+
     </section>
 
 
-    <div class="search-box">
-        🔍
-        <input
-            type="text"
-            id="signSearch"
-            placeholder="Search for a sign..."
-        >
-    </div>
+    <!-- CATEGORIES -->
+
+    <section class="features">
+
+        <h2>
+            Choose a Lesson
+        </h2>
+
+        <p class="section-subtitle">
+            Start with the basics and build your skills.
+        </p>
 
 
-    <div class="category-buttons">
+        <div class="feature-grid">
 
-        <button class="category active-category" data-category="all">
-            All
-        </button>
+            <!-- ALPHABET -->
 
-        <button class="category" data-category="alphabet">
-            🔤 Alphabet
-        </button>
+            <div class="feature-card">
 
-        <button class="category" data-category="numbers">
-            🔢 Numbers
-        </button>
+                <div class="feature-icon">
+                    🔤
+                </div>
 
-        <button class="category" data-category="common">
-            💬 Common Signs
-        </button>
+                <h3>
+                    Alphabet
+                </h3>
 
-    </div>
+                <p>
+                    Learn the basic hand signs
+                    for letters A–Z.
+                </p>
+
+                <button
+                    class="learn-button"
+                    onclick="showLesson('alphabet')">
+
+                    Start Alphabet →
+
+                </button>
+
+            </div>
 
 
-    <section class="sign-grid" id="signGrid">
+            <!-- NUMBERS -->
 
-        <article class="sign-card" data-category="alphabet">
-            <div class="sign-symbol">A</div>
-            <h3>Letter A</h3>
-            <p>Alphabet</p>
-            <button onclick="speakWord('A')">🔊 Hear</button>
-        </article>
+            <div class="feature-card">
 
-        <article class="sign-card" data-category="alphabet">
-            <div class="sign-symbol">B</div>
-            <h3>Letter B</h3>
-            <p>Alphabet</p>
-            <button onclick="speakWord('B')">🔊 Hear</button>
-        </article>
+                <div class="feature-icon">
+                    🔢
+                </div>
 
-        <article class="sign-card" data-category="alphabet">
-            <div class="sign-symbol">C</div>
-            <h3>Letter C</h3>
-            <p>Alphabet</p>
-            <button onclick="speakWord('C')">🔊 Hear</button>
-        </article>
+                <h3>
+                    Numbers
+                </h3>
 
-        <article class="sign-card" data-category="numbers">
-            <div class="sign-symbol">1</div>
-            <h3>Number One</h3>
-            <p>Numbers</p>
-            <button onclick="speakWord('one')">🔊 Hear</button>
-        </article>
+                <p>
+                    Practice signing numbers
+                    and counting.
+                </p>
 
-        <article class="sign-card" data-category="numbers">
-            <div class="sign-symbol">2</div>
-            <h3>Number Two</h3>
-            <p>Numbers</p>
-            <button onclick="speakWord('two')">🔊 Hear</button>
-        </article>
+                <button
+                    class="learn-button"
+                    onclick="showLesson('numbers')">
 
-        <article class="sign-card" data-category="common">
-            <div class="sign-symbol">👋</div>
-            <h3>Hello</h3>
-            <p>Common Sign</p>
-            <button onclick="speakWord('Hello')">🔊 Hear</button>
-        </article>
+                    Learn Numbers →
 
-        <article class="sign-card" data-category="common">
-            <div class="sign-symbol">❤️</div>
-            <h3>Love</h3>
-            <p>Common Sign</p>
-            <button onclick="speakWord('Love')">🔊 Hear</button>
-        </article>
+                </button>
 
-        <article class="sign-card" data-category="common">
-            <div class="sign-symbol">🙏</div>
-            <h3>Thank You</h3>
-            <p>Common Sign</p>
-            <button onclick="speakWord('Thank you')">🔊 Hear</button>
-        </article>
+            </div>
+
+
+            <!-- COMMON SIGNS -->
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    👋
+                </div>
+
+                <h3>
+                    Common Signs
+                </h3>
+
+                <p>
+                    Learn useful everyday signs
+                    for communication.
+                </p>
+
+                <button
+                    class="learn-button"
+                    onclick="showLesson('common')">
+
+                    Learn Signs →
+
+                </button>
+
+            </div>
+
+
+            <!-- PHRASES -->
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    💬
+                </div>
+
+                <h3>
+                    Phrases
+                </h3>
+
+                <p>
+                    Practice simple phrases
+                    used in conversations.
+                </p>
+
+                <button
+                    class="learn-button"
+                    onclick="showLesson('phrases')">
+
+                    Learn Phrases →
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- LESSON AREA -->
+
+    <section
+        id="lessonArea"
+        class="lesson-area">
+
+        <h2 id="lessonTitle">
+            👋 Choose a lesson above
+        </h2>
+
+        <p id="lessonText">
+            Your lesson will appear here.
+        </p>
+
+        <div
+            id="lessonContent"
+            class="lesson-content">
+        </div>
+
+    </section>
+
+
+    <!-- PRACTICE -->
+
+    <section class="ai-section">
+
+        <div class="ai-content">
+
+            <span class="ai-label">
+                📷 PRACTICE
+            </span>
+
+            <h2>
+                Ready to practice?
+            </h2>
+
+            <p>
+                After learning a sign, use the
+                Practice page to try it with your camera.
+            </p>
+
+            <a
+                href="./practice.html"
+                class="primary-btn">
+
+                📷 Go to Practice →
+
+            </a>
+
+        </div>
 
     </section>
 
@@ -132,11 +244,24 @@
 
 
 <footer>
-    <h3>🤟 SignLearn</h3>
-    <p>Learn • Practice • Connect</p>
+
+    <h3>
+        🤟 SignLearn
+    </h3>
+
+    <p>
+        Learn • Practice • Connect
+    </p>
+
+    <p class="copyright">
+        © 2026 SignLearn
+    </p>
+
 </footer>
 
-<script src="script.js"></script>
+
+<script src="./learn.js"></script>
 
 </body>
+
 </html>
