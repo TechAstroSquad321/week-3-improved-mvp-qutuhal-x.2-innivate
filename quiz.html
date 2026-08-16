@@ -1,71 +1,174 @@
-<section class="quiz-section">
+<!DOCTYPE html>
+<html lang="en">
 
-    <div class="quiz-card">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <div class="quiz-top">
+    <title>SignLearn | Quiz</title>
 
-            <h3 id="questionNumber">
-                Question 1 / 5
-            </h3>
+    <link rel="stylesheet" href="style.css">
+</head>
 
-            <h3>
-                Score: <span id="score">0</span>
-            </h3>
+<body>
 
+    <!-- HEADER -->
+    <header class="top-header">
+
+        <div class="logo">
+            🤟 SignLearn
         </div>
 
-        <div class="quiz-progress">
-            <div id="quizProgress"></div>
-        </div>
+        <nav>
+            <a href="./index.html">Home</a>
+            <a href="./learn.html">Learn</a>
+            <a href="./practice.html">Practice</a>
+            <a href="./quiz.html" class="active">Quiz</a>
+            <a href="./progress.html">Progress</a>
+        </nav>
 
-        <h1 id="question">
-            Loading question...
-        </h1>
-
-        <div id="answerContainer" class="answer-container">
-        </div>
-
-        <p id="feedback" class="quiz-feedback"></p>
-
-        <button
-            id="nextButton"
-            class="primary-btn"
-            disabled>
-            Next →
-        </button>
-
-    </div>
+    </header>
 
 
-    <!-- FINAL RESULT -->
+    <!-- QUIZ -->
+    <main>
 
-    <div
-        id="resultCard"
-        class="quiz-card result-card"
-        style="display: none;">
+        <section class="quiz-section">
 
-        <div class="result-icon">
-            🎉
-        </div>
+            <div class="quiz-card" id="quizCard">
 
-        <h1>Quiz Complete!</h1>
+                <div class="quiz-top">
 
-        <p>Your final score is:</p>
+                    <h3 id="questionNumber">
+                        Question 1 / 5
+                    </h3>
 
-        <div id="finalScore" class="final-score">
-            0 / 5
-        </div>
+                    <h3>
+                        Score:
+                        <span id="score">0</span>
+                    </h3>
 
-        <p id="resultMessage">
-            Great job!
+                </div>
+
+
+                <!-- PROGRESS BAR -->
+
+                <div class="quiz-progress">
+
+                    <div
+                        id="quizProgress"
+                        class="quiz-progress-fill">
+                    </div>
+
+                </div>
+
+
+                <!-- QUESTION -->
+
+                <h1 id="question">
+                    Loading question...
+                </h1>
+
+
+                <!-- ANSWERS -->
+
+                <div
+                    id="answerContainer"
+                    class="answer-container">
+                </div>
+
+
+                <!-- FEEDBACK -->
+
+                <p
+                    id="feedback"
+                    class="quiz-feedback">
+                </p>
+
+
+                <!-- NEXT -->
+
+                <button
+                    id="nextButton"
+                    class="primary-btn"
+                    disabled>
+
+                    Next →
+
+                </button>
+
+            </div>
+
+
+            <!-- RESULT -->
+
+            <div
+                id="resultCard"
+                class="quiz-card result-card"
+                style="display: none;">
+
+                <div class="result-icon">
+                    🎉
+                </div>
+
+                <h1>
+                    Quiz Complete!
+                </h1>
+
+                <p>
+                    Your final score is:
+                </p>
+
+                <div
+                    id="finalScore"
+                    class="final-score">
+
+                    0 / 5
+
+                </div>
+
+                <p id="resultMessage">
+                    Great job!
+                </p>
+
+                <button
+                    id="restartButton"
+                    class="primary-btn">
+
+                    🔄 Try Again
+
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <h3>
+            🤟 SignLearn
+        </h3>
+
+        <p>
+            Learn • Practice • Connect
         </p>
 
-        <button
-            id="restartButton"
-            class="primary-btn">
-            🔄 Try Again
-        </button>
+        <p class="copyright">
+            © 2026 SignLearn
+        </p>
 
-    </div>
+    </footer>
 
-</section>
+
+    <!-- QUIZ JAVASCRIPT -->
+
+    <script src="quiz.js"></script>
+
+</body>
+
+</html>
