@@ -1,187 +1,314 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="SignLearn - Learn and practice sign language with interactive tools.">
-    <title>SignLearn | Home</title>
+
+    <title>SignLearn | Learn</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<header class="navbar">
-    <a href="index.html" class="logo">🤟 SignLearn</a>
+<header class="top-header">
+
+    <div class="logo">
+        🤟 SignLearn
+    </div>
 
     <nav>
-        <a href="index.html" class="active">Home</a>
-        <a href="Learn.html">Learn</a>
-        <a href="practice.html">Practice</a>
-        <a href="quiz.html">Quiz</a>
-        <a href="progress.html">Progress</a>
+        <a href="./index.html">Home</a>
+        <a href="./learn.html" class="active">Learn</a>
+        <a href="./practice.html">Practice</a>
+        <a href="./quiz.html">Quiz</a>
+        <a href="./progress.html">Progress</a>
     </nav>
+
 </header>
+
 
 <main>
 
-<section class="hero">
+    <section class="hero">
 
-    <div class="hero-content">
+        <div class="hero-text">
 
-        <span class="badge">✨ Your sign-language learning companion</span>
+            <span class="welcome">
+                📚 Sign Language Lessons
+            </span>
 
-        <h1>
-            Learn signs.<br>
-            <span>Connect with everyone.</span>
-        </h1>
+            <h1>
+                Start Learning
+            </h1>
 
-        <p>
-            Learn sign language, practice your skills,
-            test your knowledge and track your progress
-            in one place.
+            <p>
+                Learn basic signs step by step
+                and build your communication skills.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <section class="features">
+
+        <h2>Choose What You Want To Learn</h2>
+
+        <p class="section-subtitle">
+            Start with the basics.
         </p>
 
-        <div class="hero-buttons">
-            <a href="learn.html" class="btn primary">📚 Start Learning</a>
-            <a href="practice.html" class="btn secondary">🤖 Try AI Practice</a>
+
+        <div class="feature-grid">
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    🔤
+                </div>
+
+                <h3>Alphabet</h3>
+
+                <p>
+                    Learn letters A to Z.
+                </p>
+
+                <button
+                    class="primary-btn"
+                    onclick="showAlphabet()">
+
+                    Learn Alphabet →
+
+                </button>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    🔢
+                </div>
+
+                <h3>Numbers</h3>
+
+                <p>
+                    Learn numbers 1 to 10.
+                </p>
+
+                <button
+                    class="primary-btn"
+                    onclick="showNumbers()">
+
+                    Learn Numbers →
+
+                </button>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    👋
+                </div>
+
+                <h3>Common Signs</h3>
+
+                <p>
+                    Learn useful everyday signs.
+                </p>
+
+                <button
+                    class="primary-btn"
+                    onclick="showSigns()">
+
+                    Learn Signs →
+
+                </button>
+
+            </div>
+
+
         </div>
 
-    </div>
-
-    <div class="hero-visual">
-
-        <div class="floating-card card-one">
-            ⭐ +20 XP
-        </div>
-
-        <div class="hand-display">
-            🤟
-        </div>
-
-        <div class="floating-card card-two">
-            🎯 3 signs today
-        </div>
-
-    </div>
-
-</section>
+    </section>
 
 
-<section class="dashboard">
+    <!-- LESSON DISPLAY -->
 
-    <div class="section-heading">
-        <span>YOUR DASHBOARD</span>
-        <h2>Keep learning every day</h2>
-    </div>
+    <section
+        id="lesson"
+        class="features">
 
-    <div class="dashboard-grid">
+        <h2 id="lessonTitle">
+            👆 Choose a lesson above
+        </h2>
 
-        <div class="dashboard-card">
-            <div class="card-icon">🔥</div>
-            <h3 id="homeStreak">1 Day</h3>
-            <p>Learning streak</p>
-        </div>
-
-        <div class="dashboard-card">
-            <div class="card-icon">⭐</div>
-            <h3 id="homeXP">0 XP</h3>
-            <p>Total XP</p>
-        </div>
-
-        <div class="dashboard-card">
-            <div class="card-icon">🎯</div>
-            <h3>3 Signs</h3>
-            <p>Daily goal</p>
-        </div>
-
-        <div class="dashboard-card">
-            <div class="card-icon">🏆</div>
-            <h3 id="homeLevel">Beginner</h3>
-            <p>Current level</p>
-        </div>
-
-    </div>
-
-</section>
-
-
-<section class="features">
-
-    <div class="section-heading">
-        <span>EXPLORE SIGNLEARN</span>
-        <h2>Everything you need to learn</h2>
-    </div>
-
-    <div class="feature-grid">
-
-        <article class="feature-card">
-            <div class="feature-icon">📚</div>
-            <h3>Learn</h3>
-            <p>Explore alphabets, numbers and useful signs.</p>
-            <a href="learn.html">Start learning →</a>
-        </article>
-
-        <article class="feature-card">
-            <div class="feature-icon">🤖</div>
-            <h3>AI Practice</h3>
-            <p>Practice in front of your camera and get feedback.</p>
-            <a href="practice.html">Practice →</a>
-        </article>
-
-        <article class="feature-card">
-            <div class="feature-icon">🧠</div>
-            <h3>Quiz</h3>
-            <p>Test your knowledge with interactive challenges.</p>
-            <a href="quiz.html">Take a quiz →</a>
-        </article>
-
-        <article class="feature-card">
-            <div class="feature-icon">📊</div>
-            <h3>Progress</h3>
-            <p>Track XP, streaks, accuracy and achievements.</p>
-            <a href="progress.html">View progress →</a>
-        </article>
-
-    </div>
-
-</section>
-
-
-<section class="ai-banner">
-
-    <div>
-        <span class="badge">🤖 ADVANCED FEATURE</span>
-
-        <h2>Smart Sign Recognition</h2>
-
-        <p>
-            Our future recognition system will analyze
-            hand movements and patterns to help learners
-            practice signs more effectively.
+        <p id="lessonText">
+            Your lesson will appear here.
         </p>
 
-        <a href="practice.html" class="btn primary">
-            Open Practice
-        </a>
-    </div>
+        <div
+            id="lessonContent"
+            class="feature-grid">
+        </div>
 
-    <div class="ai-animation">
-        <div class="scan-ring">🤟</div>
-        <span>AI READY</span>
-    </div>
-
-</section>
+    </section>
 
 </main>
 
 
 <footer>
+
     <h3>🤟 SignLearn</h3>
-    <p>Learn • Practice • Connect</p>
-    <small>© 2026 SignLearn</small>
+
+    <p>
+        Learn • Practice • Connect
+    </p>
+
+    <p class="copyright">
+        © 2026 SignLearn
+    </p>
+
 </footer>
 
-<script src="script.js"></script>
+
+<script>
+
+function showAlphabet() {
+
+    document.getElementById("lessonTitle").textContent =
+        "🔤 Sign Language Alphabet";
+
+    document.getElementById("lessonText").textContent =
+        "Practice the letters A to Z.";
+
+    document.getElementById("lessonContent").innerHTML = `
+
+        ${"ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").map(letter => `
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    ✋
+                </div>
+
+                <h3>
+                    Letter ${letter}
+                </h3>
+
+                <p>
+                    Practice the sign for ${letter}.
+                </p>
+
+            </div>
+
+        `).join("")}
+
+    `;
+
+    document.getElementById("lesson")
+        .scrollIntoView({ behavior: "smooth" });
+}
+
+
+function showNumbers() {
+
+    document.getElementById("lessonTitle").textContent =
+        "🔢 Numbers";
+
+    document.getElementById("lessonText").textContent =
+        "Practice numbers 1 to 10.";
+
+    document.getElementById("lessonContent").innerHTML = `
+
+        ${[1,2,3,4,5,6,7,8,9,10].map(number => `
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    ✋
+                </div>
+
+                <h3>
+                    Number ${number}
+                </h3>
+
+                <p>
+                    Practice the sign for ${number}.
+                </p>
+
+            </div>
+
+        `).join("")}
+
+    `;
+
+    document.getElementById("lesson")
+        .scrollIntoView({ behavior: "smooth" });
+}
+
+
+function showSigns() {
+
+    document.getElementById("lessonTitle").textContent =
+        "👋 Common Signs";
+
+    document.getElementById("lessonText").textContent =
+        "Learn some useful everyday signs.";
+
+    document.getElementById("lessonContent").innerHTML = `
+
+        <div class="feature-card">
+
+            <div class="feature-icon">👋</div>
+
+            <h3>Hello</h3>
+
+            <p>
+                Practice the sign used for greeting someone.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">🙏</div>
+
+            <h3>Thank You</h3>
+
+            <p>
+                Practice the sign used to express thanks.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">❤️</div>
+
+            <h3>Love</h3>
+
+            <p>
+                Practice a sign associated with love.
+            </p>
+
+        </div>
+
+    `;
+
+    document.getElementById("lesson")
+        .scrollIntoView({ behavior: "smooth" });
+}
+
+</script>
 
 </body>
 </html>
