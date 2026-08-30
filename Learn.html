@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,310 +6,299 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>SignLearn | Learn</title>
+    <title>SignLearn | AI Practice</title>
 
-    <link rel="stylesheet" href="style1.css">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- MediaPipe Hands -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+
 </head>
 
 <body>
 
-<header class="top-header">
+    <!-- HEADER -->
+    <header class="top-header">
 
-    <div class="logo">
-        🤟 SignLearn
-    </div>
-
-    <nav>
-        <a href="./index.html">Home</a>
-        <a href="./learn.html" class="active">Learn</a>
-        <a href="./practice.html">Practice</a>
-        <a href="./quiz.html">Quiz</a>
-        <a href="./progress.html">Progress</a>
-    </nav>
-
-</header>
-
-
-<main>
-
-    <section class="hero">
-
-        <div class="hero-text">
-
-            <span class="welcome">
-                📚 Sign Language Lessons
-            </span>
-
-            <h1>
-                Start Learning
-            </h1>
-
-            <p>
-                Learn basic signs step by step
-                and build your communication skills.
-            </p>
-
+        <div class="logo">
+            🤟 SignLearn
         </div>
 
-    </section>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="Learn.html">Learn</a>
+            <a href="practice.html" class="active">Practice</a>
+            <a href="quiz.html">Quiz</a>
+            <a href="progress.html">Progress</a>
+        </nav>
+
+    </header>
 
 
-    <section class="features">
+    <main>
 
-        <h2>Choose What You Want To Learn</h2>
+        <!-- INTRO -->
+        <section class="hero">
 
-        <p class="section-subtitle">
-            Start with the basics.
+            <div class="hero-text">
+
+                <span class="welcome">
+                    🤖 AI Practice
+                </span>
+
+                <h1>
+                    Practice Your Signs
+                </h1>
+
+                <p>
+                    Show a sign to the camera and let the AI analyze your hand.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- CAMERA SECTION -->
+        <section class="ai-section">
+
+            <div class="ai-content">
+
+                <span class="ai-label">
+                    📷 AI CAMERA RECOGNITION
+                </span>
+
+                <h2>
+                    Show Your Sign
+                </h2>
+
+                <p>
+                    Place your hand clearly inside the camera.
+                </p>
+
+
+                <div class="hero-buttons">
+
+                    <button
+                        id="startCamera"
+                        class="primary-btn camera-button">
+                        📷 Start Camera
+                    </button>
+
+                    <button
+                        id="stopCamera"
+                        class="secondary-btn camera-button">
+                        ⏹️ Stop Camera
+                    </button>
+
+                </div>
+
+
+                <p id="status">
+                    Camera is not started.
+                </p>
+
+            </div>
+
+
+            <!-- CAMERA SCREEN -->
+            <div class="ai-visual camera-container">
+
+                <video
+                    id="camera"
+                    autoplay
+                    playsinline
+                    muted>
+                </video>
+
+                <canvas id="output"></canvas>
+
+                <div
+                    class="camera-placeholder"
+                    id="cameraPlaceholder">
+
+                    📷
+                    <br>
+
+                    Camera Preview
+
+                    <br>
+
+                    <small>
+                        Press Start Camera
+                    </small>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- AI RECOGNITION RESULT -->
+        <section class="features">
+
+            <h2>
+                🤖 AI Recognition
+            </h2>
+
+            <p class="section-subtitle">
+                Your hand sign will be analyzed here.
+            </p>
+
+
+            <div class="feature-grid">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        ✋
+                    </div>
+
+                    <h3 id="signName">
+                        Waiting...
+                    </h3>
+
+                    <p id="confidence">
+                        Start the camera to begin.
+                    </p>
+
+
+                    <!-- CONFIDENCE BAR -->
+                    <div class="confidence-box">
+
+                        <div class="confidence-label">
+                            AI Confidence
+                        </div>
+
+                        <div class="confidence-bar">
+
+                            <div
+                                id="confidenceFill"
+                                class="confidence-fill">
+                            </div>
+
+                        </div>
+
+                        <strong id="confidenceNumber">
+                            0%
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- A-Z GUIDE -->
+        <section class="why-section">
+
+            <h2>
+                🤟 A–Z Sign Language Guide
+            </h2>
+
+            <p class="section-subtitle">
+                Use this guide while practicing.
+            </p>
+
+
+            <!-- YOUR A-Z IMAGE -->
+            <img
+                src="m.png"
+                alt="A to Z sign language hand guide"
+                class="sign-guide">
+
+        </section>
+
+
+        <!-- HOW IT WORKS -->
+        <section class="why-section">
+
+            <h2>
+                How AI Practice Works
+            </h2>
+
+
+            <div class="why-grid">
+
+                <div>
+
+                    <strong>📷</strong>
+
+                    <h3>
+                        1. Camera
+                    </h3>
+
+                    <p>
+                        Your camera captures your hand.
+                    </p>
+
+                </div>
+
+
+                <div>
+
+                    <strong>✋</strong>
+
+                    <h3>
+                        2. Hand Detection
+                    </h3>
+
+                    <p>
+                        AI detects your hand and finger landmarks.
+                    </p>
+
+                </div>
+
+
+                <div>
+
+                    <strong>🤖</strong>
+
+                    <h3>
+                        3. Recognition
+                    </h3>
+
+                    <p>
+                        The system analyzes your hand shape and predicts a letter.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer>
+
+        <h3>
+            🤟 SignLearn
+        </h3>
+
+        <p>
+            Learn • Practice • Connect
         </p>
 
-
-        <div class="feature-grid">
-
-
-            <div class="feature-card">
-
-                <div class="feature-icon">
-                    🔤
-                </div>
-
-                <h3>Alphabet</h3>
-
-                <p>
-                    Learn letters A to Z.
-                </p>
-
-                <button
-                    class="primary-btn"
-                    onclick="showAlphabet()">
-
-                    Learn Alphabet →
-
-                </button>
-
-            </div>
-
-
-            <div class="feature-card">
-
-                <div class="feature-icon">
-                    🔢
-                </div>
-
-                <h3>Numbers</h3>
-
-                <p>
-                    Learn numbers 1 to 10.
-                </p>
-
-                <button
-                    class="primary-btn"
-                    onclick="showNumbers()">
-
-                    Learn Numbers →
-
-                </button>
-
-            </div>
-
-
-            <div class="feature-card">
-
-                <div class="feature-icon">
-                    👋
-                </div>
-
-                <h3>Common Signs</h3>
-
-                <p>
-                    Learn useful everyday signs.
-                </p>
-
-                <button
-                    class="primary-btn"
-                    onclick="showSigns()">
-
-                    Learn Signs →
-
-                </button>
-
-            </div>
-
-
-        </div>
-
-    </section>
-
-
-    <!-- LESSON DISPLAY -->
-
-    <section
-        id="lesson"
-        class="features">
-
-        <h2 id="lessonTitle">
-            👆 Choose a lesson above
-        </h2>
-
-        <p id="lessonText">
-            Your lesson will appear here.
+        <p class="copyright">
+            © 2026 SignLearn
         </p>
 
-        <div
-            id="lessonContent"
-            class="feature-grid">
-        </div>
-
-    </section>
-
-</main>
+    </footer>
 
 
-<footer>
-
-    <h3>🤟 SignLearn</h3>
-
-    <p>
-        Learn • Practice • Connect
-    </p>
-
-    <p class="copyright">
-        © 2026 SignLearn
-    </p>
-
-</footer>
-
-
-<script>
-
-function showAlphabet() {
-
-    document.getElementById("lessonTitle").textContent =
-        "🔤 Sign Language Alphabet";
-
-    document.getElementById("lessonText").textContent =
-        "Practice the letters A to Z.";
-
-    document.getElementById("lessonContent").innerHTML = `
-
-        ${"ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").map(letter => `
-
-            <div class="feature-card">
-
-                <div class="feature-icon">
-                    ✋
-                </div>
-
-                <h3>
-                    Letter ${letter}
-                </h3>
-
-                <p>
-                    Practice the sign for ${letter}.
-                </p>
-
-            </div>
-
-        `).join("")}
-
-    `;
-
-    document.getElementById("lesson")
-        .scrollIntoView({ behavior: "smooth" });
-}
-
-
-function showNumbers() {
-
-    document.getElementById("lessonTitle").textContent =
-        "🔢 Numbers";
-
-    document.getElementById("lessonText").textContent =
-        "Practice numbers 1 to 10.";
-
-    document.getElementById("lessonContent").innerHTML = `
-
-        ${[1,2,3,4,5,6,7,8,9,10].map(number => `
-
-            <div class="feature-card">
-
-                <div class="feature-icon">
-                    ✋
-                </div>
-
-                <h3>
-                    Number ${number}
-                </h3>
-
-                <p>
-                    Practice the sign for ${number}.
-                </p>
-
-            </div>
-
-        `).join("")}
-
-    `;
-
-    document.getElementById("lesson")
-        .scrollIntoView({ behavior: "smooth" });
-}
-
-
-function showSigns() {
-
-    document.getElementById("lessonTitle").textContent =
-        "👋 Common Signs";
-
-    document.getElementById("lessonText").textContent =
-        "Learn some useful everyday signs.";
-
-    document.getElementById("lessonContent").innerHTML = `
-
-        <div class="feature-card">
-
-            <div class="feature-icon">👋</div>
-
-            <h3>Hello</h3>
-
-            <p>
-                Practice the sign used for greeting someone.
-            </p>
-
-        </div>
-
-
-        <div class="feature-card">
-
-            <div class="feature-icon">🙏</div>
-
-            <h3>Thank You</h3>
-
-            <p>
-                Practice the sign used to express thanks.
-            </p>
-
-        </div>
-
-
-        <div class="feature-card">
-
-            <div class="feature-icon">❤️</div>
-
-            <h3>Love</h3>
-
-            <p>
-                Practice a sign associated with love.
-            </p>
-
-        </div>
-
-    `;
-
-    document.getElementById("lesson")
-        .scrollIntoView({ behavior: "smooth" });
-}
-
-</script>
+    <!-- JAVASCRIPT -->
+    <script src="practice.js"></script>
 
 </body>
+
 </html>
+```
