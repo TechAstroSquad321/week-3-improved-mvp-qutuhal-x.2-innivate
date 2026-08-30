@@ -6,20 +6,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>SignLearn | AI Practice</title>
+    <title>SignLearn | Learn</title>
 
+    <!-- Existing website CSS -->
     <link rel="stylesheet" href="style.css">
 
-    <!-- MediaPipe Hands -->
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
-
+    <!-- Learn page CSS -->
+    <link rel="stylesheet" href="learn.css">
 </head>
+
 
 <body>
 
-    <!-- HEADER -->
+    <!-- =========================
+         HEADER
+    ========================== -->
+
     <header class="top-header">
 
         <div class="logo">
@@ -27,245 +29,243 @@
         </div>
 
         <nav>
-            <a href="index.html">Home</a>
-            <a href="Learn.html">Learn</a>
-            <a href="practice.html" class="active">Practice</a>
-            <a href="quiz.html">Quiz</a>
-            <a href="progress.html">Progress</a>
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="Learn.html" class="active">
+                Learn
+            </a>
+
+            <a href="practice.html">
+                Practice
+            </a>
+
+            <a href="quiz.html">
+                Quiz
+            </a>
+
+            <a href="progress.html">
+                Progress
+            </a>
+
         </nav>
 
     </header>
 
 
+    <!-- =========================
+         MAIN
+    ========================== -->
+
     <main>
 
-        <!-- INTRO -->
-        <section class="hero">
 
-            <div class="hero-text">
+        <!-- HERO -->
 
-                <span class="welcome">
-                    🤖 AI Practice
+        <section class="learn-hero">
+
+            <div class="learn-hero-content">
+
+                <span class="learn-badge">
+                    🤟 SIGN LANGUAGE
                 </span>
+
 
                 <h1>
-                    Practice Your Signs
+                    Learn the Alphabet
                 </h1>
 
+
                 <p>
-                    Show a sign to the camera and let the AI analyze your hand.
+                    Learn all 26 letters of the sign language
+                    alphabet and practice them at your own pace.
                 </p>
+
+
+                <a
+                    href="#alphabet"
+                    class="learn-button">
+
+                    Start Learning ↓
+
+                </a>
 
             </div>
 
         </section>
 
 
-        <!-- CAMERA SECTION -->
-        <section class="ai-section">
 
-            <div class="ai-content">
+        <!-- =========================
+             A-Z ALPHABET
+        ========================== -->
 
-                <span class="ai-label">
-                    📷 AI CAMERA RECOGNITION
+        <section
+            class="alphabet-section"
+            id="alphabet">
+
+
+            <div class="section-heading">
+
+                <span class="learn-label">
+                    📚 YOUR A–Z GUIDE
                 </span>
 
+
                 <h2>
-                    Show Your Sign
+                    Sign Language Alphabet
                 </h2>
 
+
                 <p>
-                    Place your hand clearly inside the camera.
-                </p>
-
-
-                <div class="hero-buttons">
-
-                    <button
-                        id="startCamera"
-                        class="primary-btn camera-button">
-                        📷 Start Camera
-                    </button>
-
-                    <button
-                        id="stopCamera"
-                        class="secondary-btn camera-button">
-                        ⏹️ Stop Camera
-                    </button>
-
-                </div>
-
-
-                <p id="status">
-                    Camera is not started.
+                    Study the hand positions for all 26 letters
+                    using the guide below.
                 </p>
 
             </div>
 
 
-            <!-- CAMERA SCREEN -->
-            <div class="ai-visual camera-container">
 
-                <video
-                    id="camera"
-                    autoplay
-                    playsinline
-                    muted>
-                </video>
+            <!-- IMAGE -->
 
-                <canvas id="output"></canvas>
+            <div class="alphabet-card">
 
-                <div
-                    class="camera-placeholder"
-                    id="cameraPlaceholder">
+                <div class="image-title">
 
-                    📷
-                    <br>
+                    <span>
+                        A
+                    </span>
 
-                    Camera Preview
+                    <span>
+                        B
+                    </span>
 
-                    <br>
+                    <span>
+                        C
+                    </span>
 
-                    <small>
-                        Press Start Camera
-                    </small>
+                    <span>
+                        D
+                    </span>
+
+                    <span>
+                        E
+                    </span>
+
+                    <span>
+                        ... Z
+                    </span>
 
                 </div>
+
+
+                <img
+                    src="m.png"
+                    alt="A to Z sign language hand signs"
+                    class="alphabet-image">
 
             </div>
 
         </section>
 
 
-        <!-- AI RECOGNITION RESULT -->
-        <section class="features">
 
-            <h2>
-                🤖 AI Recognition
-            </h2>
+        <!-- =========================
+             LEARNING TIPS
+        ========================== -->
 
-            <p class="section-subtitle">
-                Your hand sign will be analyzed here.
-            </p>
+        <section class="tips-section">
 
 
-            <div class="feature-grid">
+            <div class="section-heading">
 
-                <div class="feature-card">
+                <span class="learn-label">
+                    💡 LEARNING TIPS
+                </span>
 
-                    <div class="feature-icon">
+
+                <h2>
+                    Learn Better
+                </h2>
+
+
+                <p>
+                    A few simple tips to help you remember
+                    the signs faster.
+                </p>
+
+            </div>
+
+
+
+            <div class="tips-grid">
+
+
+                <!-- TIP 1 -->
+
+                <div class="tip-card">
+
+                    <div class="tip-icon">
+                        👀
+                    </div>
+
+
+                    <h3>
+                        Look Carefully
+                    </h3>
+
+
+                    <p>
+                        Pay attention to the position of
+                        every finger and thumb.
+                    </p>
+
+                </div>
+
+
+
+                <!-- TIP 2 -->
+
+                <div class="tip-card">
+
+                    <div class="tip-icon">
                         ✋
                     </div>
 
-                    <h3 id="signName">
-                        Waiting...
+
+                    <h3>
+                        Copy the Shape
                     </h3>
 
-                    <p id="confidence">
-                        Start the camera to begin.
+
+                    <p>
+                        Try copying the hand position shown
+                        in the A–Z guide.
                     </p>
 
+                </div>
 
-                    <!-- CONFIDENCE BAR -->
-                    <div class="confidence-box">
 
-                        <div class="confidence-label">
-                            AI Confidence
-                        </div>
 
-                        <div class="confidence-bar">
+                <!-- TIP 3 -->
 
-                            <div
-                                id="confidenceFill"
-                                class="confidence-fill">
-                            </div>
+                <div class="tip-card">
 
-                        </div>
-
-                        <strong id="confidenceNumber">
-                            0%
-                        </strong>
-
+                    <div class="tip-icon">
+                        🔁
                     </div>
 
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- A-Z GUIDE -->
-        <section class="why-section">
-
-            <h2>
-                🤟 A–Z Sign Language Guide
-            </h2>
-
-            <p class="section-subtitle">
-                Use this guide while practicing.
-            </p>
-
-
-            <!-- YOUR A-Z IMAGE -->
-            <img
-                src="m.png"
-                alt="A to Z sign language hand guide"
-                class="sign-guide">
-
-        </section>
-
-
-        <!-- HOW IT WORKS -->
-        <section class="why-section">
-
-            <h2>
-                How AI Practice Works
-            </h2>
-
-
-            <div class="why-grid">
-
-                <div>
-
-                    <strong>📷</strong>
 
                     <h3>
-                        1. Camera
+                        Practice
                     </h3>
 
-                    <p>
-                        Your camera captures your hand.
-                    </p>
-
-                </div>
-
-
-                <div>
-
-                    <strong>✋</strong>
-
-                    <h3>
-                        2. Hand Detection
-                    </h3>
 
                     <p>
-                        AI detects your hand and finger landmarks.
-                    </p>
-
-                </div>
-
-
-                <div>
-
-                    <strong>🤖</strong>
-
-                    <h3>
-                        3. Recognition
-                    </h3>
-
-                    <p>
-                        The system analyzes your hand shape and predicts a letter.
+                        Repeat each letter until you can
+                        make the sign confidently.
                     </p>
 
                 </div>
@@ -273,20 +273,67 @@
             </div>
 
         </section>
+
+
+
+        <!-- =========================
+             PRACTICE CTA
+        ========================== -->
+
+        <section class="practice-cta">
+
+
+            <div class="cta-content">
+
+                <span class="learn-label">
+                    🤖 READY TO PRACTICE?
+                </span>
+
+
+                <h2>
+                    Test What You Learned
+                </h2>
+
+
+                <p>
+                    Once you've learned the alphabet,
+                    use the camera practice page to test
+                    your signs.
+                </p>
+
+
+                <a
+                    href="practice.html"
+                    class="learn-button">
+
+                    Go to Practice →
+
+                </a>
+
+            </div>
+
+        </section>
+
 
     </main>
 
 
-    <!-- FOOTER -->
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
     <footer>
 
         <h3>
             🤟 SignLearn
         </h3>
 
+
         <p>
             Learn • Practice • Connect
         </p>
+
 
         <p class="copyright">
             © 2026 SignLearn
@@ -295,10 +342,8 @@
     </footer>
 
 
-    <!-- JAVASCRIPT -->
-    <script src="practice.js"></script>
-
 </body>
 
 </html>
 ```
+
