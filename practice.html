@@ -1,556 +1,329 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0">
+    <title>Camera Practice</title>
 
-    <title>SignLearn | AI Practice</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    <!-- YOUR EXISTING WEBSITE CSS -->
-    <link rel="stylesheet" href="style.css">
+        body {
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background: #0b1020;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
 
-    <!-- NEW PRACTICE PAGE CSS -->
-    <link rel="stylesheet" href="practice.css">
+        .container {
+            width: 100%;
+            max-width: 900px;
+            text-align: center;
+        }
 
-    <!-- MediaPipe Hands -->
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+        h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
 
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+        .subtitle {
+            color: #aab3cc;
+            margin-bottom: 25px;
+        }
 
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
+        .camera-box {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            aspect-ratio: 16 / 9;
+            margin: auto;
+            background: #05070d;
+            border-radius: 18px;
+            overflow: hidden;
+            border: 2px solid #27304a;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
 
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transform: scaleX(-1);
+        }
+
+        .camera-message {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 25px;
+            background: rgba(5, 7, 13, 0.85);
+            color: #dbe2f5;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            border: none;
+            border-radius: 10px;
+            padding: 13px 22px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            background: #5865f2;
+            color: white;
+        }
+
+        button:hover {
+            background: #4752c4;
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        #stopBtn {
+            background: #ed4245;
+        }
+
+        #stopBtn:hover {
+            background: #c73537;
+        }
+
+        .status {
+            margin-top: 18px;
+            min-height: 24px;
+            color: #aab3cc;
+        }
+
+        .success {
+            color: #57f287;
+        }
+
+        .error {
+            color: #ed4245;
+        }
+    </style>
 </head>
-
 
 <body>
 
+    <main class="container">
 
-    <!-- =========================
-         HEADER
-    ========================== -->
+        <h1>📷 Camera Practice</h1>
 
-    <header class="top-header">
+        <p class="subtitle">
+            Allow camera access to start the camera.
+        </p>
 
-        <div class="logo">
-            🤟 SignLearn
+        <div class="camera-box">
+
+            <video
+                id="camera"
+                autoplay
+                playsinline
+                muted>
+            </video>
+
+            <div id="cameraMessage" class="camera-message">
+                Click <b>&nbsp;Start Camera&nbsp;</b> to request camera permission.
+            </div>
+
         </div>
 
-
-        <nav>
-
-            <a href="index.html">
-                Home
-            </a>
-
-            <a href="Learn.html">
-                Learn
-            </a>
-
-            <a href="practice.html" class="active">
-                Practice
-            </a>
-
-            <a href="quiz.html">
-                Quiz
-            </a>
-
-            <a href="progress.html">
-                Progress
-            </a>
-
-        </nav>
-
-    </header>
-
-
-
-    <main>
-
-
-        <!-- =========================
-             HERO
-        ========================== -->
-
-        <section class="practice-hero">
-
-            <div class="practice-hero-content">
-
-                <span class="practice-badge">
-                    🤖 AI POWERED PRACTICE
-                </span>
-
-
-                <h1>
-                    Practice Your Signs
-                </h1>
-
-
-                <p>
-                    Show your hand to the camera and let
-                    SignLearn analyze your sign in real time.
-                </p>
-
-            </div>
-
-        </section>
-
-
-
-        <!-- =========================
-             CAMERA AREA
-        ========================== -->
-
-        <section class="camera-section">
-
-
-            <div class="camera-card">
-
-
-                <!-- CAMERA HEADER -->
-
-                <div class="camera-header">
-
-                    <div>
-
-                        <span class="camera-label">
-                            📷 LIVE CAMERA
-                        </span>
-
-                        <h2>
-                            Show Your Hand
-                        </h2>
-
-                    </div>
-
-
-                    <div
-                        id="cameraStatus"
-                        class="camera-status offline">
-
-                        <span class="status-dot"></span>
-
-                        Offline
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- CAMERA -->
-
-                <div class="camera-wrapper">
-
-                    <video
-                        id="camera"
-                        autoplay
-                        playsinline
-                        muted>
-                    </video>
-
-
-                    <canvas id="output"></canvas>
-
-
-                    <!-- CAMERA GUIDE -->
-
-                    <div class="hand-guide">
-
-                        <div class="guide-corner top-left"></div>
-
-                        <div class="guide-corner top-right"></div>
-
-                        <div class="guide-corner bottom-left"></div>
-
-                        <div class="guide-corner bottom-right"></div>
-
-                        <p>
-                            Place your hand here
-                        </p>
-
-                    </div>
-
-
-                    <!-- PLACEHOLDER -->
-
-                    <div
-                        id="cameraPlaceholder"
-                        class="camera-placeholder">
-
-                        <div class="camera-icon">
-                            📷
-                        </div>
-
-                        <h3>
-                            Camera Ready
-                        </h3>
-
-                        <p>
-                            Press Start Camera below
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- CONTROLS -->
-
-                <div class="camera-controls">
-
-                    <button
-                        id="startCamera"
-                        class="camera-btn start-btn">
-
-                        <span>📷</span>
-
-                        Start Camera
-
-                    </button>
-
-
-                    <button
-                        id="stopCamera"
-                        class="camera-btn stop-btn"
-                        disabled>
-
-                        <span>⏹</span>
-
-                        Stop Camera
-
-                    </button>
-
-                </div>
-
-
-                <p
-                    id="status"
-                    class="camera-message">
-
-                    Camera is not started.
-
-                </p>
-
-            </div>
-
-
-
-            <!-- =========================
-                 AI RESULT
-            ========================== -->
-
-            <div class="recognition-card">
-
-
-                <div class="recognition-header">
-
-                    <div>
-
-                        <span class="ai-label">
-                            🤖 AI RECOGNITION
-                        </span>
-
-                        <h2>
-                            Your Result
-                        </h2>
-
-                    </div>
-
-
-                    <div class="ai-pulse">
-                        AI
-                    </div>
-
-                </div>
-
-
-
-                <!-- BIG LETTER -->
-
-                <div
-                    id="letterDisplay"
-                    class="letter-display">
-
-                    ?
-
-                </div>
-
-
-                <h3
-                    id="signName"
-                    class="detected-title">
-
-                    Waiting...
-
-                </h3>
-
-
-                <p
-                    id="confidence"
-                    class="detected-message">
-
-                    Start the camera to begin practicing.
-
-                </p>
-
-
-
-                <!-- CONFIDENCE -->
-
-                <div class="confidence-container">
-
-                    <div class="confidence-top">
-
-                        <span>
-                            Detection confidence
-                        </span>
-
-                        <strong id="confidenceNumber">
-                            0%
-                        </strong>
-
-                    </div>
-
-
-                    <div class="confidence-bar">
-
-                        <div
-                            id="confidenceFill"
-                            class="confidence-fill">
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- DETECTION INFO -->
-
-                <div class="detection-info">
-
-                    <div class="info-item">
-
-                        <span class="info-icon">
-                            ✋
-                        </span>
-
-                        <div>
-
-                            <strong>
-                                Hand
-                            </strong>
-
-                            <span id="handStatus">
-                                Not detected
-                            </span>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="info-item">
-
-                        <span class="info-icon">
-                            🎯
-                        </span>
-
-                        <div>
-
-                            <strong>
-                                Mode
-                            </strong>
-
-                            <span>
-                                A–Z Practice
-                            </span>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-
-        <!-- =========================
-             A-Z GUIDE
-        ========================== -->
-
-        <section class="guide-section">
-
-            <div class="section-heading">
-
-                <span class="ai-label">
-                    📚 VISUAL GUIDE
-                </span>
-
-
-                <h2>
-                    A–Z Sign Language
-                </h2>
-
-
-                <p>
-                    Use the guide while practicing your hand signs.
-                </p>
-
-            </div>
-
-
-            <div class="guide-card">
-
-                <img
-                    src="m.png"
-                    alt="A to Z sign language hand guide"
-                    class="sign-guide">
-
-            </div>
-
-        </section>
-
-
-
-        <!-- =========================
-             HOW IT WORKS
-        ========================== -->
-
-        <section class="how-section">
-
-            <div class="section-heading">
-
-                <span class="ai-label">
-                    ⚡ HOW IT WORKS
-                </span>
-
-
-                <h2>
-                    Three Simple Steps
-                </h2>
-
-            </div>
-
-
-            <div class="steps-grid">
-
-
-                <div class="step-card">
-
-                    <div class="step-number">
-                        01
-                    </div>
-
-                    <div class="step-icon">
-                        📷
-                    </div>
-
-                    <h3>
-                        Start Camera
-                    </h3>
-
-                    <p>
-                        Allow camera access and place your
-                        hand inside the guide.
-                    </p>
-
-                </div>
-
-
-
-                <div class="step-card">
-
-                    <div class="step-number">
-                        02
-                    </div>
-
-                    <div class="step-icon">
-                        ✋
-                    </div>
-
-                    <h3>
-                        Show a Sign
-                    </h3>
-
-                    <p>
-                        Copy one of the hand signs from
-                        the A–Z guide.
-                    </p>
-
-                </div>
-
-
-
-                <div class="step-card">
-
-                    <div class="step-number">
-                        03
-                    </div>
-
-                    <div class="step-icon">
-                        🤖
-                    </div>
-
-                    <h3>
-                        Get Feedback
-                    </h3>
-
-                    <p>
-                        The system detects your hand and
-                        analyzes its landmarks.
-                    </p>
-
-                </div>
-
-            </div>
-
-        </section>
-
+        <div class="controls">
+            <button id="startBtn">
+                📷 Start Camera
+            </button>
+
+            <button id="stopBtn" disabled>
+                ⛔ Stop Camera
+            </button>
+        </div>
+
+        <p id="status" class="status">
+            Camera is currently off.
+        </p>
 
     </main>
 
+    <script>
+        const video = document.getElementById("camera");
+        const startBtn = document.getElementById("startBtn");
+        const stopBtn = document.getElementById("stopBtn");
+        const status = document.getElementById("status");
+        const cameraMessage = document.getElementById("cameraMessage");
+
+        let cameraStream = null;
+
+        // Check whether the browser supports cameras
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+
+            status.textContent =
+                "❌ Your browser does not support camera access.";
+
+            status.classList.add("error");
+
+            startBtn.disabled = true;
+        }
+
+        // START CAMERA
+        async function startCamera() {
+
+            try {
+
+                status.textContent = "🔄 Requesting camera permission...";
+                status.className = "status";
+
+                /*
+                 * This is the important part.
+                 * The browser should show:
+                 *
+                 * "Allow this site to use your camera?"
+                 *
+                 */
+                cameraStream = await navigator.mediaDevices.getUserMedia({
+                    video: {
+                        facingMode: "user",
+                        width: {
+                            ideal: 1280
+                        },
+                        height: {
+                            ideal: 720
+                        }
+                    },
+                    audio: false
+                });
+
+                video.srcObject = cameraStream;
+
+                await video.play();
+
+                cameraMessage.classList.add("hidden");
+
+                startBtn.disabled = true;
+                stopBtn.disabled = false;
+
+                status.textContent = "✅ Camera is working!";
+                status.classList.add("success");
+
+            }
+
+            catch (error) {
+
+                console.error("Camera error:", error);
+
+                cameraMessage.classList.remove("hidden");
+
+                startBtn.disabled = false;
+                stopBtn.disabled = true;
+
+                if (error.name === "NotAllowedError") {
+
+                    status.textContent =
+                        "❌ Camera permission was denied. Click the camera icon 🔒 in your browser's address bar and allow Camera.";
+
+                }
+
+                else if (error.name === "NotFoundError") {
+
+                    status.textContent =
+                        "❌ No camera was found on this device.";
+
+                }
+
+                else if (error.name === "NotReadableError") {
+
+                    status.textContent =
+                        "❌ Your camera is being used by another application.";
+
+                }
+
+                else if (error.name === "SecurityError") {
+
+                    status.textContent =
+                        "❌ Camera access was blocked for security reasons.";
+
+                }
+
+                else {
+
+                    status.textContent =
+                        "❌ Could not start the camera: " + error.message;
+                }
+
+                status.classList.add("error");
+            }
+        }
 
 
-    <!-- =========================
-         FOOTER
-    ========================== -->
+        // STOP CAMERA
+        function stopCamera() {
 
-    <footer>
+            if (cameraStream) {
 
-        <h3>
-            🤟 SignLearn
-        </h3>
+                cameraStream.getTracks().forEach(track => {
+                    track.stop();
+                });
+
+                cameraStream = null;
+            }
+
+            video.srcObject = null;
+
+            cameraMessage.classList.remove("hidden");
+
+            cameraMessage.innerHTML =
+                "Camera stopped. Click <b>&nbsp;Start Camera&nbsp;</b> to start it again.";
+
+            startBtn.disabled = false;
+            stopBtn.disabled = true;
+
+            status.textContent = "Camera is currently off.";
+            status.className = "status";
+        }
 
 
-        <p>
-            Learn • Practice • Connect
-        </p>
+        startBtn.addEventListener("click", startCamera);
+
+        stopBtn.addEventListener("click", stopCamera);
 
 
-        <p class="copyright">
-            © 2026 SignLearn
-        </p>
+        // Stop the camera when leaving the page
+        window.addEventListener("beforeunload", () => {
 
-    </footer>
+            if (cameraStream) {
 
-
-
-    <!-- JAVASCRIPT -->
-
-    <script src="practice.js"></script>
+                cameraStream.getTracks().forEach(track => {
+                    track.stop();
+                });
+            }
+        });
+    </script>
 
 </body>
-
 </html>
-```
