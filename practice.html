@@ -1,321 +1,253 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>SignLearn - Practice</title>
+    <title>Practice | SignLearn</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            min-height: 100vh;
-            font-family: Arial, sans-serif;
-            background: #0b1020;
-            color: white;
-            padding: 30px 20px;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 950px;
-            margin: auto;
-            text-align: center;
-        }
-
-        h1 {
-            font-size: 32px;
-            margin-bottom: 8px;
-        }
-
-        .subtitle {
-            color: #aab3cc;
-            margin-bottom: 25px;
-        }
-
-        .camera-box {
-            position: relative;
-            width: 100%;
-            max-width: 850px;
-            aspect-ratio: 16 / 9;
-            margin: auto;
-            background: #05070d;
-            border: 2px solid #27304a;
-            border-radius: 18px;
-            overflow: hidden;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
-        }
-
-        #camera {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            transform: scaleX(-1);
-        }
-
-        #handCanvas {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            transform: scaleX(-1);
-            pointer-events: none;
-        }
-
-        #cameraPlaceholder {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 25px;
-            background: rgba(5, 7, 13, 0.88);
-            color: #dbe2f5;
-            font-size: 18px;
-            z-index: 5;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        .controls {
-            margin-top: 20px;
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        button {
-            border: none;
-            border-radius: 10px;
-            padding: 13px 22px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            background: #5865f2;
-            color: white;
-        }
-
-        button:hover {
-            background: #4752c4;
-        }
-
-        button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        #stopCamera {
-            background: #ed4245;
-        }
-
-        #stopCamera:hover {
-            background: #c73537;
-        }
-
-        #status {
-            margin-top: 18px;
-            min-height: 28px;
-            color: #aab3cc;
-            line-height: 1.5;
-        }
-
-        .success {
-            color: #57f287 !important;
-        }
-
-        .error {
-            color: #ed4245 !important;
-        }
-
-        .result {
-            margin: 25px auto 0;
-            max-width: 850px;
-            background: #11182d;
-            border: 1px solid #27304a;
-            border-radius: 16px;
-            padding: 22px;
-        }
-
-        .result h2 {
-            margin-bottom: 12px;
-            font-size: 20px;
-        }
-
-        #signName {
-            font-size: 30px;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-
-        #confidence {
-            color: #aab3cc;
-        }
-
-        .guide {
-            margin-top: 25px;
-            padding: 20px;
-            background: #11182d;
-            border: 1px solid #27304a;
-            border-radius: 16px;
-        }
-
-        .guide h2 {
-            margin-bottom: 15px;
-        }
-
-        .letters {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .letter {
-            width: 42px;
-            height: 42px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #202943;
-            border-radius: 8px;
-            font-weight: bold;
-        }
-    </style>
+    <link rel="stylesheet" href="practice.css">
 </head>
 
 <body>
 
-<main class="container">
+    <!-- ================= NAVBAR ================= -->
 
-    <h1>📷 SignLearn Practice</h1>
+    <header class="navbar">
 
-    <p class="subtitle">
-        Allow camera access to start hand recognition.
-    </p>
+        <a href="index.html" class="logo">
+            <span class="logo-icon">✦</span>
+            <span>SignLearn</span>
+        </a>
+
+        <nav class="nav-links">
+
+            <a href="index.html">Home</a>
+
+            <a href="practice.html" class="active">
+                Practice
+            </a>
+
+            <a href="Learn.html">
+                Learn
+            </a>
+
+            <a href="progress.html">
+                Progress
+            </a>
+
+            <a href="quiz.html">
+                Quiz
+            </a>
+
+        </nav>
+
+    </header>
 
 
-    <!-- CAMERA -->
+    <!-- ================= MAIN ================= -->
 
-    <div class="camera-box">
+    <main>
 
-        <video
-            id="camera"
-            autoplay
-            playsinline
-            muted>
-        </video>
+        <section class="hero">
 
-        <canvas id="handCanvas"></canvas>
+            <div class="badge">
+                <span class="status-dot"></span>
+                CAMERA PRACTICE
+            </div>
 
-        <div id="cameraPlaceholder">
-            Click <b>&nbsp;Start Camera&nbsp;</b>
-            to request camera permission.
+            <h1>
+                Practice Your
+                <span>Signs</span>
+            </h1>
+
+            <p>
+                Turn on your camera and practice your hand signs
+                in real time. Get comfortable, improve your accuracy,
+                and keep learning.
+            </p>
+
+        </section>
+
+
+        <!-- ================= CAMERA ================= -->
+
+        <section class="practice-area">
+
+            <div class="camera-card">
+
+                <div class="camera-header">
+
+                    <div>
+                        <h2>Live Camera</h2>
+                        <p>Position your hand inside the camera.</p>
+                    </div>
+
+                    <div id="cameraIndicator" class="camera-indicator">
+                        <span></span>
+                        Camera Off
+                    </div>
+
+                </div>
+
+
+                <div class="video-wrapper">
+
+                    <video
+                        id="camera"
+                        autoplay
+                        playsinline
+                        muted>
+                    </video>
+
+                    <div id="cameraPlaceholder" class="camera-placeholder">
+
+                        <div class="camera-icon">
+                            📷
+                        </div>
+
+                        <h3>Camera Ready</h3>
+
+                        <p>
+                            Click the button below to start your camera.
+                        </p>
+
+                    </div>
+
+                    <div class="camera-corners"></div>
+
+                </div>
+
+
+                <div id="status" class="status-message">
+                    Camera is currently off.
+                </div>
+
+
+                <div class="camera-controls">
+
+                    <button
+                        id="startCamera"
+                        class="primary-btn">
+
+                        <span>▶</span>
+                        Start Camera
+
+                    </button>
+
+                    <button
+                        id="stopCamera"
+                        class="secondary-btn"
+                        disabled>
+
+                        <span>■</span>
+                        Stop Camera
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= PRACTICE INFO ================= -->
+
+            <aside class="practice-info">
+
+                <div class="info-card">
+
+                    <div class="info-icon">✋</div>
+
+                    <h3>Show Your Hand</h3>
+
+                    <p>
+                        Keep your hand clearly visible inside
+                        the camera frame.
+                    </p>
+
+                </div>
+
+
+                <div class="info-card">
+
+                    <div class="info-icon">🎯</div>
+
+                    <h3>Stay Centered</h3>
+
+                    <p>
+                        Position your hand near the center
+                        of the camera for better detection.
+                    </p>
+
+                </div>
+
+
+                <div class="info-card">
+
+                    <div class="info-icon">💡</div>
+
+                    <h3>Good Lighting</h3>
+
+                    <p>
+                        Practice somewhere with enough light
+                        so your hand is easy to see.
+                    </p>
+
+                </div>
+
+            </aside>
+
+        </section>
+
+
+        <!-- ================= NEXT STEP ================= -->
+
+        <section class="next-section">
+
+            <div>
+
+                <span class="small-label">
+                    KEEP GOING
+                </span>
+
+                <h2>
+                    Ready to learn more?
+                </h2>
+
+                <p>
+                    Explore lessons and learn new signs before
+                    coming back to practice.
+                </p>
+
+            </div>
+
+            <a href="Learn.html" class="learn-btn">
+                Go to Learn
+                <span>→</span>
+            </a>
+
+        </section>
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <div class="footer-logo">
+            <span>✦</span>
+            SignLearn
         </div>
 
-    </div>
+        <p>
+            Learn. Practice. Improve.
+        </p>
+
+    </footer>
 
 
-    <!-- BUTTONS -->
-
-    <div class="controls">
-
-        <button id="startCamera">
-            📷 Start Camera
-        </button>
-
-        <button id="stopCamera" disabled>
-            ⛔ Stop Camera
-        </button>
-
-    </div>
-
-
-    <!-- STATUS -->
-
-    <p id="status">
-        Camera is currently off.
-    </p>
-
-
-    <!-- RESULT -->
-
-    <section class="result">
-
-        <h2>🧠 Recognition Result</h2>
-
-        <div id="signName">
-            Waiting...
-        </div>
-
-        <div id="confidence">
-            Press Start Camera to begin.
-        </div>
-
-    </section>
-
-
-    <!-- A-Z GUIDE -->
-
-    <section class="guide">
-
-        <h2>🔤 A–Z Sign Language</h2>
-
-        <div class="letters">
-
-            <div class="letter">A</div>
-            <div class="letter">B</div>
-            <div class="letter">C</div>
-            <div class="letter">D</div>
-            <div class="letter">E</div>
-            <div class="letter">F</div>
-            <div class="letter">G</div>
-            <div class="letter">H</div>
-            <div class="letter">I</div>
-            <div class="letter">J</div>
-            <div class="letter">K</div>
-            <div class="letter">L</div>
-            <div class="letter">M</div>
-            <div class="letter">N</div>
-            <div class="letter">O</div>
-            <div class="letter">P</div>
-            <div class="letter">Q</div>
-            <div class="letter">R</div>
-            <div class="letter">S</div>
-            <div class="letter">T</div>
-            <div class="letter">U</div>
-            <div class="letter">V</div>
-            <div class="letter">W</div>
-            <div class="letter">X</div>
-            <div class="letter">Y</div>
-            <div class="letter">Z</div>
-
-        </div>
-
-    </section>
-
-</main>
-
-
-<!-- MediaPipe Hands -->
-
-<script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
-
-
-<!-- YOUR JAVASCRIPT -->
-
-<script src="practice.js"></script>
+    <script src="practice.js"></script>
 
 </body>
 </html>
