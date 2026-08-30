@@ -1,53 +1,99 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
     <title>SignLearn | AI Practice</title>
 
+    <!-- YOUR EXISTING WEBSITE CSS -->
     <link rel="stylesheet" href="style.css">
+
+    <!-- NEW PRACTICE PAGE CSS -->
+    <link rel="stylesheet" href="practice.css">
+
+    <!-- MediaPipe Hands -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
+
 </head>
+
 
 <body>
 
-    <!-- HEADER -->
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+
     <header class="top-header">
 
         <div class="logo">
             🤟 SignLearn
         </div>
 
+
         <nav>
-            <a href="index.html">Home</a>
-            <a href="Learn.html">Learn</a>
-            <a href="practice.html" class="active">Practice</a>
-            <a href="quiz.html">Quiz</a>
-            <a href="progress.html">Progress</a>
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="Learn.html">
+                Learn
+            </a>
+
+            <a href="practice.html" class="active">
+                Practice
+            </a>
+
+            <a href="quiz.html">
+                Quiz
+            </a>
+
+            <a href="progress.html">
+                Progress
+            </a>
+
         </nav>
 
     </header>
 
 
+
     <main>
 
-        <!-- INTRO -->
-        <section class="hero">
 
-            <div class="hero-text">
+        <!-- =========================
+             HERO
+        ========================== -->
 
-                <span class="welcome">
-                    🤖 AI Practice
+        <section class="practice-hero">
+
+            <div class="practice-hero-content">
+
+                <span class="practice-badge">
+                    🤖 AI POWERED PRACTICE
                 </span>
+
 
                 <h1>
                     Practice Your Signs
                 </h1>
 
+
                 <p>
-                    Use your camera to practice sign language
-                    and get instant feedback.
+                    Show your hand to the camera and let
+                    SignLearn analyze your sign in real time.
                 </p>
 
             </div>
@@ -55,63 +101,282 @@
         </section>
 
 
-        <!-- CAMERA SECTION -->
-        <section class="ai-section">
 
-            <div class="ai-content">
+        <!-- =========================
+             CAMERA AREA
+        ========================== -->
 
-                <span class="ai-label">
-                    📷 CAMERA PRACTICE
-                </span>
+        <section class="camera-section">
 
-                <h2>
-                    Show Your Sign
-                </h2>
 
-                <p>
-                    Press Start Camera and allow camera
-                    access when your browser asks.
-                </p>
+            <div class="camera-card">
 
-                <div class="hero-buttons">
+
+                <!-- CAMERA HEADER -->
+
+                <div class="camera-header">
+
+                    <div>
+
+                        <span class="camera-label">
+                            📷 LIVE CAMERA
+                        </span>
+
+                        <h2>
+                            Show Your Hand
+                        </h2>
+
+                    </div>
+
+
+                    <div
+                        id="cameraStatus"
+                        class="camera-status offline">
+
+                        <span class="status-dot"></span>
+
+                        Offline
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- CAMERA -->
+
+                <div class="camera-wrapper">
+
+                    <video
+                        id="camera"
+                        autoplay
+                        playsinline
+                        muted>
+                    </video>
+
+
+                    <canvas id="output"></canvas>
+
+
+                    <!-- CAMERA GUIDE -->
+
+                    <div class="hand-guide">
+
+                        <div class="guide-corner top-left"></div>
+
+                        <div class="guide-corner top-right"></div>
+
+                        <div class="guide-corner bottom-left"></div>
+
+                        <div class="guide-corner bottom-right"></div>
+
+                        <p>
+                            Place your hand here
+                        </p>
+
+                    </div>
+
+
+                    <!-- PLACEHOLDER -->
+
+                    <div
+                        id="cameraPlaceholder"
+                        class="camera-placeholder">
+
+                        <div class="camera-icon">
+                            📷
+                        </div>
+
+                        <h3>
+                            Camera Ready
+                        </h3>
+
+                        <p>
+                            Press Start Camera below
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- CONTROLS -->
+
+                <div class="camera-controls">
 
                     <button
                         id="startCamera"
-                        class="primary-btn camera-button">
-                        📷 Start Camera
+                        class="camera-btn start-btn">
+
+                        <span>📷</span>
+
+                        Start Camera
+
                     </button>
+
 
                     <button
                         id="stopCamera"
-                        class="secondary-btn camera-button">
-                        ⏹️ Stop Camera
+                        class="camera-btn stop-btn"
+                        disabled>
+
+                        <span>⏹</span>
+
+                        Stop Camera
+
                     </button>
 
                 </div>
 
-                <p id="status">
+
+                <p
+                    id="status"
+                    class="camera-message">
+
                     Camera is not started.
+
                 </p>
 
             </div>
 
 
-            <!-- CAMERA SCREEN -->
-            <div class="ai-visual camera-container">
 
-                <video
-                    id="camera"
-                    autoplay
-                    playsinline
-                    muted>
-                </video>
+            <!-- =========================
+                 AI RESULT
+            ========================== -->
 
-                <div class="camera-placeholder" id="cameraPlaceholder">
-                    📷
-                    <br>
-                    Camera Preview
-                    <br>
-                    <small>Press Start Camera</small>
+            <div class="recognition-card">
+
+
+                <div class="recognition-header">
+
+                    <div>
+
+                        <span class="ai-label">
+                            🤖 AI RECOGNITION
+                        </span>
+
+                        <h2>
+                            Your Result
+                        </h2>
+
+                    </div>
+
+
+                    <div class="ai-pulse">
+                        AI
+                    </div>
+
+                </div>
+
+
+
+                <!-- BIG LETTER -->
+
+                <div
+                    id="letterDisplay"
+                    class="letter-display">
+
+                    ?
+
+                </div>
+
+
+                <h3
+                    id="signName"
+                    class="detected-title">
+
+                    Waiting...
+
+                </h3>
+
+
+                <p
+                    id="confidence"
+                    class="detected-message">
+
+                    Start the camera to begin practicing.
+
+                </p>
+
+
+
+                <!-- CONFIDENCE -->
+
+                <div class="confidence-container">
+
+                    <div class="confidence-top">
+
+                        <span>
+                            Detection confidence
+                        </span>
+
+                        <strong id="confidenceNumber">
+                            0%
+                        </strong>
+
+                    </div>
+
+
+                    <div class="confidence-bar">
+
+                        <div
+                            id="confidenceFill"
+                            class="confidence-fill">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- DETECTION INFO -->
+
+                <div class="detection-info">
+
+                    <div class="info-item">
+
+                        <span class="info-icon">
+                            ✋
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Hand
+                            </strong>
+
+                            <span id="handStatus">
+                                Not detected
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="info-item">
+
+                        <span class="info-icon">
+                            🎯
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Mode
+                            </strong>
+
+                            <span>
+                                A–Z Practice
+                            </span>
+
+                        </div>
+
+                    </div>
+
                 </div>
 
             </div>
@@ -119,31 +384,131 @@
         </section>
 
 
-        <!-- RECOGNITION RESULT -->
-        <section class="features">
 
-            <h2>
-                🤖 Recognition Result
-            </h2>
+        <!-- =========================
+             A-Z GUIDE
+        ========================== -->
 
-            <p class="section-subtitle">
-                Your hand-pattern result will appear here.
-            </p>
+        <section class="guide-section">
 
-            <div class="feature-grid">
+            <div class="section-heading">
 
-                <div class="feature-card">
+                <span class="ai-label">
+                    📚 VISUAL GUIDE
+                </span>
 
-                    <div class="feature-icon">
+
+                <h2>
+                    A–Z Sign Language
+                </h2>
+
+
+                <p>
+                    Use the guide while practicing your hand signs.
+                </p>
+
+            </div>
+
+
+            <div class="guide-card">
+
+                <img
+                    src="m.png"
+                    alt="A to Z sign language hand guide"
+                    class="sign-guide">
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             HOW IT WORKS
+        ========================== -->
+
+        <section class="how-section">
+
+            <div class="section-heading">
+
+                <span class="ai-label">
+                    ⚡ HOW IT WORKS
+                </span>
+
+
+                <h2>
+                    Three Simple Steps
+                </h2>
+
+            </div>
+
+
+            <div class="steps-grid">
+
+
+                <div class="step-card">
+
+                    <div class="step-number">
+                        01
+                    </div>
+
+                    <div class="step-icon">
+                        📷
+                    </div>
+
+                    <h3>
+                        Start Camera
+                    </h3>
+
+                    <p>
+                        Allow camera access and place your
+                        hand inside the guide.
+                    </p>
+
+                </div>
+
+
+
+                <div class="step-card">
+
+                    <div class="step-number">
+                        02
+                    </div>
+
+                    <div class="step-icon">
                         ✋
                     </div>
 
-                    <h3 id="signName">
-                        Waiting...
+                    <h3>
+                        Show a Sign
                     </h3>
 
-                    <p id="confidence">
-                        Start the camera to begin practice.
+                    <p>
+                        Copy one of the hand signs from
+                        the A–Z guide.
+                    </p>
+
+                </div>
+
+
+
+                <div class="step-card">
+
+                    <div class="step-number">
+                        03
+                    </div>
+
+                    <div class="step-icon">
+                        🤖
+                    </div>
+
+                    <h3>
+                        Get Feedback
+                    </h3>
+
+                    <p>
+                        The system detects your hand and
+                        analyzes its landmarks.
                     </p>
 
                 </div>
@@ -152,76 +517,26 @@
 
         </section>
 
-
-        <!-- HOW IT WORKS -->
-        <section class="why-section">
-
-            <h2>
-                How AI Practice Works
-            </h2>
-
-            <div class="why-grid">
-
-                <div>
-                    <strong>📷</strong>
-
-                    <h3>
-                        1. Camera
-                    </h3>
-
-                    <p>
-                        Your camera captures your hand.
-                    </p>
-
-                </div>
-
-
-                <div>
-                    <strong>✋</strong>
-
-                    <h3>
-                        2. Hand Detection
-                    </h3>
-
-                    <p>
-                        The system detects your hand
-                        and its position.
-                    </p>
-
-                </div>
-
-
-                <div>
-                    <strong>🤖</strong>
-
-                    <h3>
-                        3. Pattern Recognition
-                    </h3>
-
-                    <p>
-                        The hand pattern can be analyzed
-                        to provide practice feedback.
-                    </p>
-
-                </div>
-
-            </div>
-
-        </section>
 
     </main>
 
 
-    <!-- FOOTER -->
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
     <footer>
 
         <h3>
             🤟 SignLearn
         </h3>
 
+
         <p>
             Learn • Practice • Connect
         </p>
+
 
         <p class="copyright">
             © 2026 SignLearn
@@ -230,8 +545,12 @@
     </footer>
 
 
+
+    <!-- JAVASCRIPT -->
+
     <script src="practice.js"></script>
 
 </body>
 
 </html>
+```
