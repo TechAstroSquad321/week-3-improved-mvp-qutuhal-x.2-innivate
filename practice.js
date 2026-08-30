@@ -1,221 +1,115 @@
-/* =========================================
-   SIGNLEARN — CAMERA SYSTEM
-   ========================================= */
+const video = document.getElementById("camera");
+const startButton = document.getElementById("startCamera");
+const stopButton = document.getElementById("stopCamera");
+const status = document.getElementById("status");
+const placeholder = document.getElementById("cameraPlaceholder");
+const indicator = document.getElementById("cameraIndicator");
 
-const camera = document.getElementById("camera");
+let stream = null;
 
-const startButton =
-    document.getElementById("startCamera");
-
-const stopButton =
-    document.getElementById("stopCamera");
-
-const statusMessage =
-    document.getElementById("status");
-
-const placeholder =
-    document.getElementById("cameraPlaceholder");
-
-const indicator =
-    document.getElementById("cameraIndicator");
-
-const cameraCard =
-    document.querySelector(".camera-card");
-
-
-let cameraStream = null;
-
-
-/* =========================================
-   STATUS FUNCTION
-   ========================================= */
-
-function setStatus(message) {
-    if (statusMessage) {
-        statusMessage.textContent = message;
-    }
+function showStatus(message) {
+    status.textContent = message;
 }
 
-
-/* =========================================
-   START CAMERA
-   ========================================= */
-
 async function startCamera() {
+    console.log("Start Camera clicked");
 
-    if (!navigator.mediaDevices ||
-        !navigator.mediaDevices.getUserMedia) {
-
-        setStatus(
-            "Your browser does not support camera access."
-        );
-
-        return;
-    }
-
-
-    setStatus(
-        "Requesting camera permission..."
-    );
+    showStatus("Requesting camera permission...");
 
     startButton.disabled = true;
 
-
     try {
+        if (!navigator.mediaDevices) {
+            throw new Error("Camera API is not available.");
+        }
 
-        cameraStream =
-            await navigator.mediaDevices.getUserMedia({
-                video: {
-                    facingMode: "user",
-                    width: {
-                        ideal: 1280
-                    },
-                    height: {
-                        ideal: 720
-                    }
-                },
+        stream = await navigator.mediaDevices.getUserMedia({
+            video: true,
+            audio: false
+        });
 
-                audio: false
-            });
+        console.log("Camera permission granted");
+        console.log(stream);
 
+        video.srcObject = stream;
 
-        camera.srcObject = cameraStream;
-
-
-        camera.style.display = "block";
-
+        video.style.display = "block";
         placeholder.style.display = "none";
 
-
-        await camera.play();
-
+        await video.play();
 
         stopButton.disabled = false;
 
+        indicator.innerHTML = "<span></span> Camera On";
 
-        cameraCard.classList.add(
-            "camera-active"
+        showStatus(
+            "Camera is working! Put your hand in front of the camera."
         );
 
+    } catch (error) {
 
-        indicator.innerHTML =
-            "<span></span> Camera On";
-
-
-        setStatus(
-            "Camera is ready! Position your hand inside the frame."
-        );
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "Camera error:",
-            error
-        );
-
+        console.error("CAMERA ERROR:", error);
 
         startButton.disabled = false;
 
-
-        cameraCard.classList.remove(
-            "camera-active"
-        );
-
-
         if (error.name === "NotAllowedError") {
 
-            setStatus(
-                "Camera permission was blocked. Click the camera icon 🔒 in your browser's address bar and allow camera access, then try again."
+            showStatus(
+                "Camera permission was denied. Allow camera access in your browser settings, then reload this page."
             );
 
-        }
+        } else if (error.name === "NotFoundError") {
 
-        else if (error.name === "NotFoundError") {
-
-            setStatus(
-                "No camera was found on this device."
+            showStatus(
+                "No camera was found on this computer."
             );
 
-        }
+        } else if (error.name === "NotReadableError") {
 
-        else if (error.name === "NotReadableError") {
-
-            setStatus(
-                "Your camera is being used by another application. Close other camera apps and try again."
+            showStatus(
+                "The camera is already being used by another app."
             );
 
-        }
+        } else if (error.name === "SecurityError") {
 
-        else if (error.name === "SecurityError") {
-
-            setStatus(
+            showStatus(
                 "The browser blocked camera access for security reasons."
             );
 
-        }
+        } else {
 
-        else {
-
-            setStatus(
-                "Could not start the camera. Please check your browser camera permissions."
+            showStatus(
+                "Camera error: " + error.message
             );
         }
-
     }
-
 }
 
-
-/* =========================================
-   STOP CAMERA
-   ========================================= */
 
 function stopCamera() {
 
-    if (cameraStream) {
+    if (stream) {
 
-        cameraStream
-            .getTracks()
-            .forEach(track => {
-                track.stop();
-            });
+        stream.getTracks().forEach(track => {
+            track.stop();
+        });
 
-        cameraStream = null;
+        stream = null;
     }
 
+    video.srcObject = null;
 
-    camera.srcObject = null;
-
-    camera.style.display = "none";
-
+    video.style.display = "none";
     placeholder.style.display = "flex";
 
-
     startButton.disabled = false;
-
     stopButton.disabled = true;
 
+    indicator.innerHTML = "<span></span> Camera Off";
 
-    cameraCard.classList.remove(
-        "camera-active"
-    );
-
-
-    indicator.innerHTML =
-        "<span></span> Camera Off";
-
-
-    setStatus(
-        "Camera is currently off."
-    );
+    showStatus("Camera is currently off.");
 }
 
-
-/* =========================================
-   BUTTON EVENTS
-   ========================================= */
 
 startButton.addEventListener(
     "click",
@@ -224,15 +118,5 @@ startButton.addEventListener(
 
 stopButton.addEventListener(
     "click",
-    stopCamera
-);
-
-
-/* =========================================
-   PAGE CLEANUP
-   ========================================= */
-
-window.addEventListener(
-    "beforeunload",
     stopCamera
 );
