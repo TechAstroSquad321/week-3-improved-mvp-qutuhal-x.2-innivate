@@ -2,21 +2,39 @@
 document.addEventListener("DOMContentLoaded", () => {
 
     const video = document.getElementById("camera");
-    const startButton = document.getElementById("startCamera");
-    const stopButton = document.getElementById("stopCamera");
 
-    const statusText = document.getElementById("status");
-    const signName = document.getElementById("signName");
-    const confidence = document.getElementById("confidence");
+    const startButton =
+        document.getElementById("startCamera");
+
+    const stopButton =
+        document.getElementById("stopCamera");
+
+    const statusText =
+        document.getElementById("status");
+
+    const signName =
+        document.getElementById("signName");
+
+    const confidence =
+        document.getElementById("confidence");
 
     const placeholder =
         document.getElementById("cameraPlaceholder");
 
+    const canvas =
+        document.getElementById("handCanvas");
+
+    const ctx =
+        canvas.getContext("2d");
+
+
     let stream = null;
+    let recognitionRunning = false;
+    let animationFrame = null;
 
 
     // ==========================================
-    // CAMERA SUPPORT CHECK
+    // CAMERA SUPPORT
     // ==========================================
 
     function checkCameraSupport() {
@@ -25,43 +43,35 @@ document.addEventListener("DOMContentLoaded", () => {
 
             statusText.innerHTML =
                 "🔒 Camera requires HTTPS.<br>" +
-                "Open the GitHub Pages HTTPS version of your website.";
+                "Open the GitHub Pages HTTPS version.";
 
             signName.textContent =
                 "Secure connection required";
 
             confidence.textContent =
-                "Your browser will not allow camera access on an insecure page.";
+                "Camera access is blocked on insecure pages.";
+
+            statusText.className = "status error";
 
             return false;
         }
 
 
-        if (!navigator.mediaDevices) {
+        if (
+            !navigator.mediaDevices ||
+            !navigator.mediaDevices.getUserMedia
+        ) {
 
-            statusText.innerHTML =
-                "❌ Camera API unavailable.";
-
-            signName.textContent =
-                "Camera not supported";
-
-            confidence.textContent =
-                "Try opening the website in the latest Chrome or Edge.";
-
-            return false;
-        }
-
-
-        if (!navigator.mediaDevices.getUserMedia) {
-
-            statusText.innerHTML =
-                "❌ getUserMedia is unavailable.";
+            statusText.textContent =
+                "❌ Camera API is unavailable.";
 
             signName.textContent =
                 "Camera not supported";
 
             confidence.textContent =
-                "Your browser does not support camera access.";
+                "Try the latest Chrome or Edge.";
+
+            statusText.className = "status error";
 
             return false;
         }
@@ -71,294 +81,641 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
+    // ==========================================
+    // MEDIAPIPE HAND MODEL
+    // ==========================================
+
+    const hands = new Hands({
+        locateFile: (file) => {
+
+            return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
+
+        }
+    });
+
+
+    hands.setOptions({
+
+        maxNumHands: 1,
+
+        modelComplexity: 1,
+
+        minDetectionConfidence: 0.6,
+
+        minTrackingConfidence: 0.6
+
+    });
+
 
     // ==========================================
-    // START CAMERA
+    // HAND RECOGNITION
     // ==========================================
 
-    startButton.addEventListener("click", async () => {
+    hands.onResults((results) => {
 
-        console.log("START CAMERA BUTTON CLICKED");
-
-        startButton.disabled = true;
-
-        statusText.textContent =
-            "📷 Checking camera access...";
+        if (!recognitionRunning) {
+            return;
+        }
 
 
-        // Check browser support
-        if (!checkCameraSupport()) {
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
 
-            startButton.disabled = false;
+
+        ctx.clearRect(
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
+
+
+        // No hand
+        if (
+            !results.multiHandLandmarks ||
+            results.multiHandLandmarks.length === 0
+        ) {
+
+            signName.textContent =
+                "No hand detected";
+
+            confidence.textContent =
+                "Show your hand clearly to the camera.";
 
             return;
         }
 
 
-        try {
-
-            statusText.textContent =
-                "📷 Asking for camera permission...";
+        const landmarks =
+            results.multiHandLandmarks[0];
 
 
-            /*
-             * IMPORTANT:
-             * This request is made directly from
-             * the button click.
-             */
-
-            stream =
-                await navigator.mediaDevices.getUserMedia({
-
-                    video: {
-                        width: {
-                            ideal: 1280
-                        },
-
-                        height: {
-                            ideal: 720
-                        },
-
-                        facingMode: "user"
-                    },
-
-                    audio: false
-
-                });
-
-
-            console.log(
-                "CAMERA STREAM:",
-                stream
-            );
-
-
-            // Put stream into video
-            video.srcObject = stream;
-
-
-            // Make video visible
-            video.style.display = "block";
-
-
-            await video.play();
-
-
-            // Hide placeholder
-            if (placeholder) {
-
-                placeholder.style.display =
-                    "none";
-
+        // Draw hand landmarks
+        drawConnectors(
+            ctx,
+            landmarks,
+            HAND_CONNECTIONS,
+            {
+                color: "#00ff88",
+                lineWidth: 3
             }
+        );
 
 
-            // Buttons
-            startButton.disabled = true;
-
-            stopButton.disabled = false;
-
-
-            // Status
-            statusText.textContent =
-                "✅ Camera is working!";
-
-
-            signName.textContent =
-                "Hand detection ready ✋";
-
-
-            confidence.textContent =
-                "Show your hand clearly to the camera.";
-
-
-            console.log(
-                "CAMERA STARTED SUCCESSFULLY"
-            );
-
-        }
-
-
-        catch (error) {
-
-            console.error(
-                "CAMERA ERROR:",
-                error.name,
-                error.message
-            );
-
-
-            startButton.disabled = false;
-
-
-            // ==================================
-            // DIFFERENT CAMERA ERRORS
-            // ==================================
-
-            if (
-                error.name === "NotAllowedError"
-            ) {
-
-                statusText.innerHTML =
-                    "🚫 Camera permission is blocked.<br>" +
-                    "Click the 🔒 icon beside the website address and set Camera to Allow.";
-
-                signName.textContent =
-                    "Camera permission blocked";
-
-                confidence.textContent =
-                    "Then refresh this page and press Start Camera again.";
-
+        drawLandmarks(
+            ctx,
+            landmarks,
+            {
+                color: "#ffffff",
+                lineWidth: 1,
+                radius: 4
             }
+        );
 
 
-            else if (
-                error.name === "NotFoundError"
-            ) {
-
-                statusText.textContent =
-                    "❌ No camera was found.";
-
-                signName.textContent =
-                    "Camera not found";
-
-                confidence.textContent =
-                    "Check that your computer has a working camera.";
-
-            }
+        // Recognize gesture
+        const result =
+            recognizeGesture(landmarks);
 
 
-            else if (
-                error.name === "NotReadableError"
-            ) {
+        signName.textContent =
+            result.name;
 
-                statusText.textContent =
-                    "❌ Camera is being used by another application.";
-
-                signName.textContent =
-                    "Camera busy";
-
-                confidence.textContent =
-                    "Close apps that may currently be using your camera.";
-
-            }
-
-
-            else if (
-                error.name === "SecurityError"
-            ) {
-
-                statusText.textContent =
-                    "🔒 Browser security blocked the camera.";
-
-                signName.textContent =
-                    "Security restriction";
-
-                confidence.textContent =
-                    "Make sure you are using the HTTPS GitHub Pages address.";
-
-            }
-
-
-            else if (
-                error.name === "TypeError"
-            ) {
-
-                statusText.textContent =
-                    "❌ Camera API unavailable.";
-
-                signName.textContent =
-                    "Invalid camera environment";
-
-                confidence.textContent =
-                    "Make sure the page is opened through HTTPS.";
-
-            }
-
-
-            else {
-
-                statusText.textContent =
-                    "❌ Camera error: " +
-                    error.name;
-
-                signName.textContent =
-                    "Camera unavailable";
-
-                confidence.textContent =
-                    error.message ||
-                    "Unknown camera error.";
-
-            }
-
-        }
-
+        confidence.textContent =
+            `Confidence: ${result.confidence}%`;
     });
 
+
+    // ==========================================
+    // BASIC GESTURE RECOGNITION
+    // ==========================================
+
+    function distance(a, b) {
+
+        return Math.sqrt(
+            Math.pow(a.x - b.x, 2) +
+            Math.pow(a.y - b.y, 2)
+        );
+    }
+
+
+    function recognizeGesture(points) {
+
+        /*
+         * MediaPipe landmarks:
+         *
+         * Thumb:
+         * 4 = tip
+         *
+         * Index:
+         * 8 = tip
+         * 6 = middle
+         *
+         * Middle:
+         * 12 = tip
+         * 10 = middle
+         *
+         * Ring:
+         * 16 = tip
+         * 14 = middle
+         *
+         * Pinky:
+         * 20 = tip
+         * 18 = middle
+         */
+
+
+        const indexOpen =
+            points[8].y < points[6].y;
+
+        const middleOpen =
+            points[12].y < points[10].y;
+
+        const ringOpen =
+            points[16].y < points[14].y;
+
+        const pinkyOpen =
+            points[20].y < points[18].y;
+
+
+        const openCount = [
+            indexOpen,
+            middleOpen,
+            ringOpen,
+            pinkyOpen
+        ].filter(Boolean).length;
+
+
+        // ======================================
+        // OPEN HAND
+        // ======================================
+
+        if (openCount >= 4) {
+
+            return {
+                name: "✋ Open Hand",
+                confidence: 96
+            };
+        }
+
+
+        // ======================================
+        // PEACE SIGN
+        // ======================================
+
+        if (
+            indexOpen &&
+            middleOpen &&
+            !ringOpen &&
+            !pinkyOpen
+        ) {
+
+            return {
+                name: "✌️ Peace",
+                confidence: 94
+            };
+        }
+
+
+        // ======================================
+        // FIST
+        // ======================================
+
+        if (openCount === 0) {
+
+            return {
+                name: "✊ Fist",
+                confidence: 92
+            };
+        }
+
+
+        // ======================================
+        // ONE FINGER
+        // ======================================
+
+        if (
+            indexOpen &&
+            !middleOpen &&
+            !ringOpen &&
+            !pinkyOpen
+        ) {
+
+            return {
+                name: "☝️ One",
+                confidence: 90
+            };
+        }
+
+
+        // ======================================
+        // UNKNOWN
+        // ======================================
+
+        return {
+            name: "🤔 Gesture not recognized",
+            confidence: 60
+        };
+    }
+
+
+    // ==========================================
+    // RECOGNITION LOOP
+    // ==========================================
+
+    async function recognitionLoop() {
+
+        if (!recognitionRunning) {
+            return;
+        }
+
+
+        if (video.readyState >= 2) {
+
+            try {
+
+                await hands.send({
+                    image: video
+                });
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Recognition error:",
+                    error
+                );
+            }
+        }
+
+
+        animationFrame =
+            requestAnimationFrame(
+                recognitionLoop
+            );
+    }
+
+
+    // ==========================================
+    // START CAMERA
+    // ==========================================
+
+    startButton.addEventListener(
+        "click",
+        async () => {
+
+            console.log(
+                "START CAMERA BUTTON CLICKED"
+            );
+
+
+            startButton.disabled = true;
+
+
+            statusText.textContent =
+                "📷 Checking camera access...";
+
+            statusText.className =
+                "status";
+
+
+            if (!checkCameraSupport()) {
+
+                startButton.disabled = false;
+
+                return;
+            }
+
+
+            try {
+
+                statusText.textContent =
+                    "📷 Asking for camera permission...";
+
+
+                /*
+                 * IMPORTANT:
+                 *
+                 * getUserMedia is called directly
+                 * because the user clicked the button.
+                 */
+
+                stream =
+                    await navigator.mediaDevices.getUserMedia({
+
+                        video: {
+
+                            width: {
+                                ideal: 1280
+                            },
+
+                            height: {
+                                ideal: 720
+                            },
+
+                            facingMode: "user"
+
+                        },
+
+                        audio: false
+
+                    });
+
+
+                console.log(
+                    "CAMERA STREAM:",
+                    stream
+                );
+
+
+                // Put camera stream into video
+
+                video.srcObject =
+                    stream;
+
+
+                video.style.display =
+                    "block";
+
+
+                await video.play();
+
+
+                // Hide placeholder
+
+                if (placeholder) {
+
+                    placeholder.classList.add(
+                        "hidden"
+                    );
+                }
+
+
+                // Buttons
+
+                startButton.disabled =
+                    true;
+
+                stopButton.disabled =
+                    false;
+
+
+                // Start recognition
+
+                recognitionRunning =
+                    true;
+
+
+                signName.textContent =
+                    "Loading hand recognition...";
+
+
+                confidence.textContent =
+                    "Please wait...";
+
+
+                statusText.textContent =
+                    "🧠 Camera started. Loading recognition...";
+
+
+                await new Promise(
+                    resolve =>
+                        setTimeout(resolve, 500)
+                );
+
+
+                recognitionLoop();
+
+
+                statusText.textContent =
+                    "✅ Camera + recognition working!";
+
+                statusText.className =
+                    "status success";
+
+
+                signName.textContent =
+                    "Show your hand ✋";
+
+                confidence.textContent =
+                    "Recognition is ready.";
+
+
+                console.log(
+                    "CAMERA AND RECOGNITION STARTED"
+                );
+
+            }
+
+
+            catch (error) {
+
+                console.error(
+                    "CAMERA ERROR:",
+                    error.name,
+                    error.message
+                );
+
+
+                startButton.disabled =
+                    false;
+
+                stopButton.disabled =
+                    true;
+
+
+                if (
+                    error.name ===
+                    "NotAllowedError"
+                ) {
+
+                    statusText.innerHTML =
+                        "🚫 Camera permission is blocked.<br>" +
+                        "Click the 🔒 icon beside the website address and set Camera to Allow.";
+
+                    signName.textContent =
+                        "Camera permission blocked";
+
+                    confidence.textContent =
+                        "Then refresh the page and press Start Camera again.";
+
+                }
+
+
+                else if (
+                    error.name ===
+                    "NotFoundError"
+                ) {
+
+                    statusText.textContent =
+                        "❌ No camera was found.";
+
+                    signName.textContent =
+                        "Camera not found";
+
+                    confidence.textContent =
+                        "Check that your computer has a working camera.";
+
+                }
+
+
+                else if (
+                    error.name ===
+                    "NotReadableError"
+                ) {
+
+                    statusText.textContent =
+                        "❌ Camera is being used by another application.";
+
+                    signName.textContent =
+                        "Camera busy";
+
+                    confidence.textContent =
+                        "Close other apps using the camera.";
+
+                }
+
+
+                else if (
+                    error.name ===
+                    "SecurityError"
+                ) {
+
+                    statusText.textContent =
+                        "🔒 Browser security blocked the camera.";
+
+                    signName.textContent =
+                        "Security restriction";
+
+                    confidence.textContent =
+                        "Make sure you are using your HTTPS GitHub Pages URL.";
+
+                }
+
+
+                else {
+
+                    statusText.textContent =
+                        "❌ Camera error: " +
+                        error.name;
+
+                    signName.textContent =
+                        "Camera unavailable";
+
+                    confidence.textContent =
+                        error.message ||
+                        "Unknown camera error.";
+
+                }
+
+
+                statusText.className =
+                    "status error";
+            }
+
+        }
+    );
 
 
     // ==========================================
     // STOP CAMERA
     // ==========================================
 
-    stopButton.addEventListener("click", () => {
-
-        stopCamera();
-
-    });
-
+    stopButton.addEventListener(
+        "click",
+        stopCamera
+    );
 
 
     function stopCamera() {
+
+        console.log(
+            "STOP CAMERA"
+        );
+
+
+        recognitionRunning =
+            false;
+
+
+        if (animationFrame) {
+
+            cancelAnimationFrame(
+                animationFrame
+            );
+
+            animationFrame =
+                null;
+        }
+
 
         if (stream) {
 
             stream
                 .getTracks()
-                .forEach(track => track.stop());
+                .forEach(track => {
+                    track.stop();
+                });
 
             stream = null;
         }
 
 
-        video.srcObject = null;
+        video.srcObject =
+            null;
+
+
+        ctx.clearRect(
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
 
 
         if (placeholder) {
 
-            placeholder.style.display =
-                "flex";
+            placeholder.classList.remove(
+                "hidden"
+            );
 
+            placeholder.innerHTML =
+                "Camera stopped. Click <b>&nbsp;Start Camera&nbsp;</b> to start again.";
         }
 
 
-        startButton.disabled = false;
+        startButton.disabled =
+            false;
 
-        stopButton.disabled = true;
+        stopButton.disabled =
+            true;
 
 
         statusText.textContent =
             "Camera is stopped.";
 
+        statusText.className =
+            "status";
+
 
         signName.textContent =
             "Waiting...";
 
-
         confidence.textContent =
             "Press Start Camera to practice.";
-
     }
-
 
 
     // ==========================================
     // INITIAL STATE
     // ==========================================
 
-    stopButton.disabled = true;
+    stopButton.disabled =
+        true;
 
-    video.style.display = "block";
+    video.style.display =
+        "block";
 
 
     console.log(
