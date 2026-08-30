@@ -1,253 +1,573 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Practice | SignLearn</title>
+    <title>Camera Recognition</title>
 
-    <link rel="stylesheet" href="practice.css">
+    <!-- TensorFlow.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0"></script>
+
+    <!-- COCO-SSD Object Detection -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #cbd5e1;
+            margin-bottom: 25px;
+        }
+
+        .camera-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: auto;
+            background: #020617;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 2px solid #334155;
+            aspect-ratio: 16 / 9;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+
+        canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .placeholder {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .camera-icon {
+            font-size: 60px;
+            margin-bottom: 15px;
+        }
+
+        .placeholder h2 {
+            margin-bottom: 10px;
+        }
+
+        .placeholder p {
+            color: #94a3b8;
+        }
+
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            border: none;
+            padding: 14px 25px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            background: #2563eb;
+            color: white;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            background: #1d4ed8;
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        #stopButton {
+            background: #dc2626;
+        }
+
+        #stopButton:hover {
+            background: #b91c1c;
+        }
+
+        .status {
+            margin-top: 20px;
+            padding: 12px 18px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.08);
+            color: #cbd5e1;
+        }
+
+        .recognition {
+            margin-top: 15px;
+            min-height: 50px;
+            padding: 15px;
+            border-radius: 12px;
+            background: rgba(37, 99, 235, 0.15);
+            border: 1px solid rgba(96, 165, 250, 0.3);
+        }
+
+        .recognition strong {
+            color: #60a5fa;
+        }
+    </style>
 </head>
 
 <body>
 
-    <!-- ================= NAVBAR ================= -->
+<div class="container">
 
-    <header class="navbar">
+    <h1>📷 Camera Recognition</h1>
 
-        <a href="index.html" class="logo">
-            <span class="logo-icon">✦</span>
-            <span>SignLearn</span>
-        </a>
+    <p class="subtitle">
+        Start your camera and let AI recognize objects.
+    </p>
 
-        <nav class="nav-links">
+    <div class="camera-wrapper">
 
-            <a href="index.html">Home</a>
+        <video
+            id="camera"
+            autoplay
+            playsinline
+            muted>
+        </video>
 
-            <a href="practice.html" class="active">
-                Practice
-            </a>
+        <canvas id="canvas"></canvas>
 
-            <a href="Learn.html">
-                Learn
-            </a>
+        <div id="cameraPlaceholder" class="placeholder">
 
-            <a href="progress.html">
-                Progress
-            </a>
+            <div class="camera-icon">📷</div>
 
-            <a href="quiz.html">
-                Quiz
-            </a>
-
-        </nav>
-
-    </header>
-
-
-    <!-- ================= MAIN ================= -->
-
-    <main>
-
-        <section class="hero">
-
-            <div class="badge">
-                <span class="status-dot"></span>
-                CAMERA PRACTICE
-            </div>
-
-            <h1>
-                Practice Your
-                <span>Signs</span>
-            </h1>
+            <h2>Camera Ready</h2>
 
             <p>
-                Turn on your camera and practice your hand signs
-                in real time. Get comfortable, improve your accuracy,
-                and keep learning.
+                Click "Start Camera" to begin recognition.
             </p>
 
-        </section>
-
-
-        <!-- ================= CAMERA ================= -->
-
-        <section class="practice-area">
-
-            <div class="camera-card">
-
-                <div class="camera-header">
-
-                    <div>
-                        <h2>Live Camera</h2>
-                        <p>Position your hand inside the camera.</p>
-                    </div>
-
-                    <div id="cameraIndicator" class="camera-indicator">
-                        <span></span>
-                        Camera Off
-                    </div>
-
-                </div>
-
-
-                <div class="video-wrapper">
-
-                    <video
-                        id="camera"
-                        autoplay
-                        playsinline
-                        muted>
-                    </video>
-
-                    <div id="cameraPlaceholder" class="camera-placeholder">
-
-                        <div class="camera-icon">
-                            📷
-                        </div>
-
-                        <h3>Camera Ready</h3>
-
-                        <p>
-                            Click the button below to start your camera.
-                        </p>
-
-                    </div>
-
-                    <div class="camera-corners"></div>
-
-                </div>
-
-
-                <div id="status" class="status-message">
-                    Camera is currently off.
-                </div>
-
-
-                <div class="camera-controls">
-
-                    <button
-                        id="startCamera"
-                        class="primary-btn">
-
-                        <span>▶</span>
-                        Start Camera
-
-                    </button>
-
-                    <button
-                        id="stopCamera"
-                        class="secondary-btn"
-                        disabled>
-
-                        <span>■</span>
-                        Stop Camera
-
-                    </button>
-
-                </div>
-
-            </div>
-
-
-            <!-- ================= PRACTICE INFO ================= -->
-
-            <aside class="practice-info">
-
-                <div class="info-card">
-
-                    <div class="info-icon">✋</div>
-
-                    <h3>Show Your Hand</h3>
-
-                    <p>
-                        Keep your hand clearly visible inside
-                        the camera frame.
-                    </p>
-
-                </div>
-
-
-                <div class="info-card">
-
-                    <div class="info-icon">🎯</div>
-
-                    <h3>Stay Centered</h3>
-
-                    <p>
-                        Position your hand near the center
-                        of the camera for better detection.
-                    </p>
-
-                </div>
-
-
-                <div class="info-card">
-
-                    <div class="info-icon">💡</div>
-
-                    <h3>Good Lighting</h3>
-
-                    <p>
-                        Practice somewhere with enough light
-                        so your hand is easy to see.
-                    </p>
-
-                </div>
-
-            </aside>
-
-        </section>
-
-
-        <!-- ================= NEXT STEP ================= -->
-
-        <section class="next-section">
-
-            <div>
-
-                <span class="small-label">
-                    KEEP GOING
-                </span>
-
-                <h2>
-                    Ready to learn more?
-                </h2>
-
-                <p>
-                    Explore lessons and learn new signs before
-                    coming back to practice.
-                </p>
-
-            </div>
-
-            <a href="Learn.html" class="learn-btn">
-                Go to Learn
-                <span>→</span>
-            </a>
-
-        </section>
-
-    </main>
-
-
-    <!-- ================= FOOTER ================= -->
-
-    <footer>
-
-        <div class="footer-logo">
-            <span>✦</span>
-            SignLearn
         </div>
 
-        <p>
-            Learn. Practice. Improve.
-        </p>
+    </div>
 
-    </footer>
+    <div class="controls">
 
+        <button id="startButton">
+            🎥 Start Camera
+        </button>
 
-    <script src="practice.js"></script>
+        <button id="stopButton" disabled>
+            ⛔ Stop Camera
+        </button>
+
+    </div>
+
+    <div id="status" class="status">
+        Loading AI model...
+    </div>
+
+    <div id="recognition" class="recognition">
+        Recognition will appear here.
+    </div>
+
+</div>
+
+<script>
+
+    const video = document.getElementById("camera");
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+
+    const startButton = document.getElementById("startButton");
+    const stopButton = document.getElementById("stopButton");
+
+    const placeholder = document.getElementById("cameraPlaceholder");
+    const status = document.getElementById("status");
+    const recognition = document.getElementById("recognition");
+
+    let stream = null;
+    let model = null;
+    let recognizing = false;
+
+    // ---------------------------------------
+    // LOAD AI MODEL
+    // ---------------------------------------
+
+    async function loadModel() {
+
+        try {
+
+            status.textContent = "🤖 Loading recognition model...";
+
+            model = await cocoSsd.load();
+
+            status.textContent =
+                "✅ AI model ready! Start the camera.";
+
+        } catch (error) {
+
+            console.error(error);
+
+            status.textContent =
+                "❌ Could not load the AI model.";
+
+        }
+
+    }
+
+    // ---------------------------------------
+    // START CAMERA
+    // ---------------------------------------
+
+    async function startCamera() {
+
+        if (!model) {
+
+            status.textContent =
+                "⏳ Please wait for the AI model to finish loading.";
+
+            return;
+
+        }
+
+        try {
+
+            status.textContent =
+                "📷 Requesting camera permission...";
+
+            stream = await navigator.mediaDevices.getUserMedia({
+
+                video: {
+                    facingMode: "environment",
+                    width: {
+                        ideal: 1280
+                    },
+                    height: {
+                        ideal: 720
+                    }
+                },
+
+                audio: false
+
+            });
+
+            video.srcObject = stream;
+
+            await video.play();
+
+            video.style.display = "block";
+
+            placeholder.style.display = "none";
+
+            startButton.disabled = true;
+            stopButton.disabled = false;
+
+            recognizing = true;
+
+            status.textContent =
+                "🟢 Camera running — looking for objects...";
+
+            resizeCanvas();
+
+            recognizeObjects();
+
+        } catch (error) {
+
+            console.error(error);
+
+            if (error.name === "NotAllowedError") {
+
+                status.textContent =
+                    "❌ Camera permission was denied. Allow camera access in your browser and try again.";
+
+            } else if (error.name === "NotFoundError") {
+
+                status.textContent =
+                    "❌ No camera was found on this device.";
+
+            } else if (error.name === "NotReadableError") {
+
+                status.textContent =
+                    "❌ Camera is being used by another application.";
+
+            } else {
+
+                status.textContent =
+                    "❌ Could not start the camera: " + error.message;
+
+            }
+
+        }
+
+    }
+
+    // ---------------------------------------
+    // STOP CAMERA
+    // ---------------------------------------
+
+    function stopCamera() {
+
+        recognizing = false;
+
+        if (stream) {
+
+            stream.getTracks().forEach(track => {
+                track.stop();
+            });
+
+            stream = null;
+
+        }
+
+        video.srcObject = null;
+
+        video.style.display = "none";
+
+        placeholder.style.display = "flex";
+
+        startButton.disabled = false;
+        stopButton.disabled = true;
+
+        ctx.clearRect(
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
+
+        recognition.innerHTML =
+            "Recognition stopped.";
+
+        status.textContent =
+            "Camera stopped.";
+
+    }
+
+    // ---------------------------------------
+    // RESIZE CANVAS
+    // ---------------------------------------
+
+    function resizeCanvas() {
+
+        if (!video.videoWidth) return;
+
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+
+    }
+
+    // ---------------------------------------
+    // OBJECT RECOGNITION
+    // ---------------------------------------
+
+    async function recognizeObjects() {
+
+        if (!recognizing) return;
+
+        if (video.readyState >= 2) {
+
+            resizeCanvas();
+
+            try {
+
+                const predictions =
+                    await model.detect(video);
+
+                ctx.clearRect(
+                    0,
+                    0,
+                    canvas.width,
+                    canvas.height
+                );
+
+                let detectedObjects = [];
+
+                predictions.forEach(prediction => {
+
+                    // Only show reasonably confident detections
+                    if (prediction.score < 0.55) {
+                        return;
+                    }
+
+                    const [
+                        x,
+                        y,
+                        width,
+                        height
+                    ] = prediction.bbox;
+
+                    // Bounding box
+                    ctx.strokeStyle = "#00ff88";
+                    ctx.lineWidth = 4;
+
+                    ctx.strokeRect(
+                        x,
+                        y,
+                        width,
+                        height
+                    );
+
+                    // Label background
+                    const label =
+                        prediction.class +
+                        " " +
+                        Math.round(
+                            prediction.score * 100
+                        ) +
+                        "%";
+
+                    ctx.font =
+                        "bold 18px Arial";
+
+                    const textWidth =
+                        ctx.measureText(label).width;
+
+                    ctx.fillStyle =
+                        "#00ff88";
+
+                    ctx.fillRect(
+                        x,
+                        Math.max(
+                            0,
+                            y - 30
+                        ),
+                        textWidth + 14,
+                        30
+                    );
+
+                    // Label text
+                    ctx.fillStyle =
+                        "#000000";
+
+                    ctx.fillText(
+                        label,
+                        x + 7,
+                        Math.max(
+                            20,
+                            y - 9
+                        )
+                    );
+
+                    detectedObjects.push(
+                        prediction.class
+                    );
+
+                });
+
+                // Remove duplicates
+                detectedObjects =
+                    [...new Set(detectedObjects)];
+
+                if (detectedObjects.length > 0) {
+
+                    recognition.innerHTML =
+                        "<strong>🔎 Detected:</strong> " +
+                        detectedObjects.join(", ");
+
+                } else {
+
+                    recognition.innerHTML =
+                        "<strong>🔎 Detected:</strong> Nothing yet...";
+
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "Recognition error:",
+                    error
+                );
+
+            }
+
+        }
+
+        // Continue recognition
+        if (recognizing) {
+
+            requestAnimationFrame(
+                recognizeObjects
+            );
+
+        }
+
+    }
+
+    // ---------------------------------------
+    // BUTTONS
+    // ---------------------------------------
+
+    startButton.addEventListener(
+        "click",
+        startCamera
+    );
+
+    stopButton.addEventListener(
+        "click",
+        stopCamera
+    );
+
+    // ---------------------------------------
+    // WINDOW RESIZE
+    // ---------------------------------------
+
+    window.addEventListener(
+        "resize",
+        resizeCanvas
+    );
+
+    // ---------------------------------------
+    // LOAD MODEL WHEN PAGE OPENS
+    // ---------------------------------------
+
+    loadModel();
+
+</script>
 
 </body>
 </html>
+```
