@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,17 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>VisionAI | Practice</title>
-
-    <!-- AI LIBRARIES -->
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
+    <title>Practice | SignLearn</title>
 
     <style>
-
-        /* =========================
-           GLOBAL
-        ========================= */
 
         * {
             margin: 0;
@@ -24,864 +15,727 @@
             box-sizing: border-box;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
-
         body {
-            font-family:
-                Inter,
-                "Segoe UI",
-                Arial,
-                sans-serif;
-
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f8f7ff;
+            color: #20213d;
             min-height: 100vh;
-
-            color: #f5f3ff;
-
-            background:
-                radial-gradient(
-                    circle at 10% 10%,
-                    rgba(139, 92, 246, 0.20),
-                    transparent 32%
-                ),
-                radial-gradient(
-                    circle at 90% 80%,
-                    rgba(168, 85, 247, 0.16),
-                    transparent 30%
-                ),
-                #08050f;
-
-            overflow-x: hidden;
         }
 
         a {
-            color: inherit;
             text-decoration: none;
+            color: inherit;
         }
 
-
         /* =========================
-           NAVIGATION
+           NAVBAR
         ========================= */
 
-        nav {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-
-            height: 76px;
-
-            padding: 0 6%;
+        .navbar {
+            height: 68px;
+            background: white;
+            border-bottom: 1px solid #e8e5f2;
 
             display: flex;
             align-items: center;
             justify-content: space-between;
 
-            background:
-                rgba(8, 5, 15, 0.78);
+            padding: 0 30px;
 
-            border-bottom:
-                1px solid rgba(167, 139, 250, 0.13);
-
-            backdrop-filter: blur(18px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
-        .logo {
+        .brand {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
 
-            font-size: 22px;
+            color: #6757df;
+            font-size: 21px;
             font-weight: 800;
-            letter-spacing: -0.7px;
         }
 
-        .logo-mark {
-            width: 36px;
-            height: 36px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            border-radius: 11px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #7c3aed,
-                    #a855f7
-                );
-
-            box-shadow:
-                0 0 25px
-                rgba(139, 92, 246, 0.35);
-        }
-
-        .logo span {
-            color: #a78bfa;
+        .brand-icon {
+            font-size: 25px;
         }
 
         .nav-links {
             display: flex;
             align-items: center;
-            gap: 30px;
+            gap: 7px;
         }
 
         .nav-links a {
-            color: #a9a1bb;
-            font-size: 14px;
-            font-weight: 500;
+            padding: 10px 15px;
+            border-radius: 20px;
 
-            transition: 0.25s;
+            color: #686681;
+
+            font-size: 13px;
+            font-weight: 600;
+
+            transition: 0.2s;
         }
 
         .nav-links a:hover {
-            color: #ffffff;
+            color: #6251db;
+            background: #f2efff;
         }
 
-        .nav-active {
-            color: #c4b5fd !important;
+        .nav-links .active {
+            background: #eee9ff;
+            color: #624fe0;
         }
-
-        .home-button {
-            padding: 10px 17px;
-
-            border:
-                1px solid
-                rgba(167, 139, 250, 0.28);
-
-            border-radius: 10px;
-
-            background:
-                rgba(139, 92, 246, 0.09);
-        }
-
 
         /* =========================
            PAGE HEADER
         ========================= */
 
         .page {
-            width: min(1180px, 92%);
+            width: min(1120px, 92%);
             margin: auto;
-            padding: 60px 0 100px;
+            padding: 55px 0 80px;
         }
 
-        .intro {
+        .page-header {
             text-align: center;
-            max-width: 720px;
-            margin: 0 auto 42px;
+            max-width: 700px;
+            margin: 0 auto 38px;
         }
 
-        .eyebrow {
+        .welcome-pill {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 7px;
 
-            padding: 8px 14px;
+            background: #eeeaff;
+            color: #6453df;
 
-            border-radius: 50px;
-
-            background:
-                rgba(139, 92, 246, 0.10);
-
-            border:
-                1px solid
-                rgba(167, 139, 250, 0.20);
-
-            color: #c4b5fd;
+            padding: 8px 15px;
+            border-radius: 30px;
 
             font-size: 12px;
             font-weight: 700;
 
-            text-transform: uppercase;
-            letter-spacing: 1px;
-
             margin-bottom: 18px;
         }
 
-        .live-dot {
-            width: 7px;
-            height: 7px;
+        .page-header h1 {
+            font-size: clamp(38px, 5vw, 58px);
+            line-height: 1.05;
+            letter-spacing: -2px;
 
-            border-radius: 50%;
-
-            background: #a855f7;
-
-            box-shadow:
-                0 0 12px
-                rgba(168, 85, 247, 0.9);
+            margin-bottom: 15px;
         }
 
-        .intro h1 {
-            font-size:
-                clamp(42px, 6vw, 68px);
-
-            line-height: 1;
-
-            letter-spacing: -3px;
-
-            margin-bottom: 18px;
+        .purple-text {
+            color: #6957e5;
         }
 
-        .gradient-text {
-            background:
-                linear-gradient(
-                    90deg,
-                    #a78bfa,
-                    #c084fc,
-                    #e879f9
-                );
-
-            -webkit-background-clip: text;
-            background-clip: text;
-
-            color: transparent;
-        }
-
-        .intro p {
-            color: #9890a9;
-            font-size: 16px;
+        .page-header p {
+            color: #777491;
             line-height: 1.7;
+            font-size: 15px;
         }
-
 
         /* =========================
-           MAIN CAMERA CARD
+           MAIN
+        ========================= */
+
+        .practice-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1.6fr) minmax(280px, 0.8fr);
+            gap: 22px;
+            align-items: start;
+        }
+
+        /* =========================
+           CAMERA CARD
         ========================= */
 
         .camera-card {
-
-            position: relative;
-
-            padding: 12px;
-
-            border-radius: 25px;
-
-            background:
-                linear-gradient(
-                    145deg,
-                    rgba(167, 139, 250, 0.17),
-                    rgba(255,255,255,0.035)
-                );
-
-            border:
-                1px solid
-                rgba(167, 139, 250, 0.18);
+            background: white;
+            border: 1px solid #e8e5f3;
+            border-radius: 22px;
+            padding: 14px;
 
             box-shadow:
-                0 35px 100px
-                rgba(0,0,0,0.45),
-                0 0 70px
-                rgba(124,58,237,0.08);
+                0 15px 45px rgba(78, 62, 150, 0.10);
         }
 
-        .camera-container {
+        .camera-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
 
+            padding: 8px 8px 14px;
+        }
+
+        .camera-title {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+
+            font-size: 15px;
+            font-weight: 800;
+        }
+
+        .camera-title-icon {
+            width: 34px;
+            height: 34px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #eeeaff;
+            border-radius: 10px;
+        }
+
+        .camera-status {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+
+            color: #8b879d;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .status-light {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #c8c4d4;
+        }
+
+        .status-light.active {
+            background: #62c98a;
+            box-shadow: 0 0 8px rgba(98, 201, 138, .5);
+        }
+
+        /* =========================
+           CAMERA BOX
+        ========================= */
+
+        .camera-box {
             position: relative;
 
             width: 100%;
+            aspect-ratio: 16 / 10;
 
-            aspect-ratio: 16 / 9;
-
-            min-height: 420px;
+            min-height: 390px;
 
             overflow: hidden;
-
-            border-radius: 18px;
+            border-radius: 16px;
 
             background:
-                radial-gradient(
-                    circle,
-                    #1b102b,
-                    #090611
+                linear-gradient(
+                    135deg,
+                    #f0edff,
+                    #faf9ff
                 );
+
+            border: 1px solid #e6e1f6;
         }
 
         video {
-
             width: 100%;
             height: 100%;
 
             object-fit: cover;
 
             display: none;
+
+            position: absolute;
+            inset: 0;
+
+            z-index: 1;
         }
 
         canvas {
-
             position: absolute;
-
             inset: 0;
 
             width: 100%;
             height: 100%;
 
             pointer-events: none;
+
+            z-index: 2;
         }
 
-
         /* =========================
-           CAMERA PLACEHOLDER
+           PLACEHOLDER
         ========================= */
 
         .camera-placeholder {
-
             position: absolute;
-
             inset: 0;
 
             display: flex;
-
             flex-direction: column;
-
-            align-items: center;
-
             justify-content: center;
+            align-items: center;
 
             text-align: center;
 
-            padding: 30px;
+            z-index: 4;
         }
 
-        .camera-icon {
+        .camera-placeholder-icon {
+            width: 78px;
+            height: 78px;
 
-            width: 86px;
-            height: 86px;
+            border-radius: 22px;
 
             display: flex;
-
             align-items: center;
             justify-content: center;
 
-            border-radius: 24px;
+            background: #e9e4ff;
+            color: #6957e5;
 
-            font-size: 38px;
+            font-size: 34px;
 
-            margin-bottom: 22px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    rgba(124,58,237,0.20),
-                    rgba(168,85,247,0.08)
-                );
-
-            border:
-                1px solid
-                rgba(167,139,250,0.22);
-
-            box-shadow:
-                0 0 45px
-                rgba(124,58,237,0.13);
+            margin-bottom: 17px;
         }
 
         .camera-placeholder h2 {
-            font-size: 24px;
-            margin-bottom: 9px;
+            font-size: 21px;
+            margin-bottom: 8px;
         }
 
         .camera-placeholder p {
-            color: #827990;
-            font-size: 14px;
+            color: #88849b;
+            font-size: 13px;
+            max-width: 320px;
+            line-height: 1.5;
         }
-
 
         /* =========================
-           CAMERA CORNERS
+           CORNERS
         ========================= */
 
-        .corner {
+        .scan-corner {
             position: absolute;
-
-            width: 30px;
-            height: 30px;
-
-            border-color: #c084fc;
+            width: 28px;
+            height: 28px;
+            border-color: #806fe8;
             border-style: solid;
+            opacity: .85;
 
-            opacity: 0.8;
+            z-index: 5;
+
+            pointer-events: none;
         }
 
-        .corner-tl {
-            top: 22px;
-            left: 22px;
-
-            border-width: 2px 0 0 2px;
+        .top-left {
+            top: 15px;
+            left: 15px;
+            border-width: 3px 0 0 3px;
         }
 
-        .corner-tr {
-            top: 22px;
-            right: 22px;
-
-            border-width: 2px 2px 0 0;
+        .top-right {
+            top: 15px;
+            right: 15px;
+            border-width: 3px 3px 0 0;
         }
 
-        .corner-bl {
-            bottom: 22px;
-            left: 22px;
-
-            border-width: 0 0 2px 2px;
+        .bottom-left {
+            bottom: 15px;
+            left: 15px;
+            border-width: 0 0 3px 3px;
         }
 
-        .corner-br {
-            bottom: 22px;
-            right: 22px;
-
-            border-width: 0 2px 2px 0;
+        .bottom-right {
+            bottom: 15px;
+            right: 15px;
+            border-width: 0 3px 3px 0;
         }
-
 
         /* =========================
            CONTROLS
         ========================= */
 
         .controls {
-
             display: flex;
-
-            justify-content: center;
-
-            gap: 12px;
-
-            margin-top: 20px;
+            gap: 10px;
+            margin-top: 14px;
         }
 
         button {
-
-            border: none;
-
-            cursor: pointer;
-
-            color: white;
-
-            font-size: 14px;
-
+            font-family: inherit;
+            font-size: 13px;
             font-weight: 700;
 
-            padding: 14px 23px;
+            border: none;
+            cursor: pointer;
 
-            border-radius: 12px;
+            padding: 13px 20px;
+            border-radius: 11px;
 
-            transition:
-                transform 0.2s,
-                box-shadow 0.2s,
-                opacity 0.2s;
+            transition: .2s;
+
+            position: relative;
+            z-index: 20;
         }
 
         #startButton {
+            flex: 1;
 
-            background:
-                linear-gradient(
-                    135deg,
-                    #7c3aed,
-                    #a855f7
-                );
+            background: #6957e5;
+            color: white;
 
             box-shadow:
-                0 10px 30px
-                rgba(124,58,237,0.30);
+                0 7px 18px
+                rgba(105, 87, 229, .25);
         }
 
         #startButton:hover {
+            background: #5947d5;
+            transform: translateY(-1px);
+        }
 
-            transform: translateY(-2px);
-
-            box-shadow:
-                0 15px 35px
-                rgba(124,58,237,0.42);
+        #startButton:active {
+            transform: scale(.98);
         }
 
         #stopButton {
+            padding-left: 25px;
+            padding-right: 25px;
 
-            background:
-                rgba(255,255,255,0.06);
-
-            border:
-                1px solid
-                rgba(255,255,255,0.10);
-
-            color: #c5bdce;
+            background: #f0eef7;
+            color: #68647a;
         }
 
         #stopButton:hover {
-
-            background:
-                rgba(255,255,255,0.09);
+            background: #e7e4ef;
         }
 
         button:disabled {
-
-            opacity: 0.4;
-
+            opacity: .45;
             cursor: not-allowed;
-
             transform: none !important;
-
-            box-shadow: none !important;
         }
-
 
         /* =========================
-           INFORMATION CARDS
+           SIDE PANELS
         ========================= */
 
-        .dashboard {
-
-            display: grid;
-
-            grid-template-columns:
-                1fr 1fr;
-
-            gap: 18px;
-
-            margin-top: 20px;
+        .side-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
 
-        .info-card {
+        .panel {
+            background: white;
 
-            padding: 22px;
+            border: 1px solid #e8e5f3;
 
-            border-radius: 17px;
+            border-radius: 19px;
 
-            background:
-                rgba(255,255,255,0.035);
+            padding: 21px;
 
-            border:
-                1px solid
-                rgba(255,255,255,0.08);
+            box-shadow:
+                0 12px 35px
+                rgba(78, 62, 150, .07);
         }
 
-        .info-label {
-
-            color: #756c81;
-
-            font-size: 11px;
-
-            text-transform: uppercase;
-
-            letter-spacing: 1.1px;
-
-            margin-bottom: 9px;
+        .panel h3 {
+            font-size: 16px;
+            margin-bottom: 6px;
         }
 
-        .info-value {
+        .panel-description {
+            color: #89859a;
+            font-size: 12px;
+            line-height: 1.6;
+            margin-bottom: 17px;
+        }
+
+        /* =========================
+           AI STATUS
+        ========================= */
+
+        .ai-status {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+
+            padding: 12px;
+
+            border-radius: 12px;
+
+            background: #f7f5ff;
+            border: 1px solid #ece8fa;
+        }
+
+        .ai-icon {
+            width: 38px;
+            height: 38px;
 
             display: flex;
-
             align-items: center;
+            justify-content: center;
 
-            gap: 8px;
+            border-radius: 10px;
 
-            color: #e9e4f2;
+            background: #e9e4ff;
 
-            font-size: 14px;
-
-            font-weight: 650;
+            font-size: 18px;
         }
 
-        .status-dot {
-
-            width: 8px;
-            height: 8px;
-
-            border-radius: 50%;
-
-            background: #8b5cf6;
+        .ai-text strong {
+            display: block;
+            font-size: 12px;
+            margin-bottom: 3px;
         }
 
+        .ai-text span {
+            color: #8b879b;
+            font-size: 11px;
+        }
 
         /* =========================
            RESULTS
         ========================= */
 
         .results {
-
-            margin-top: 20px;
-
-            padding: 25px;
-
-            border-radius: 18px;
-
-            background:
-                rgba(255,255,255,0.035);
-
-            border:
-                1px solid
-                rgba(255,255,255,0.08);
+            min-height: 120px;
         }
 
-        .results-header {
-
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: center;
-
-            margin-bottom: 17px;
-        }
-
-        .results-header h3 {
-
-            font-size: 17px;
-        }
-
-        .ai-badge {
-
-            padding: 6px 10px;
-
-            border-radius: 8px;
-
-            font-size: 10px;
-
-            font-weight: 800;
-
-            color: #c4b5fd;
-
-            background:
-                rgba(139,92,246,0.10);
-
-            border:
-                1px solid
-                rgba(139,92,246,0.18);
-        }
-
-        #recognition {
-
-            color: #81788e;
-
-            font-size: 14px;
-
+        .result-empty {
+            color: #9995a8;
+            font-size: 12px;
             line-height: 1.6;
         }
 
-        .detected {
-
+        .detected-object {
             display: flex;
-
             align-items: center;
-
             justify-content: space-between;
 
-            padding: 14px 16px;
+            padding: 11px 12px;
 
-            margin-top: 9px;
+            background: #f7f5ff;
+            border: 1px solid #ebe7f8;
 
             border-radius: 11px;
 
-            background:
-                linear-gradient(
-                    90deg,
-                    rgba(124,58,237,0.10),
-                    rgba(168,85,247,0.04)
-                );
-
-            border:
-                1px solid
-                rgba(167,139,250,0.13);
+            margin-top: 8px;
         }
 
-        .object-name {
-
+        .object-left {
             display: flex;
-
             align-items: center;
+            gap: 9px;
 
-            gap: 10px;
-
-            color: #e7e1ef;
-
-            font-weight: 600;
+            font-size: 12px;
+            font-weight: 700;
         }
 
         .object-icon {
-
-            width: 32px;
-            height: 32px;
+            width: 30px;
+            height: 30px;
 
             display: flex;
-
             align-items: center;
             justify-content: center;
 
-            border-radius: 9px;
+            background: #e9e4ff;
+            color: #6957e5;
 
-            background:
-                rgba(139,92,246,0.13);
+            border-radius: 8px;
         }
 
         .confidence {
-
-            color: #c084fc;
-
+            color: #6957e5;
+            font-size: 12px;
             font-weight: 800;
         }
 
-
         /* =========================
-           HOW TO USE
+           TIPS
         ========================= */
 
-        .how-section {
-
-            margin-top: 70px;
-
-            text-align: center;
+        .tips {
+            list-style: none;
         }
 
-        .how-section h2 {
+        .tips li {
+            display: flex;
+            gap: 9px;
 
-            font-size: 30px;
+            color: #77738a;
 
-            margin-bottom: 10px;
+            font-size: 12px;
+            line-height: 1.5;
+
+            margin-bottom: 11px;
         }
 
-        .how-section > p {
-
-            color: #81788e;
-
-            font-size: 14px;
-        }
-
-        .steps {
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(3, 1fr);
-
-            gap: 18px;
-
-            margin-top: 30px;
-        }
-
-        .step {
-
-            padding: 24px;
-
-            text-align: left;
-
-            border-radius: 16px;
-
-            background:
-                rgba(255,255,255,0.025);
-
-            border:
-                1px solid
-                rgba(255,255,255,0.07);
-        }
-
-        .step-number {
-
-            width: 36px;
-            height: 36px;
+        .tip-number {
+            min-width: 21px;
+            height: 21px;
 
             display: flex;
-
             align-items: center;
             justify-content: center;
 
+            border-radius: 7px;
+
+            background: #eeeaff;
+            color: #6957e5;
+
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        /* =========================
+           HOW IT WORKS
+        ========================= */
+
+        .how {
+            margin-top: 55px;
+        }
+
+        .how-heading {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .how-heading h2 {
+            font-size: 27px;
+            margin-bottom: 7px;
+        }
+
+        .how-heading p {
+            color: #878398;
+            font-size: 13px;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .step {
+            background: white;
+            border: 1px solid #e9e6f2;
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        .step-number {
+            width: 35px;
+            height: 35px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #eeeaff;
+            color: #6957e5;
+
             border-radius: 10px;
 
-            background:
-                rgba(139,92,246,0.13);
-
-            color: #c4b5fd;
-
+            font-size: 11px;
             font-weight: 800;
 
-            font-size: 12px;
-
-            margin-bottom: 15px;
+            margin-bottom: 13px;
         }
 
         .step h3 {
-
-            font-size: 15px;
-
-            margin-bottom: 8px;
+            font-size: 14px;
+            margin-bottom: 7px;
         }
 
         .step p {
-
-            color: #756d80;
-
-            font-size: 13px;
-
+            color: #888499;
+            font-size: 12px;
             line-height: 1.6;
         }
-
 
         /* =========================
            FOOTER
         ========================= */
 
         footer {
+            border-top: 1px solid #e8e5f1;
+            background: white;
 
-            padding: 30px 6%;
-
-            border-top:
-                1px solid
-                rgba(255,255,255,0.07);
-
-            color: #625b6b;
-
-            font-size: 12px;
+            padding: 24px 30px;
 
             text-align: center;
+
+            color: #9691a4;
+            font-size: 11px;
         }
 
-
         /* =========================
-           RESPONSIVE
+           MOBILE
         ========================= */
 
-        @media(max-width: 800px) {
+        @media (max-width: 850px) {
 
-            .nav-links {
-                gap: 12px;
-            }
-
-            .nav-links a:not(.home-button) {
-                display: none;
-            }
-
-            .camera-container {
-                min-height: 300px;
-            }
-
-            .dashboard,
-            .steps {
+            .practice-layout {
                 grid-template-columns: 1fr;
             }
 
-            .intro h1 {
-                letter-spacing: -2px;
+            .side-panel {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
             }
         }
 
-        @media(max-width: 500px) {
+        @media (max-width: 600px) {
+
+            .navbar {
+                padding: 0 15px;
+            }
+
+            .nav-links {
+                gap: 2px;
+            }
+
+            .nav-links a {
+                padding: 8px;
+                font-size: 11px;
+            }
+
+            .brand {
+                font-size: 18px;
+            }
 
             .page {
                 width: 94%;
-                padding-top: 40px;
+                padding-top: 35px;
             }
 
-            .camera-container {
-                min-height: 240px;
+            .camera-box {
+                min-height: 260px;
+            }
+
+            .side-panel {
+                grid-template-columns: 1fr;
             }
 
             .controls {
                 flex-direction: column;
             }
 
-            button {
+            #stopButton {
                 width: 100%;
             }
-
         }
 
     </style>
@@ -891,45 +745,41 @@
 <body>
 
 
-<!-- =========================
+<!-- ==================================================
      NAVIGATION
-========================= -->
+================================================== -->
 
-<nav>
+<nav class="navbar">
 
-    <!-- THIS LINKS TO YOUR EXISTING HOME PAGE -->
-    <a href="index.html" class="logo">
+    <a href="index.html" class="brand">
 
-        <div class="logo-mark">
-            ✦
-        </div>
+        <span class="brand-icon">🤟</span>
 
-        Vision<span>AI</span>
+        <span>SignLearn</span>
 
     </a>
 
 
     <div class="nav-links">
 
-        <!-- Existing home page -->
         <a href="index.html">
             Home
         </a>
 
-        <a href="#how">
-            How It Works
+        <a href="Learn.html">
+            Learn
         </a>
 
-        <a
-            href="practice.html"
-            class="nav-active">
-            Recognition
+        <a href="practice.html" class="active">
+            Practice
         </a>
 
-        <a
-            href="index.html"
-            class="home-button">
-            ← Back Home
+        <a href="quiz.html">
+            Quiz
+        </a>
+
+        <a href="progress.html">
+            Progress
         </a>
 
     </div>
@@ -937,204 +787,271 @@
 </nav>
 
 
-<!-- =========================
+<!-- ==================================================
      MAIN PAGE
-========================= -->
+================================================== -->
 
 <main class="page">
 
 
-    <!-- HEADER -->
+    <header class="page-header">
 
-    <div class="intro">
-
-        <div class="eyebrow">
-
-            <span class="live-dot"></span>
-
-            AI Recognition
-
+        <div class="welcome-pill">
+            📷 Camera Practice
         </div>
-
 
         <h1>
-
-            See it.
-            <span class="gradient-text">
-                Recognize it.
+            Practice Your
+            <span class="purple-text">
+                Signs.
             </span>
-
         </h1>
 
-
         <p>
-
-            Start your camera and let VisionAI
-            identify objects around you in real time.
-
+            Use your camera to practice visual recognition.
+            Start the camera and let SignLearn analyze
+            what it sees.
         </p>
 
-    </div>
+    </header>
 
 
-    <!-- =========================
-         CAMERA
-    ========================= -->
-
-    <div class="camera-card">
-
-        <div class="camera-container">
+    <div class="practice-layout">
 
 
-            <video
-                id="camera"
-                autoplay
-                playsinline
-                muted>
-            </video>
+        <!-- ==================================================
+             CAMERA
+        ================================================== -->
 
+        <div class="camera-card">
 
-            <canvas id="canvas"></canvas>
+            <div class="camera-top">
 
+                <div class="camera-title">
 
-            <!-- CAMERA PLACEHOLDER -->
+                    <div class="camera-title-icon">
+                        📷
+                    </div>
 
-            <div
-                id="cameraPlaceholder"
-                class="camera-placeholder">
+                    Camera Practice
 
-                <div class="camera-icon">
-                    📷
                 </div>
 
-                <h2>
-                    Camera is ready
-                </h2>
 
-                <p>
-                    Click Start Recognition to begin.
+                <div class="camera-status">
+
+                    <span
+                        id="statusLight"
+                        class="status-light">
+                    </span>
+
+                    <span id="cameraStatus">
+                        Ready
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="camera-box">
+
+
+                <video
+                    id="camera"
+                    autoplay
+                    playsinline
+                    muted>
+                </video>
+
+
+                <canvas id="canvas"></canvas>
+
+
+                <div
+                    id="cameraPlaceholder"
+                    class="camera-placeholder">
+
+                    <div class="camera-placeholder-icon">
+                        📷
+                    </div>
+
+                    <h2>
+                        Camera Ready
+                    </h2>
+
+                    <p>
+                        Click "Start Recognition" below
+                        to start your camera.
+                    </p>
+
+                </div>
+
+
+                <div class="scan-corner top-left"></div>
+                <div class="scan-corner top-right"></div>
+                <div class="scan-corner bottom-left"></div>
+                <div class="scan-corner bottom-right"></div>
+
+            </div>
+
+
+            <div class="controls">
+
+                <!-- IMPORTANT: type="button" -->
+
+                <button
+                    type="button"
+                    id="startButton">
+
+                    📷 Start Recognition
+
+                </button>
+
+
+                <button
+                    type="button"
+                    id="stopButton"
+                    disabled>
+
+                    Stop Camera
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- ==================================================
+             RIGHT SIDE
+        ================================================== -->
+
+        <div class="side-panel">
+
+
+            <div class="panel">
+
+                <h3>
+                    Recognition
+                </h3>
+
+                <p class="panel-description">
+                    SignLearn uses your camera and an
+                    AI recognition model to analyze
+                    what is visible.
                 </p>
 
+
+                <div class="ai-status">
+
+                    <div class="ai-icon">
+                        🧠
+                    </div>
+
+                    <div class="ai-text">
+
+                        <strong>
+                            Recognition Engine
+                        </strong>
+
+                        <span id="aiStatus">
+                            Waiting to start
+                        </span>
+
+                    </div>
+
+                </div>
+
             </div>
 
 
-            <!-- CAMERA CORNERS -->
+            <div class="panel results">
 
-            <div class="corner corner-tl"></div>
-            <div class="corner corner-tr"></div>
-            <div class="corner corner-bl"></div>
-            <div class="corner corner-br"></div>
+                <h3>
+                    🔎 What I See
+                </h3>
+
+                <div id="recognition">
+
+                    <p class="result-empty">
+                        Start the camera to begin recognition.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="panel">
+
+                <h3>
+                    💡 Practice Tips
+                </h3>
+
+                <p class="panel-description">
+                    These tips can make recognition
+                    more reliable.
+                </p>
+
+                <ul class="tips">
+
+                    <li>
+
+                        <span class="tip-number">
+                            1
+                        </span>
+
+                        Make sure there is enough light.
+
+                    </li>
+
+                    <li>
+
+                        <span class="tip-number">
+                            2
+                        </span>
+
+                        Keep your hand clearly visible.
+
+                    </li>
+
+                    <li>
+
+                        <span class="tip-number">
+                            3
+                        </span>
+
+                        Keep the camera steady.
+
+                    </li>
+
+                </ul>
+
+            </div>
 
         </div>
 
     </div>
 
 
-    <!-- =========================
-         CONTROLS
-    ========================= -->
-
-    <div class="controls">
-
-        <button id="startButton">
-            ✦ Start Recognition
-        </button>
-
-        <button
-            id="stopButton"
-            disabled>
-            Stop Camera
-        </button>
-
-    </div>
-
-
-    <!-- =========================
-         STATUS
-    ========================= -->
-
-    <div class="dashboard">
-
-        <div class="info-card">
-
-            <div class="info-label">
-                Camera Status
-            </div>
-
-            <div class="info-value">
-
-                <span
-                    class="status-dot"
-                    id="cameraStatusDot">
-                </span>
-
-                <span id="status">
-                    Preparing AI...
-                </span>
-
-            </div>
-
-        </div>
-
-
-        <div class="info-card">
-
-            <div class="info-label">
-                Recognition Engine
-            </div>
-
-            <div class="info-value">
-                🧠 COCO-SSD AI
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- =========================
-         RESULTS
-    ========================= -->
-
-    <div class="results">
-
-        <div class="results-header">
-
-            <h3>
-                🔎 Recognition Results
-            </h3>
-
-            <span class="ai-badge">
-                AI ACTIVE
-            </span>
-
-        </div>
-
-
-        <div id="recognition">
-
-            Start recognition to detect objects.
-
-        </div>
-
-    </div>
-
-
-    <!-- =========================
+    <!-- ==================================================
          HOW IT WORKS
-    ========================= -->
+    ================================================== -->
 
-    <section
-        id="how"
-        class="how-section">
+    <section class="how">
 
-        <h2>
-            How it works
-        </h2>
+        <div class="how-heading">
 
-        <p>
-            Recognition happens directly in your browser.
-        </p>
+            <h2>
+                How Practice Works
+            </h2>
+
+            <p>
+                Start practicing in three simple steps.
+            </p>
+
+        </div>
 
 
         <div class="steps">
@@ -1147,12 +1064,12 @@
                 </div>
 
                 <h3>
-                    Start Recognition
+                    Start Your Camera
                 </h3>
 
                 <p>
-                    Allow camera access and start
-                    the live recognition system.
+                    Click Start Recognition and allow
+                    your browser to access your camera.
                 </p>
 
             </div>
@@ -1165,12 +1082,12 @@
                 </div>
 
                 <h3>
-                    Point Your Camera
+                    Show a Sign
                 </h3>
 
                 <p>
-                    Aim your camera at an object
-                    you want the AI to recognize.
+                    Place your hand clearly in front
+                    of the camera.
                 </p>
 
             </div>
@@ -1183,12 +1100,12 @@
                 </div>
 
                 <h3>
-                    Get Results
+                    Get Recognition
                 </h3>
 
                 <p>
-                    Detected objects appear with
-                    their recognition confidence.
+                    The recognition system analyzes
+                    the camera feed and displays results.
                 </p>
 
             </div>
@@ -1201,25 +1118,39 @@
 </main>
 
 
-<!-- =========================
-     FOOTER
-========================= -->
-
 <footer>
 
-    VisionAI · AI-powered visual recognition
+    SignLearn • Learn • Practice • Quiz • Progress
 
 </footer>
 
 
+<!-- ==================================================
+     JAVASCRIPT
+================================================== -->
+
 <script>
+
+    /*
+     ====================================================
+     SIGNLEARN CAMERA SYSTEM
+     ====================================================
+
+     IMPORTANT:
+     The camera does NOT depend on the AI library.
+
+     Camera starts first.
+
+     AI is loaded separately afterwards.
+
+    */
 
 
     /* =========================
-       ELEMENTS
+       GET ELEMENTS
     ========================= */
 
-    const video =
+    const camera =
         document.getElementById("camera");
 
     const canvas =
@@ -1235,77 +1166,201 @@
         document.getElementById("stopButton");
 
     const placeholder =
-        document.getElementById("cameraPlaceholder");
+        document.getElementById(
+            "cameraPlaceholder"
+        );
 
-    const status =
-        document.getElementById("status");
+    const cameraStatus =
+        document.getElementById(
+            "cameraStatus"
+        );
+
+    const statusLight =
+        document.getElementById(
+            "statusLight"
+        );
+
+    const aiStatus =
+        document.getElementById(
+            "aiStatus"
+        );
 
     const recognition =
-        document.getElementById("recognition");
-
-    const cameraStatusDot =
         document.getElementById(
-            "cameraStatusDot"
+            "recognition"
         );
 
 
-    let model = null;
+    /* =========================
+       VARIABLES
+    ========================= */
+
     let stream = null;
+
+    let model = null;
+
     let recognizing = false;
 
+    let aiLoading = false;
 
-    /* =========================
-       LOAD AI MODEL
-    ========================= */
+    let recognitionRunning = false;
+
+
+    /* ==================================================
+       LOAD AI LIBRARIES DYNAMICALLY
+       ================================================== */
+
+    function loadScript(src) {
+
+        return new Promise(
+            (resolve, reject) => {
+
+                const script =
+                    document.createElement(
+                        "script"
+                    );
+
+                script.src = src;
+
+                script.onload =
+                    resolve;
+
+                script.onerror =
+                    reject;
+
+                document.head.appendChild(
+                    script
+                );
+
+            }
+        );
+
+    }
+
+
+    /* ==================================================
+       LOAD AI
+       ================================================== */
 
     async function loadAI() {
 
+        if (model || aiLoading) {
+            return;
+        }
+
+
+        aiLoading = true;
+
+
         try {
 
-            status.textContent =
-                "Loading AI model...";
+            aiStatus.textContent =
+                "Loading AI...";
+
+
+            /*
+             First TensorFlow
+            */
+
+            await loadScript(
+                "https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js"
+            );
+
+
+            /*
+             Then COCO-SSD
+            */
+
+            await loadScript(
+                "https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"
+            );
+
 
             model =
                 await cocoSsd.load();
 
 
-            status.textContent =
-                "AI ready — camera waiting";
+            aiStatus.textContent =
+                "AI ready";
 
 
-        } catch (error) {
+        }
 
-            console.error(error);
+        catch (error) {
 
-            status.textContent =
-                "AI could not load";
+            console.error(
+                "AI failed:",
+                error
+            );
+
+
+            aiStatus.textContent =
+                "AI unavailable";
+
+
+            /*
+             IMPORTANT:
+             Camera still works even if
+             AI fails.
+            */
+
+            recognition.innerHTML = `
+                <p class="result-empty">
+                    Camera is working, but the AI model
+                    could not load. Check your internet
+                    connection and reload the page.
+                </p>
+            `;
+
+        }
+
+        finally {
+
+            aiLoading = false;
 
         }
 
     }
 
 
-    /* =========================
-       START RECOGNITION
-    ========================= */
+    /* ==================================================
+       START CAMERA
+       ================================================== */
 
-    async function startRecognition() {
+    async function startCamera() {
 
-        if (!model) {
+        console.log(
+            "START CAMERA BUTTON CLICKED"
+        );
 
-            status.textContent =
-                "Please wait — AI is loading.";
+
+        /*
+         Browser support
+        */
+
+        if (
+            !navigator.mediaDevices ||
+            !navigator.mediaDevices.getUserMedia
+        ) {
+
+            alert(
+                "Camera access is not available in this browser. " +
+                "Make sure you are using the HTTPS GitHub Pages website."
+            );
+
+            cameraStatus.textContent =
+                "Camera unavailable";
 
             return;
 
         }
 
 
-        if (!navigator.mediaDevices ||
-            !navigator.mediaDevices.getUserMedia) {
+        /*
+         Don't start twice
+        */
 
-            status.textContent =
-                "Camera access is not supported.";
+        if (stream) {
 
             return;
 
@@ -1314,77 +1369,161 @@
 
         try {
 
-            status.textContent =
-                "Requesting camera access...";
+            cameraStatus.textContent =
+                "Requesting permission...";
 
+
+            /*
+             REQUEST CAMERA
+
+             No facingMode.
+
+             This allows Chrome to choose
+             the camera available on your PC.
+            */
 
             stream =
                 await navigator.mediaDevices
                 .getUserMedia({
 
-                    video: {
-
-                        facingMode: "environment",
-
-                        width: {
-                            ideal: 1280
-                        },
-
-                        height: {
-                            ideal: 720
-                        }
-
-                    },
+                    video: true,
 
                     audio: false
 
                 });
 
 
-            video.srcObject =
+            console.log(
+                "CAMERA STREAM RECEIVED"
+            );
+
+
+            /*
+             Put stream into video
+            */
+
+            camera.srcObject =
                 stream;
 
 
-            await video.play();
+            /*
+             Wait until video can play
+            */
+
+            await new Promise(
+                resolve => {
+
+                    if (
+                        camera.readyState >= 2
+                    ) {
+
+                        resolve();
+
+                    }
+
+                    else {
+
+                        camera.onloadedmetadata =
+                            () => {
+
+                                resolve();
+
+                            };
+
+                    }
+
+                }
+            );
 
 
-            video.style.display =
+            await camera.play();
+
+
+            /*
+             SHOW CAMERA
+            */
+
+            camera.style.display =
                 "block";
-
 
             placeholder.style.display =
                 "none";
 
 
+            /*
+             BUTTONS
+            */
+
             startButton.disabled =
                 true;
-
 
             stopButton.disabled =
                 false;
 
 
+            /*
+             STATUS
+            */
+
             recognizing =
                 true;
 
+            statusLight.classList.add(
+                "active"
+            );
 
-            status.textContent =
-                "Camera active — recognizing";
+            cameraStatus.textContent =
+                "Camera Active";
 
 
-            recognition.innerHTML =
-                "🔍 Looking for objects...";
+            recognition.innerHTML = `
+                <p class="result-empty">
+                    🔍 Camera started. Loading recognition...
+                </p>
+            `;
 
 
             resizeCanvas();
 
 
-            recognizeObjects();
+            /*
+             Load AI separately.
+            */
+
+            await loadAI();
 
 
-        } catch (error) {
+            /*
+             Start recognition if AI loaded.
+            */
 
-            console.error(error);
+            if (model) {
+
+                recognition.innerHTML = `
+                    <p class="result-empty">
+                        🔍 Looking for objects...
+                    </p>
+                `;
+
+                runRecognition();
+
+            }
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "CAMERA ERROR:",
+                error
+            );
+
+
+            /*
+             Reset stream if failed
+            */
+
+            stream = null;
 
 
             if (
@@ -1392,8 +1531,25 @@
                 "NotAllowedError"
             ) {
 
-                status.textContent =
-                    "Camera permission denied. Please allow camera access.";
+                cameraStatus.textContent =
+                    "Permission denied";
+
+
+                alert(
+                    "Camera permission was blocked.\n\n" +
+
+                    "In Chrome:\n" +
+
+                    "1. Click the 🔒 icon beside the website address.\n" +
+
+                    "2. Find Camera.\n" +
+
+                    "3. Set it to Allow.\n" +
+
+                    "4. Reload the page.\n\n" +
+
+                    "Then click Start Recognition again."
+                );
 
             }
 
@@ -1402,8 +1558,14 @@
                 "NotFoundError"
             ) {
 
-                status.textContent =
-                    "No camera was found.";
+                cameraStatus.textContent =
+                    "No camera found";
+
+
+                alert(
+                    "Chrome could not find a camera. " +
+                    "Make sure your webcam is connected."
+                );
 
             }
 
@@ -1412,15 +1574,45 @@
                 "NotReadableError"
             ) {
 
-                status.textContent =
-                    "Camera is already being used.";
+                cameraStatus.textContent =
+                    "Camera is busy";
+
+
+                alert(
+                    "The camera is already being used " +
+                    "by another application. Close apps " +
+                    "such as Zoom, Teams or another browser tab."
+                );
+
+            }
+
+            else if (
+                error.name ===
+                "SecurityError"
+            ) {
+
+                cameraStatus.textContent =
+                    "Camera blocked";
+
+
+                alert(
+                    "The browser blocked camera access. " +
+                    "Make sure you are using the HTTPS GitHub Pages URL."
+                );
 
             }
 
             else {
 
-                status.textContent =
-                    "Unable to start camera.";
+                cameraStatus.textContent =
+                    "Camera error";
+
+
+                alert(
+                    "Camera could not start.\n\n" +
+                    "Error: " +
+                    error.message
+                );
 
             }
 
@@ -1429,52 +1621,87 @@
     }
 
 
-    /* =========================
-       STOP
-    ========================= */
+    /* ==================================================
+       STOP CAMERA
+       ================================================== */
 
-    function stopRecognition() {
+    function stopCamera() {
+
+        console.log(
+            "STOP CAMERA"
+        );
+
 
         recognizing =
             false;
 
 
+        recognitionRunning =
+            false;
+
+
+        /*
+         Stop every camera track
+        */
+
         if (stream) {
 
             stream
                 .getTracks()
-                .forEach(track => {
+                .forEach(
+                    track => {
 
-                    track.stop();
+                        track.stop();
 
-                });
+                    }
+                );
 
         }
 
 
-        stream =
-            null;
+        stream = null;
 
 
-        video.srcObject =
-            null;
+        camera.srcObject = null;
 
 
-        video.style.display =
+        /*
+         Hide camera
+        */
+
+        camera.style.display =
             "none";
-
 
         placeholder.style.display =
             "flex";
 
 
+        /*
+         Buttons
+        */
+
         startButton.disabled =
             false;
-
 
         stopButton.disabled =
             true;
 
+
+        /*
+         Status
+        */
+
+        statusLight.classList.remove(
+            "active"
+        );
+
+        cameraStatus.textContent =
+            "Ready";
+
+
+        /*
+         Clear canvas
+        */
 
         ctx.clearRect(
             0,
@@ -1484,55 +1711,72 @@
         );
 
 
-        status.textContent =
-            "Camera stopped";
-
-
-        recognition.innerHTML =
-            "Start recognition to detect objects.";
+        recognition.innerHTML = `
+            <p class="result-empty">
+                Start the camera to begin recognition.
+            </p>
+        `;
 
     }
 
 
-    /* =========================
-       CANVAS
-    ========================= */
+    /* ==================================================
+       CANVAS SIZE
+       ================================================== */
 
     function resizeCanvas() {
 
-        if (!video.videoWidth)
-            return;
+        if (
+            camera.videoWidth &&
+            camera.videoHeight
+        ) {
 
+            canvas.width =
+                camera.videoWidth;
 
-        canvas.width =
-            video.videoWidth;
+            canvas.height =
+                camera.videoHeight;
 
-
-        canvas.height =
-            video.videoHeight;
+        }
 
     }
 
 
-    /* =========================
-       OBJECT RECOGNITION
-    ========================= */
+    /* ==================================================
+       RECOGNITION
+       ================================================== */
 
-    async function recognizeObjects() {
+    async function runRecognition() {
 
-        if (!recognizing)
+        if (
+            !recognizing ||
+            !model ||
+            recognitionRunning
+        ) {
+
             return;
 
+        }
 
-        if (video.readyState >= 2) {
 
-            try {
+        recognitionRunning =
+            true;
+
+
+        try {
+
+            while (
+                recognizing &&
+                stream
+            ) {
 
                 resizeCanvas();
 
 
                 const predictions =
-                    await model.detect(video);
+                    await model.detect(
+                        camera
+                    );
 
 
                 ctx.clearRect(
@@ -1549,8 +1793,10 @@
                 predictions.forEach(
                     prediction => {
 
-
-                        /* Ignore weak detections */
+                        /*
+                         Only reasonably confident
+                         detections.
+                        */
 
                         if (
                             prediction.score < 0.55
@@ -1577,10 +1823,12 @@
                             );
 
 
-                        /* BOX */
+                        /*
+                         BOX
+                        */
 
                         ctx.strokeStyle =
-                            "#c084fc";
+                            "#8b78ed";
 
                         ctx.lineWidth =
                             4;
@@ -1593,7 +1841,9 @@
                         );
 
 
-                        /* LABEL */
+                        /*
+                         LABEL
+                        */
 
                         const label =
                             prediction.class +
@@ -1603,7 +1853,7 @@
 
 
                         ctx.font =
-                            "bold 16px Arial";
+                            "bold 15px Arial";
 
 
                         const textWidth =
@@ -1613,29 +1863,29 @@
 
 
                         ctx.fillStyle =
-                            "#c084fc";
+                            "#8b78ed";
 
 
                         ctx.fillRect(
                             x,
                             Math.max(
                                 0,
-                                y - 30
+                                y - 29
                             ),
                             textWidth + 16,
-                            30
+                            29
                         );
 
 
                         ctx.fillStyle =
-                            "#180b25";
+                            "#ffffff";
 
 
                         ctx.fillText(
                             label,
                             x + 8,
                             Math.max(
-                                20,
+                                19,
                                 y - 9
                             )
                         );
@@ -1655,41 +1905,53 @@
                 );
 
 
-                /* REMOVE DUPLICATES */
+                /*
+                 UNIQUE RESULTS
+                */
 
                 const unique =
                     new Map();
 
 
-                objects.forEach(object => {
+                objects.forEach(
+                    object => {
 
-                    if (
-                        !unique.has(
-                            object.name
-                        )
-                        ||
-                        unique.get(
-                            object.name
-                        ).score <
-                        object.score
-                    ) {
+                        if (
+                            !unique.has(
+                                object.name
+                            )
+                            ||
+                            unique.get(
+                                object.name
+                            ).score <
+                            object.score
+                        ) {
 
-                        unique.set(
-                            object.name,
-                            object
-                        );
+                            unique.set(
+                                object.name,
+                                object
+                            );
+
+                        }
 
                     }
+                );
 
-                });
 
+                /*
+                 SHOW RESULTS
+                */
 
-                /* DISPLAY */
+                if (
+                    unique.size === 0
+                ) {
 
-                if (unique.size === 0) {
-
-                    recognition.innerHTML =
-                        "🔍 Scanning... no clear objects detected yet.";
+                    recognition.innerHTML = `
+                        <p class="result-empty">
+                            🔍 Scanning... show something clearly
+                            to the camera.
+                        </p>
+                    `;
 
                 }
 
@@ -1699,86 +1961,99 @@
                         "";
 
 
-                    unique.forEach(object => {
+                    unique.forEach(
+                        object => {
 
-                        const row =
-                            document.createElement(
-                                "div"
-                            );
-
-
-                        row.className =
-                            "detected";
+                            const row =
+                                document.createElement(
+                                    "div"
+                                );
 
 
-                        row.innerHTML = `
+                            row.className =
+                                "detected-object";
 
-                            <div class="object-name">
 
-                                <span
-                                    class="object-icon">
-                                    ◈
+                            row.innerHTML = `
+
+                                <div class="object-left">
+
+                                    <span class="object-icon">
+                                        ◈
+                                    </span>
+
+                                    <span>
+                                        ${object.name}
+                                    </span>
+
+                                </div>
+
+                                <span class="confidence">
+                                    ${object.score}%
                                 </span>
 
-                                ${object.name}
-
-                            </div>
-
-                            <span
-                                class="confidence">
-
-                                ${object.score}%
-
-                            </span>
-
-                        `;
+                            `;
 
 
-                        recognition.appendChild(
-                            row
-                        );
+                            recognition.appendChild(
+                                row
+                            );
 
-                    });
+                        }
+                    );
 
                 }
 
 
-            } catch (error) {
+                /*
+                 Small delay so the browser
+                 doesn't get overloaded.
+                */
 
-                console.error(
-                    "Recognition error:",
-                    error
+                await new Promise(
+                    resolve =>
+                        setTimeout(
+                            resolve,
+                            150
+                        )
                 );
 
             }
 
         }
 
+        catch (error) {
 
-        if (recognizing) {
-
-            requestAnimationFrame(
-                recognizeObjects
+            console.error(
+                "Recognition error:",
+                error
             );
+
+        }
+
+        finally {
+
+            recognitionRunning =
+                false;
 
         }
 
     }
 
 
-    /* =========================
-       EVENTS
-    ========================= */
+    /* ==================================================
+       BUTTONS
+       ================================================== */
 
     startButton.addEventListener(
         "click",
-        startRecognition
+        startCamera
     );
 
 
     stopButton.addEventListener(
         "click",
-        stopRecognition
+        stopCamera
     );
 
 
@@ -1788,14 +2063,21 @@
     );
 
 
-    /* =========================
-       START AI
-    ========================= */
+    /* ==================================================
+       PAGE START
+       ================================================== */
 
-    loadAI();
+    console.log(
+        "SignLearn Practice page loaded."
+    );
+
+    console.log(
+        "Camera button:",
+        startButton
+    );
 
 </script>
 
+
 </body>
 </html>
-```
