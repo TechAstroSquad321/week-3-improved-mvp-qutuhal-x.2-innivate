@@ -90,7 +90,7 @@
         }
 
         /* =========================
-           PAGE HEADER
+           PAGE
         ========================= */
 
         .page {
@@ -126,7 +126,6 @@
             font-size: clamp(38px, 5vw, 58px);
             line-height: 1.05;
             letter-spacing: -2px;
-
             margin-bottom: 15px;
         }
 
@@ -150,10 +149,6 @@
             gap: 22px;
             align-items: start;
         }
-
-        /* =========================
-           CAMERA CARD
-        ========================= */
 
         .camera-card {
             background: white;
@@ -217,7 +212,7 @@
         }
 
         /* =========================
-           CAMERA BOX
+           CAMERA
         ========================= */
 
         .camera-box {
@@ -266,10 +261,6 @@
 
             z-index: 2;
         }
-
-        /* =========================
-           PLACEHOLDER
-        ========================= */
 
         .camera-placeholder {
             position: absolute;
@@ -458,7 +449,7 @@
         }
 
         /* =========================
-           AI STATUS
+           AI
         ========================= */
 
         .ai-status {
@@ -596,7 +587,7 @@
         }
 
         /* =========================
-           HOW IT WORKS
+           HOW
         ========================= */
 
         .how {
@@ -661,10 +652,6 @@
             line-height: 1.6;
         }
 
-        /* =========================
-           FOOTER
-        ========================= */
-
         footer {
             border-top: 1px solid #e8e5f1;
             background: white;
@@ -676,10 +663,6 @@
             color: #9691a4;
             font-size: 11px;
         }
-
-        /* =========================
-           MOBILE
-        ========================= */
 
         @media (max-width: 850px) {
 
@@ -739,67 +722,33 @@
         }
 
     </style>
-
-    <!-- AI LIBRARIES -->
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js"></script>
-
-    <script type="module">
-        import {
-            FilesetResolver,
-            HandLandmarker
-        } from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.22/+esm";
-
-        window.FilesetResolver = FilesetResolver;
-        window.HandLandmarker = HandLandmarker;
-    </script>
-
 </head>
 
 <body>
 
-<!-- ==================================================
-     NAVIGATION
-================================================== -->
-
 <nav class="navbar">
 
     <a href="index.html" class="brand">
-
         <span class="brand-icon">🤟</span>
-
         <span>SignLearn</span>
-
     </a>
 
     <div class="nav-links">
 
-        <a href="index.html">
-            Home
-        </a>
+        <a href="index.html">Home</a>
 
-        <a href="Learn.html">
-            Learn
-        </a>
+        <a href="Learn.html">Learn</a>
 
-        <a href="practice.html" class="active">
-            Practice
-        </a>
+        <a href="practice.html" class="active">Practice</a>
 
-        <a href="quiz.html">
-            Quiz
-        </a>
+        <a href="quiz.html">Quiz</a>
 
-        <a href="progress.html">
-            Progress
-        </a>
+        <a href="progress.html">Progress</a>
 
     </div>
 
 </nav>
 
-<!-- ==================================================
-     MAIN PAGE
-================================================== -->
 
 <main class="page">
 
@@ -811,24 +760,21 @@
 
         <h1>
             Practice Your
-            <span class="purple-text">
-                Signs.
-            </span>
+            <span class="purple-text">Signs.</span>
         </h1>
 
         <p>
-            Use your camera to practice visual recognition.
-            Start the camera and let SignLearn analyze
-            your hand sign.
+            Show an ASL alphabet sign to your camera
+            and SignLearn will try to recognize it.
         </p>
 
     </header>
 
+
     <div class="practice-layout">
 
-        <!-- ==================================================
-             CAMERA
-        ================================================== -->
+
+        <!-- CAMERA -->
 
         <div class="camera-card">
 
@@ -858,6 +804,7 @@
                 </div>
 
             </div>
+
 
             <div class="camera-box">
 
@@ -889,12 +836,14 @@
 
                 </div>
 
+
                 <div class="scan-corner top-left"></div>
                 <div class="scan-corner top-right"></div>
                 <div class="scan-corner bottom-left"></div>
                 <div class="scan-corner bottom-right"></div>
 
             </div>
+
 
             <div class="controls">
 
@@ -919,9 +868,8 @@
 
         </div>
 
-        <!-- ==================================================
-             RIGHT SIDE
-        ================================================== -->
+
+        <!-- RIGHT SIDE -->
 
         <div class="side-panel">
 
@@ -932,9 +880,9 @@
                 </h3>
 
                 <p class="panel-description">
-                    SignLearn uses hand tracking and an
-                    ASL alphabet model to recognize
-                    static hand signs.
+                    SignLearn uses hand landmarks and
+                    an ASL alphabet model to recognize
+                    static signs.
                 </p>
 
                 <div class="ai-status">
@@ -959,6 +907,7 @@
 
             </div>
 
+
             <div class="panel results">
 
                 <h3>
@@ -975,6 +924,7 @@
 
             </div>
 
+
             <div class="panel">
 
                 <h3>
@@ -989,33 +939,18 @@
                 <ul class="tips">
 
                     <li>
-
-                        <span class="tip-number">
-                            1
-                        </span>
-
+                        <span class="tip-number">1</span>
                         Make sure there is enough light.
-
                     </li>
 
                     <li>
-
-                        <span class="tip-number">
-                            2
-                        </span>
-
+                        <span class="tip-number">2</span>
                         Keep your hand clearly visible.
-
                     </li>
 
                     <li>
-
-                        <span class="tip-number">
-                            3
-                        </span>
-
+                        <span class="tip-number">3</span>
                         Keep the camera steady.
-
                     </li>
 
                 </ul>
@@ -1026,9 +961,6 @@
 
     </div>
 
-    <!-- ==================================================
-         HOW IT WORKS
-    ================================================== -->
 
     <section class="how">
 
@@ -1043,6 +975,7 @@
             </p>
 
         </div>
+
 
         <div class="steps">
 
@@ -1063,6 +996,7 @@
 
             </div>
 
+
             <div class="step">
 
                 <div class="step-number">
@@ -1070,15 +1004,16 @@
                 </div>
 
                 <h3>
-                    Show a Sign
+                    Show an ASL Sign
                 </h3>
 
                 <p>
-                    Place your hand clearly in front
+                    Place one hand clearly in front
                     of the camera.
                 </p>
 
             </div>
+
 
             <div class="step">
 
@@ -1091,8 +1026,8 @@
                 </h3>
 
                 <p>
-                    The ASL recognition model analyzes
-                    your hand and displays the letter.
+                    The AI analyzes your hand landmarks
+                    and displays the predicted letter.
                 </p>
 
             </div>
@@ -1103,21 +1038,35 @@
 
 </main>
 
+
 <footer>
 
     SignLearn • Learn • Practice • Quiz • Progress
 
 </footer>
 
-<!-- ==================================================
-     JAVASCRIPT
-================================================== -->
+
+<!-- =====================================================
+     MEDIAPIPE HANDS
+===================================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
+
+
+<!-- =====================================================
+     TENSORFLOW.JS
+===================================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js"></script>
+
 
 <script>
 
-    /* ==================================================
-       GET ELEMENTS
-    ================================================== */
+    /* =====================================================
+       ELEMENTS
+    ===================================================== */
 
     const camera =
         document.getElementById("camera");
@@ -1150,33 +1099,35 @@
         document.getElementById("recognition");
 
 
-    /* ==================================================
+    /* =====================================================
        VARIABLES
-    ================================================== */
+
+       CAMERA CODE IS KEPT SEPARATE FROM RECOGNITION.
+    ===================================================== */
 
     let stream = null;
 
     let recognizing = false;
 
-    let aiLoading = false;
-
-    let recognitionRunning = false;
-
-    let handLandmarker = null;
+    let handModel = null;
 
     let aslModel = null;
 
+    let recognitionBusy = false;
+
     let lastPrediction = "";
 
-    let stableFrames = 0;
+    let predictionCount = 0;
 
 
-    /*
-     * Static ASL alphabet classes.
-     *
-     * J and Z are not included because they
-     * require movement.
-     */
+    /* =====================================================
+       ASL LABELS
+
+       The model supports A-Y.
+
+       J and Z are motion-based signs and are not
+       handled by this static classifier.
+    ===================================================== */
 
     const ASL_LABELS = [
         "A",
@@ -1206,135 +1157,84 @@
     ];
 
 
-    /* ==================================================
-       LOAD AI
-    ================================================== */
+    /* =====================================================
+       LOAD SCRIPT HELPER
+    ===================================================== */
 
-    async function loadAI() {
+    function loadScript(src) {
 
-        if (
-            handLandmarker ||
-            aiLoading
-        ) {
+        return new Promise((resolve, reject) => {
+
+            const script =
+                document.createElement("script");
+
+            script.src = src;
+
+            script.onload = resolve;
+
+            script.onerror = reject;
+
+            document.head.appendChild(script);
+
+        });
+
+    }
+
+
+    /* =====================================================
+       LOAD ASL MODEL
+
+       IMPORTANT:
+
+       This is NOT COCO-SSD.
+
+       COCO-SSD cannot recognize ASL letters.
+
+       This model takes MediaPipe hand landmarks.
+    ===================================================== */
+
+    async function loadASLModel() {
+
+        if (aslModel) {
             return;
         }
 
-        aiLoading = true;
-
         try {
-
-            aiStatus.textContent =
-                "Loading hand recognition...";
-
-
-            /*
-             * Wait for the MediaPipe module.
-             */
-
-            let attempts = 0;
-
-            while (
-                (
-                    !window.FilesetResolver ||
-                    !window.HandLandmarker
-                ) &&
-                attempts < 100
-            ) {
-
-                await new Promise(
-                    resolve =>
-                        setTimeout(
-                            resolve,
-                            100
-                        )
-                );
-
-                attempts++;
-
-            }
-
-
-            if (
-                !window.FilesetResolver ||
-                !window.HandLandmarker
-            ) {
-
-                throw new Error(
-                    "MediaPipe could not load."
-                );
-
-            }
-
-
-            /*
-             * Load MediaPipe vision files.
-             */
-
-            const vision =
-                await window.FilesetResolver.forVisionTasks(
-                    "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.22/wasm"
-                );
-
-
-            /*
-             * Create hand tracker.
-             */
-
-            handLandmarker =
-                await window.HandLandmarker.createFromOptions(
-                    vision,
-                    {
-                        baseOptions: {
-
-                            modelAssetPath:
-                                "https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task",
-
-                            delegate: "GPU"
-
-                        },
-
-                        runningMode: "VIDEO",
-
-                        numHands: 1,
-
-                        minHandDetectionConfidence: 0.5,
-
-                        minHandPresenceConfidence: 0.5,
-
-                        minTrackingConfidence: 0.5
-
-                    }
-                );
-
-
-            /*
-             * Load ASL classifier.
-             */
 
             aiStatus.textContent =
                 "Loading ASL model...";
 
 
+            /*
+             * Browser-ready TFJS model.
+             *
+             * The model repository provides a TFJS
+             * version trained from MediaPipe landmarks.
+             */
+
+            const modelURL =
+                "https://huggingface.co/AmimulBmeIU/asl-alphabet-classifier/resolve/main/tfjs/model.json";
+
+
             aslModel =
-                await tf.loadLayersModel(
-                    "https://huggingface.co/AmimulBmeIU/asl-alphabet-classifier/resolve/main/tfjs/model.json"
-                );
-
-
-            aiStatus.textContent =
-                "ASL recognition ready";
+                await tf.loadLayersModel(modelURL);
 
 
             console.log(
-                "ASL AI loaded successfully."
+                "ASL model loaded successfully."
             );
+
+
+            aiStatus.textContent =
+                "ASL AI ready";
+
 
         }
 
         catch (error) {
 
             console.error(
-                "ASL AI failed:",
+                "ASL model loading error:",
                 error
             );
 
@@ -1343,27 +1243,440 @@
 
             recognition.innerHTML = `
                 <p class="result-empty">
-                    Camera is working, but the ASL
-                    recognition model could not load.
-                    Check your internet connection and reload.
+                    The ASL model could not load.
+                    Check your internet connection
+                    and reload the page.
                 </p>
             `;
 
-        }
-
-        finally {
-
-            aiLoading = false;
+            throw error;
 
         }
 
     }
 
 
-    /* ==================================================
+    /* =====================================================
+       LOAD MEDIAPIPE HANDS
+    ===================================================== */
+
+    const hands =
+        new Hands({
+            locateFile: file => {
+
+                return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
+
+            }
+        });
+
+
+    hands.setOptions({
+
+        maxNumHands: 1,
+
+        modelComplexity: 1,
+
+        minDetectionConfidence: 0.6,
+
+        minTrackingConfidence: 0.6
+
+    });
+
+
+    /* =====================================================
+       HAND RESULT
+
+       MediaPipe gives us 21 hand landmarks.
+
+       Those landmarks are passed to the ASL classifier.
+    ===================================================== */
+
+    hands.onResults(results => {
+
+        if (!recognizing) {
+            return;
+        }
+
+
+        ctx.clearRect(
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
+
+
+        if (
+            !results.multiHandLandmarks ||
+            results.multiHandLandmarks.length === 0
+        ) {
+
+            recognition.innerHTML = `
+                <p class="result-empty">
+                    ✋ Show one hand clearly to the camera...
+                </p>
+            `;
+
+            return;
+        }
+
+
+        const landmarks =
+            results.multiHandLandmarks[0];
+
+
+        /*
+         * Draw hand skeleton.
+         */
+
+        drawConnectors(
+            ctx,
+            landmarks,
+            HAND_CONNECTIONS,
+            {
+                color: "#806fe8",
+                lineWidth: 3
+            }
+        );
+
+
+        drawLandmarks(
+            ctx,
+            landmarks,
+            {
+                color: "#6957e5",
+                lineWidth: 1,
+                radius: 3
+            }
+        );
+
+
+        /*
+         * Convert the 21 landmarks into
+         * x, y, z values.
+         */
+
+        const input = [];
+
+
+        landmarks.forEach(point => {
+
+            input.push(point.x);
+            input.push(point.y);
+            input.push(point.z);
+
+        });
+
+
+        recognizeASL(input);
+
+    });
+
+
+    /* =====================================================
+       NORMALIZE LANDMARKS
+
+       The model expects hand landmarks rather than
+       the complete camera image.
+    ===================================================== */
+
+    function normalizeLandmarks(values) {
+
+        const points = [];
+
+        for (
+            let i = 0;
+            i < values.length;
+            i += 3
+        ) {
+
+            points.push({
+
+                x: values[i],
+
+                y: values[i + 1],
+
+                z: values[i + 2]
+
+            });
+
+        }
+
+
+        /*
+         * Wrist becomes the origin.
+         */
+
+        const wrist =
+            points[0];
+
+
+        points.forEach(point => {
+
+            point.x -= wrist.x;
+            point.y -= wrist.y;
+            point.z -= wrist.z;
+
+        });
+
+
+        /*
+         * Find largest distance so the hand
+         * is scale independent.
+         */
+
+        let maxDistance = 0;
+
+
+        points.forEach(point => {
+
+            const distance =
+                Math.sqrt(
+                    point.x * point.x +
+                    point.y * point.y +
+                    point.z * point.z
+                );
+
+            if (distance > maxDistance) {
+                maxDistance = distance;
+            }
+
+        });
+
+
+        if (maxDistance === 0) {
+            maxDistance = 1;
+        }
+
+
+        const normalized = [];
+
+
+        points.forEach(point => {
+
+            normalized.push(
+                point.x / maxDistance
+            );
+
+            normalized.push(
+                point.y / maxDistance
+            );
+
+            normalized.push(
+                point.z / maxDistance
+            );
+
+        });
+
+
+        return normalized;
+
+    }
+
+
+    /* =====================================================
+       RECOGNIZE ASL
+    ===================================================== */
+
+    async function recognizeASL(landmarks) {
+
+        if (
+            !aslModel ||
+            recognitionBusy ||
+            !recognizing
+        ) {
+            return;
+        }
+
+
+        recognitionBusy = true;
+
+
+        try {
+
+            const normalized =
+                normalizeLandmarks(
+                    landmarks
+                );
+
+
+            const tensor =
+                tf.tensor2d(
+                    [normalized],
+                    [1, normalized.length]
+                );
+
+
+            const prediction =
+                aslModel.predict(tensor);
+
+
+            const probabilities =
+                await prediction.data();
+
+
+            tensor.dispose();
+
+
+            if (prediction.dispose) {
+                prediction.dispose();
+            }
+
+
+            /*
+             * Find highest probability.
+             */
+
+            let bestIndex = 0;
+
+            let bestScore = probabilities[0];
+
+
+            for (
+                let i = 1;
+                i < probabilities.length;
+                i++
+            ) {
+
+                if (
+                    probabilities[i] >
+                    bestScore
+                ) {
+
+                    bestScore =
+                        probabilities[i];
+
+                    bestIndex =
+                        i;
+
+                }
+
+            }
+
+
+            const letter =
+                ASL_LABELS[bestIndex];
+
+
+            const confidence =
+                Math.round(
+                    bestScore * 100
+                );
+
+
+            console.log(
+                "ASL:",
+                letter,
+                confidence + "%"
+            );
+
+
+            /*
+             * Don't show extremely uncertain
+             * predictions.
+             */
+
+            if (confidence < 55) {
+
+                recognition.innerHTML = `
+                    <p class="result-empty">
+                        ✋ Hand detected — hold your
+                        sign steady...
+                    </p>
+                `;
+
+                return;
+
+            }
+
+
+            /*
+             * Stability filter.
+
+             * The prediction needs to appear several
+             * times before we display it as a strong
+             * result.
+             */
+
+            if (
+                lastPrediction === letter
+            ) {
+
+                predictionCount++;
+
+            }
+
+            else {
+
+                lastPrediction =
+                    letter;
+
+                predictionCount =
+                    1;
+
+            }
+
+
+            if (predictionCount < 3) {
+
+                return;
+
+            }
+
+
+            recognition.innerHTML = `
+
+                <div class="detected-object">
+
+                    <div class="object-left">
+
+                        <span class="object-icon">
+                            ${letter}
+                        </span>
+
+                        <span>
+                            ASL Letter ${letter}
+                        </span>
+
+                    </div>
+
+                    <span class="confidence">
+                        ${confidence}%
+                    </span>
+
+                </div>
+
+            `;
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Recognition error:",
+                error
+            );
+
+        }
+
+        finally {
+
+            recognitionBusy =
+                false;
+
+        }
+
+    }
+
+
+    /* =====================================================
        START CAMERA
-       DO NOT CHANGE
-    ================================================== */
+
+       THIS IS THE CAMERA SECTION.
+
+       It is intentionally kept separate from the
+       recognition model.
+    ===================================================== */
 
     async function startCamera() {
 
@@ -1371,37 +1684,35 @@
             "START CAMERA BUTTON CLICKED"
         );
 
+
         if (
             !navigator.mediaDevices ||
             !navigator.mediaDevices.getUserMedia
         ) {
 
             alert(
-                "Camera access is not available in this browser. " +
-                "Make sure you are using the HTTPS GitHub Pages website."
+                "Camera access is not available. " +
+                "Make sure you are using HTTPS."
             );
 
-            cameraStatus.textContent =
-                "Camera unavailable";
-
             return;
 
         }
+
 
         if (stream) {
-
             return;
-
         }
+
 
         try {
 
             cameraStatus.textContent =
                 "Requesting permission...";
 
+
             stream =
-                await navigator.mediaDevices
-                .getUserMedia({
+                await navigator.mediaDevices.getUserMedia({
 
                     video: true,
 
@@ -1409,39 +1720,38 @@
 
                 });
 
+
             console.log(
                 "CAMERA STREAM RECEIVED"
             );
 
+
             camera.srcObject =
                 stream;
 
-            await new Promise(
-                resolve => {
 
-                    if (
-                        camera.readyState >= 2
-                    ) {
+            await new Promise(resolve => {
 
-                        resolve();
+                if (
+                    camera.readyState >= 2
+                ) {
 
-                    }
-
-                    else {
-
-                        camera.onloadedmetadata =
-                            () => {
-
-                                resolve();
-
-                            };
-
-                    }
+                    resolve();
 
                 }
-            );
+
+                else {
+
+                    camera.onloadedmetadata =
+                        () => resolve();
+
+                }
+
+            });
+
 
             await camera.play();
+
 
             camera.style.display =
                 "block";
@@ -1449,44 +1759,58 @@
             placeholder.style.display =
                 "none";
 
+
             startButton.disabled =
                 true;
 
             stopButton.disabled =
                 false;
 
+
             recognizing =
                 true;
+
 
             statusLight.classList.add(
                 "active"
             );
 
+
             cameraStatus.textContent =
                 "Camera Active";
 
+
             recognition.innerHTML = `
                 <p class="result-empty">
-                    🔍 Camera started. Loading ASL recognition...
+                    🧠 Loading ASL recognition...
                 </p>
             `;
 
+
             resizeCanvas();
 
-            await loadAI();
 
-            if (
-                handLandmarker &&
-                aslModel
-            ) {
+            /*
+             * Load the actual recognition model.
+             */
+
+            await loadASLModel();
+
+
+            if (aslModel) {
+
+                aiStatus.textContent =
+                    "ASL AI ready";
+
 
                 recognition.innerHTML = `
                     <p class="result-empty">
-                        ✋ Show an ASL sign to the camera.
+                        ✋ Show an ASL letter to the camera...
                     </p>
                 `;
 
-                runRecognition();
+
+                recognizeLoop();
 
             }
 
@@ -1499,7 +1823,23 @@
                 error
             );
 
+
+            if (stream) {
+
+                stream
+                    .getTracks()
+                    .forEach(
+                        track => track.stop()
+                    );
+
+            }
+
+
             stream = null;
+
+
+            recognizing = false;
+
 
             if (
                 error.name ===
@@ -1509,20 +1849,12 @@
                 cameraStatus.textContent =
                     "Permission denied";
 
+
                 alert(
                     "Camera permission was blocked.\n\n" +
-
-                    "In Chrome:\n" +
-
-                    "1. Click the 🔒 icon beside the website address.\n" +
-
-                    "2. Find Camera.\n" +
-
-                    "3. Set it to Allow.\n" +
-
-                    "4. Reload the page.\n\n" +
-
-                    "Then click Start Recognition again."
+                    "Click the camera/lock icon beside " +
+                    "the website address and set Camera " +
+                    "to Allow, then reload the page."
                 );
 
             }
@@ -1535,40 +1867,9 @@
                 cameraStatus.textContent =
                     "No camera found";
 
-                alert(
-                    "Chrome could not find a camera. " +
-                    "Make sure your webcam is connected."
-                );
-
-            }
-
-            else if (
-                error.name ===
-                "NotReadableError"
-            ) {
-
-                cameraStatus.textContent =
-                    "Camera is busy";
 
                 alert(
-                    "The camera is already being used " +
-                    "by another application. Close apps " +
-                    "such as Zoom, Teams or another browser tab."
-                );
-
-            }
-
-            else if (
-                error.name ===
-                "SecurityError"
-            ) {
-
-                cameraStatus.textContent =
-                    "Camera blocked";
-
-                alert(
-                    "The browser blocked camera access. " +
-                    "Make sure you are using the HTTPS GitHub Pages URL."
+                    "Chrome could not find a camera."
                 );
 
             }
@@ -1578,9 +1879,9 @@
                 cameraStatus.textContent =
                     "Camera error";
 
+
                 alert(
                     "Camera could not start.\n\n" +
-                    "Error: " +
                     error.message
                 );
 
@@ -1591,10 +1892,38 @@
     }
 
 
-    /* ==================================================
+    /* =====================================================
+       RECOGNITION LOOP
+    ===================================================== */
+
+    async function recognizeLoop() {
+
+        if (!recognizing) {
+            return;
+        }
+
+
+        if (
+            camera.readyState >= 2
+        ) {
+
+            await hands.send({
+                image: camera
+            });
+
+        }
+
+
+        requestAnimationFrame(
+            recognizeLoop
+        );
+
+    }
+
+
+    /* =====================================================
        STOP CAMERA
-       DO NOT CHANGE
-    ================================================== */
+    ===================================================== */
 
     function stopCamera() {
 
@@ -1602,48 +1931,68 @@
             "STOP CAMERA"
         );
 
+
         recognizing =
             false;
 
-        recognitionRunning =
-            false;
+
+        lastPrediction =
+            "";
+
+
+        predictionCount =
+            0;
+
 
         if (stream) {
 
             stream
                 .getTracks()
-                .forEach(
-                    track => {
+                .forEach(track => {
 
-                        track.stop();
+                    track.stop();
 
-                    }
-                );
+                });
 
         }
 
-        stream = null;
 
-        camera.srcObject = null;
+        stream =
+            null;
+
+
+        camera.srcObject =
+            null;
+
 
         camera.style.display =
             "none";
 
+
         placeholder.style.display =
             "flex";
+
 
         startButton.disabled =
             false;
 
+
         stopButton.disabled =
             true;
+
 
         statusLight.classList.remove(
             "active"
         );
 
+
         cameraStatus.textContent =
             "Ready";
+
+
+        aiStatus.textContent =
+            "Waiting to start";
+
 
         ctx.clearRect(
             0,
@@ -1651,6 +2000,7 @@
             canvas.width,
             canvas.height
         );
+
 
         recognition.innerHTML = `
             <p class="result-empty">
@@ -1661,10 +2011,9 @@
     }
 
 
-    /* ==================================================
+    /* =====================================================
        CANVAS
-       DO NOT CHANGE
-    ================================================== */
+    ===================================================== */
 
     function resizeCanvas() {
 
@@ -1684,529 +2033,9 @@
     }
 
 
-    /* ==================================================
-       DRAW HAND
-    ================================================== */
-
-    function drawHand(
-        landmarks
-    ) {
-
-        /*
-         * Hand connections.
-         */
-
-        const connections = [
-
-            [0, 1],
-            [1, 2],
-            [2, 3],
-            [3, 4],
-
-            [0, 5],
-            [5, 6],
-            [6, 7],
-            [7, 8],
-
-            [0, 9],
-            [9, 10],
-            [10, 11],
-            [11, 12],
-
-            [0, 13],
-            [13, 14],
-            [14, 15],
-            [15, 16],
-
-            [0, 17],
-            [17, 18],
-            [18, 19],
-            [19, 20]
-
-        ];
-
-
-        ctx.strokeStyle =
-            "#9a88f0";
-
-        ctx.lineWidth =
-            3;
-
-
-        connections.forEach(
-            connection => {
-
-                const a =
-                    landmarks[
-                        connection[0]
-                    ];
-
-                const b =
-                    landmarks[
-                        connection[1]
-                    ];
-
-
-                ctx.beginPath();
-
-                ctx.moveTo(
-                    a.x * canvas.width,
-                    a.y * canvas.height
-                );
-
-                ctx.lineTo(
-                    b.x * canvas.width,
-                    b.y * canvas.height
-                );
-
-                ctx.stroke();
-
-            }
-        );
-
-
-        /*
-         * Landmark points.
-         */
-
-        ctx.fillStyle =
-            "#6957e5";
-
-
-        landmarks.forEach(
-            point => {
-
-                ctx.beginPath();
-
-                ctx.arc(
-                    point.x * canvas.width,
-                    point.y * canvas.height,
-                    5,
-                    0,
-                    Math.PI * 2
-                );
-
-                ctx.fill();
-
-            }
-        );
-
-    }
-
-
-    /* ==================================================
-       PREPARE LANDMARKS
-    ================================================== */
-
-    function prepareLandmarks(
-        landmarks
-    ) {
-
-        const wrist =
-            landmarks[0];
-
-        const values = [];
-
-
-        for (
-            let i = 0;
-            i < landmarks.length;
-            i++
-        ) {
-
-            values.push(
-                landmarks[i].x -
-                wrist.x
-            );
-
-            values.push(
-                landmarks[i].y -
-                wrist.y
-            );
-
-            values.push(
-                landmarks[i].z -
-                wrist.z
-            );
-
-        }
-
-
-        /*
-         * Normalize.
-         */
-
-        let maxValue = 0;
-
-
-        values.forEach(
-            value => {
-
-                maxValue =
-                    Math.max(
-                        maxValue,
-                        Math.abs(value)
-                    );
-
-            }
-        );
-
-
-        if (
-            maxValue > 0
-        ) {
-
-            for (
-                let i = 0;
-                i < values.length;
-                i++
-            ) {
-
-                values[i] /=
-                    maxValue;
-
-            }
-
-        }
-
-
-        return tf.tensor(
-            [values],
-            [1, 63]
-        );
-
-    }
-
-
-    /* ==================================================
-       ASL RECOGNITION
-    ================================================== */
-
-    async function runRecognition() {
-
-        if (
-            !recognizing ||
-            !handLandmarker ||
-            !aslModel ||
-            recognitionRunning
-        ) {
-
-            return;
-
-        }
-
-        recognitionRunning =
-            true;
-
-
-        try {
-
-            while (
-                recognizing &&
-                stream
-            ) {
-
-                resizeCanvas();
-
-
-                /*
-                 * Detect hand.
-                 */
-
-                const results =
-                    handLandmarker.detectForVideo(
-                        camera,
-                        performance.now()
-                    );
-
-
-                ctx.clearRect(
-                    0,
-                    0,
-                    canvas.width,
-                    canvas.height
-                );
-
-
-                /*
-                 * No hand.
-                 */
-
-                if (
-                    !results.landmarks ||
-                    results.landmarks.length === 0
-                ) {
-
-                    lastPrediction =
-                        "";
-
-                    stableFrames =
-                        0;
-
-                    recognition.innerHTML = `
-                        <p class="result-empty">
-                            ✋ Show your hand clearly to the camera.
-                        </p>
-                    `;
-
-                    await new Promise(
-                        resolve =>
-                            setTimeout(
-                                resolve,
-                                100
-                            )
-                    );
-
-                    continue;
-
-                }
-
-
-                /*
-                 * Get first hand.
-                 */
-
-                const landmarks =
-                    results.landmarks[0];
-
-
-                /*
-                 * Draw hand.
-                 */
-
-                drawHand(
-                    landmarks
-                );
-
-
-                /*
-                 * Prepare AI input.
-                 */
-
-                const input =
-                    prepareLandmarks(
-                        landmarks
-                    );
-
-
-                /*
-                 * Run classifier.
-                 */
-
-                const output =
-                    aslModel.predict(
-                        input
-                    );
-
-
-                const probabilities =
-                    await output.data();
-
-
-                output.dispose();
-
-                input.dispose();
-
-
-                /*
-                 * Find strongest class.
-                 */
-
-                let bestIndex =
-                    0;
-
-
-                for (
-                    let i = 1;
-                    i < probabilities.length;
-                    i++
-                ) {
-
-                    if (
-                        probabilities[i] >
-                        probabilities[bestIndex]
-                    ) {
-
-                        bestIndex =
-                            i;
-
-                    }
-
-                }
-
-
-                const letter =
-                    ASL_LABELS[
-                        bestIndex
-                    ];
-
-
-                const confidence =
-                    Math.round(
-                        probabilities[
-                            bestIndex
-                        ] * 100
-                    );
-
-
-                /*
-                 * Stabilize recognition.
-                 */
-
-                if (
-                    letter ===
-                    lastPrediction
-                ) {
-
-                    stableFrames++;
-
-                }
-
-                else {
-
-                    lastPrediction =
-                        letter;
-
-                    stableFrames =
-                        0;
-
-                }
-
-
-                /*
-                 * Display recognized sign.
-                 */
-
-                if (
-                    confidence >= 65 &&
-                    stableFrames >= 2
-                ) {
-
-                    recognition.innerHTML = `
-
-                        <div class="detected-object">
-
-                            <div class="object-left">
-
-                                <span class="object-icon">
-                                    ✋
-                                </span>
-
-                                <span>
-                                    ASL Letter: ${letter}
-                                </span>
-
-                            </div>
-
-                            <span class="confidence">
-                                ${confidence}%
-                            </span>
-
-                        </div>
-
-                    `;
-
-
-                    /*
-                     * Large label over camera.
-                     */
-
-                    ctx.font =
-                        "bold 28px Arial";
-
-
-                    const label =
-                        letter +
-                        "  " +
-                        confidence +
-                        "%";
-
-
-                    const width =
-                        ctx.measureText(
-                            label
-                        ).width;
-
-
-                    ctx.fillStyle =
-                        "#6957e5";
-
-
-                    ctx.fillRect(
-                        20,
-                        20,
-                        width + 30,
-                        48
-                    );
-
-
-                    ctx.fillStyle =
-                        "#ffffff";
-
-
-                    ctx.fillText(
-                        label,
-                        35,
-                        53
-                    );
-
-                }
-
-                else {
-
-                    recognition.innerHTML = `
-
-                        <p class="result-empty">
-                            🧠 Analyzing hand sign...
-                            ${confidence}%
-                        </p>
-
-                    `;
-
-                }
-
-
-                await new Promise(
-                    resolve =>
-                        setTimeout(
-                            resolve,
-                            80
-                        )
-                );
-
-            }
-
-        }
-
-        catch (error) {
-
-            console.error(
-                "Recognition error:",
-                error
-            );
-
-            recognition.innerHTML = `
-                <p class="result-empty">
-                    Recognition error. Check the browser console.
-                </p>
-            `;
-
-        }
-
-        finally {
-
-            recognitionRunning =
-                false;
-
-        }
-
-    }
-
-
-    /* ==================================================
+    /* =====================================================
        BUTTONS
-       DO NOT CHANGE
-    ================================================== */
+    ===================================================== */
 
     startButton.addEventListener(
         "click",
@@ -2226,17 +2055,8 @@
     );
 
 
-    /* ==================================================
-       PAGE START
-    ================================================== */
-
     console.log(
-        "SignLearn Practice page loaded."
-    );
-
-    console.log(
-        "Camera button:",
-        startButton
+        "SignLearn Practice loaded."
     );
 
 </script>
