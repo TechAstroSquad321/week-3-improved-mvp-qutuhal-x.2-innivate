@@ -1,2065 +1,551 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Practice | SignLearn</title>
-
-    <style>
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f8f7ff;
-            color: #20213d;
-            min-height: 100vh;
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        /* =========================
-           NAVBAR
-        ========================= */
-
-        .navbar {
-            height: 68px;
-            background: white;
-            border-bottom: 1px solid #e8e5f2;
-
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            padding: 0 30px;
-
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-
-            color: #6757df;
-            font-size: 21px;
-            font-weight: 800;
-        }
-
-        .brand-icon {
-            font-size: 25px;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 7px;
-        }
-
-        .nav-links a {
-            padding: 10px 15px;
-            border-radius: 20px;
-
-            color: #686681;
-
-            font-size: 13px;
-            font-weight: 600;
-
-            transition: 0.2s;
-        }
-
-        .nav-links a:hover {
-            color: #6251db;
-            background: #f2efff;
-        }
-
-        .nav-links .active {
-            background: #eee9ff;
-            color: #624fe0;
-        }
-
-        /* =========================
-           PAGE
-        ========================= */
-
-        .page {
-            width: min(1120px, 92%);
-            margin: auto;
-            padding: 55px 0 80px;
-        }
-
-        .page-header {
-            text-align: center;
-            max-width: 700px;
-            margin: 0 auto 38px;
-        }
-
-        .welcome-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 7px;
-
-            background: #eeeaff;
-            color: #6453df;
-
-            padding: 8px 15px;
-            border-radius: 30px;
-
-            font-size: 12px;
-            font-weight: 700;
-
-            margin-bottom: 18px;
-        }
-
-        .page-header h1 {
-            font-size: clamp(38px, 5vw, 58px);
-            line-height: 1.05;
-            letter-spacing: -2px;
-            margin-bottom: 15px;
-        }
-
-        .purple-text {
-            color: #6957e5;
-        }
-
-        .page-header p {
-            color: #777491;
-            line-height: 1.7;
-            font-size: 15px;
-        }
-
-        /* =========================
-           MAIN
-        ========================= */
-
-        .practice-layout {
-            display: grid;
-            grid-template-columns: minmax(0, 1.6fr) minmax(280px, 0.8fr);
-            gap: 22px;
-            align-items: start;
-        }
-
-        .camera-card {
-            background: white;
-            border: 1px solid #e8e5f3;
-            border-radius: 22px;
-            padding: 14px;
-
-            box-shadow:
-                0 15px 45px rgba(78, 62, 150, 0.10);
-        }
-
-        .camera-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-
-            padding: 8px 8px 14px;
-        }
-
-        .camera-title {
-            display: flex;
-            align-items: center;
-            gap: 9px;
-
-            font-size: 15px;
-            font-weight: 800;
-        }
-
-        .camera-title-icon {
-            width: 34px;
-            height: 34px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            background: #eeeaff;
-            border-radius: 10px;
-        }
-
-        .camera-status {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-
-            color: #8b879d;
-            font-size: 11px;
-            font-weight: 600;
-        }
-
-        .status-light {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #c8c4d4;
-        }
-
-        .status-light.active {
-            background: #62c98a;
-            box-shadow: 0 0 8px rgba(98, 201, 138, .5);
-        }
-
-        /* =========================
-           CAMERA
-        ========================= */
-
-        .camera-box {
-            position: relative;
-
-            width: 100%;
-            aspect-ratio: 16 / 10;
-
-            min-height: 390px;
-
-            overflow: hidden;
-            border-radius: 16px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #f0edff,
-                    #faf9ff
-                );
-
-            border: 1px solid #e6e1f6;
-        }
-
-        video {
-            width: 100%;
-            height: 100%;
-
-            object-fit: cover;
-
-            display: none;
-
-            position: absolute;
-            inset: 0;
-
-            z-index: 1;
-        }
-
-        canvas {
-            position: absolute;
-            inset: 0;
-
-            width: 100%;
-            height: 100%;
-
-            pointer-events: none;
-
-            z-index: 2;
-        }
-
-        .camera-placeholder {
-            position: absolute;
-            inset: 0;
-
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-
-            text-align: center;
-
-            z-index: 4;
-        }
-
-        .camera-placeholder-icon {
-            width: 78px;
-            height: 78px;
-
-            border-radius: 22px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            background: #e9e4ff;
-            color: #6957e5;
-
-            font-size: 34px;
-
-            margin-bottom: 17px;
-        }
-
-        .camera-placeholder h2 {
-            font-size: 21px;
-            margin-bottom: 8px;
-        }
-
-        .camera-placeholder p {
-            color: #88849b;
-            font-size: 13px;
-            max-width: 320px;
-            line-height: 1.5;
-        }
-
-        /* =========================
-           CORNERS
-        ========================= */
-
-        .scan-corner {
-            position: absolute;
-            width: 28px;
-            height: 28px;
-            border-color: #806fe8;
-            border-style: solid;
-            opacity: .85;
-
-            z-index: 5;
-
-            pointer-events: none;
-        }
-
-        .top-left {
-            top: 15px;
-            left: 15px;
-            border-width: 3px 0 0 3px;
-        }
-
-        .top-right {
-            top: 15px;
-            right: 15px;
-            border-width: 3px 3px 0 0;
-        }
-
-        .bottom-left {
-            bottom: 15px;
-            left: 15px;
-            border-width: 0 0 3px 3px;
-        }
-
-        .bottom-right {
-            bottom: 15px;
-            right: 15px;
-            border-width: 0 3px 3px 0;
-        }
-
-        /* =========================
-           CONTROLS
-        ========================= */
-
-        .controls {
-            display: flex;
-            gap: 10px;
-            margin-top: 14px;
-        }
-
-        button {
-            font-family: inherit;
-            font-size: 13px;
-            font-weight: 700;
-
-            border: none;
-            cursor: pointer;
-
-            padding: 13px 20px;
-            border-radius: 11px;
-
-            transition: .2s;
-
-            position: relative;
-            z-index: 20;
-        }
-
-        #startButton {
-            flex: 1;
-
-            background: #6957e5;
-            color: white;
-
-            box-shadow:
-                0 7px 18px
-                rgba(105, 87, 229, .25);
-        }
-
-        #startButton:hover {
-            background: #5947d5;
-            transform: translateY(-1px);
-        }
-
-        #startButton:active {
-            transform: scale(.98);
-        }
-
-        #stopButton {
-            padding-left: 25px;
-            padding-right: 25px;
-
-            background: #f0eef7;
-            color: #68647a;
-        }
-
-        #stopButton:hover {
-            background: #e7e4ef;
-        }
-
-        button:disabled {
-            opacity: .45;
-            cursor: not-allowed;
-            transform: none !important;
-        }
-
-        /* =========================
-           SIDE PANELS
-        ========================= */
-
-        .side-panel {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .panel {
-            background: white;
-
-            border: 1px solid #e8e5f3;
-
-            border-radius: 19px;
-
-            padding: 21px;
-
-            box-shadow:
-                0 12px 35px
-                rgba(78, 62, 150, .07);
-        }
-
-        .panel h3 {
-            font-size: 16px;
-            margin-bottom: 6px;
-        }
-
-        .panel-description {
-            color: #89859a;
-            font-size: 12px;
-            line-height: 1.6;
-            margin-bottom: 17px;
-        }
-
-        /* =========================
-           AI
-        ========================= */
-
-        .ai-status {
-            display: flex;
-            align-items: center;
-            gap: 11px;
-
-            padding: 12px;
-
-            border-radius: 12px;
-
-            background: #f7f5ff;
-            border: 1px solid #ece8fa;
-        }
-
-        .ai-icon {
-            width: 38px;
-            height: 38px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            border-radius: 10px;
-
-            background: #e9e4ff;
-
-            font-size: 18px;
-        }
-
-        .ai-text strong {
-            display: block;
-            font-size: 12px;
-            margin-bottom: 3px;
-        }
-
-        .ai-text span {
-            color: #8b879b;
-            font-size: 11px;
-        }
-
-        /* =========================
-           RESULTS
-        ========================= */
-
-        .results {
-            min-height: 120px;
-        }
-
-        .result-empty {
-            color: #9995a8;
-            font-size: 12px;
-            line-height: 1.6;
-        }
-
-        .detected-object {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            padding: 11px 12px;
-
-            background: #f7f5ff;
-            border: 1px solid #ebe7f8;
-
-            border-radius: 11px;
-
-            margin-top: 8px;
-        }
-
-        .object-left {
-            display: flex;
-            align-items: center;
-            gap: 9px;
-
-            font-size: 12px;
-            font-weight: 700;
-        }
-
-        .object-icon {
-            width: 30px;
-            height: 30px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            background: #e9e4ff;
-            color: #6957e5;
-
-            border-radius: 8px;
-        }
-
-        .confidence {
-            color: #6957e5;
-            font-size: 12px;
-            font-weight: 800;
-        }
-
-        /* =========================
-           TIPS
-        ========================= */
-
-        .tips {
-            list-style: none;
-        }
-
-        .tips li {
-            display: flex;
-            gap: 9px;
-
-            color: #77738a;
-
-            font-size: 12px;
-            line-height: 1.5;
-
-            margin-bottom: 11px;
-        }
-
-        .tip-number {
-            min-width: 21px;
-            height: 21px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            border-radius: 7px;
-
-            background: #eeeaff;
-            color: #6957e5;
-
-            font-size: 10px;
-            font-weight: 800;
-        }
-
-        /* =========================
-           HOW
-        ========================= */
-
-        .how {
-            margin-top: 55px;
-        }
-
-        .how-heading {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        .how-heading h2 {
-            font-size: 27px;
-            margin-bottom: 7px;
-        }
-
-        .how-heading p {
-            color: #878398;
-            font-size: 13px;
-        }
-
-        .steps {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-        }
-
-        .step {
-            background: white;
-            border: 1px solid #e9e6f2;
-            border-radius: 16px;
-            padding: 20px;
-        }
-
-        .step-number {
-            width: 35px;
-            height: 35px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            background: #eeeaff;
-            color: #6957e5;
-
-            border-radius: 10px;
-
-            font-size: 11px;
-            font-weight: 800;
-
-            margin-bottom: 13px;
-        }
-
-        .step h3 {
-            font-size: 14px;
-            margin-bottom: 7px;
-        }
-
-        .step p {
-            color: #888499;
-            font-size: 12px;
-            line-height: 1.6;
-        }
-
-        footer {
-            border-top: 1px solid #e8e5f1;
-            background: white;
-
-            padding: 24px 30px;
-
-            text-align: center;
-
-            color: #9691a4;
-            font-size: 11px;
-        }
-
-        @media (max-width: 850px) {
-
-            .practice-layout {
-                grid-template-columns: 1fr;
-            }
-
-            .side-panel {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .steps {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 600px) {
-
-            .navbar {
-                padding: 0 15px;
-            }
-
-            .nav-links {
-                gap: 2px;
-            }
-
-            .nav-links a {
-                padding: 8px;
-                font-size: 11px;
-            }
-
-            .brand {
-                font-size: 18px;
-            }
-
-            .page {
-                width: 94%;
-                padding-top: 35px;
-            }
-
-            .camera-box {
-                min-height: 260px;
-            }
-
-            .side-panel {
-                grid-template-columns: 1fr;
-            }
-
-            .controls {
-                flex-direction: column;
-            }
-
-            #stopButton {
-                width: 100%;
-            }
-        }
-
-    </style>
-</head>
-
-<body>
-
-<nav class="navbar">
-
-    <a href="index.html" class="brand">
-        <span class="brand-icon">🤟</span>
-        <span>SignLearn</span>
-    </a>
-
-    <div class="nav-links">
-
-        <a href="index.html">Home</a>
-
-        <a href="Learn.html">Learn</a>
-
-        <a href="practice.html" class="active">Practice</a>
-
-        <a href="quiz.html">Quiz</a>
-
-        <a href="progress.html">Progress</a>
-
-    </div>
-
-</nav>
-
-
-<main class="page">
-
-    <header class="page-header">
-
-        <div class="welcome-pill">
-            📷 Camera Practice
-        </div>
-
-        <h1>
-            Practice Your
-            <span class="purple-text">Signs.</span>
-        </h1>
-
-        <p>
-            Show an ASL alphabet sign to your camera
-            and SignLearn will try to recognize it.
-        </p>
-
-    </header>
-
-
-    <div class="practice-layout">
-
-
-        <!-- CAMERA -->
-
-        <div class="camera-card">
-
-            <div class="camera-top">
-
-                <div class="camera-title">
-
-                    <div class="camera-title-icon">
-                        📷
-                    </div>
-
-                    Camera Practice
-
-                </div>
-
-                <div class="camera-status">
-
-                    <span
-                        id="statusLight"
-                        class="status-light">
-                    </span>
-
-                    <span id="cameraStatus">
-                        Ready
-                    </span>
-
-                </div>
-
-            </div>
-
-
-            <div class="camera-box">
-
-                <video
-                    id="camera"
-                    autoplay
-                    playsinline
-                    muted>
-                </video>
-
-                <canvas id="canvas"></canvas>
-
-                <div
-                    id="cameraPlaceholder"
-                    class="camera-placeholder">
-
-                    <div class="camera-placeholder-icon">
-                        📷
-                    </div>
-
-                    <h2>
-                        Camera Ready
-                    </h2>
-
-                    <p>
-                        Click "Start Recognition" below
-                        to start your camera.
-                    </p>
-
-                </div>
-
-
-                <div class="scan-corner top-left"></div>
-                <div class="scan-corner top-right"></div>
-                <div class="scan-corner bottom-left"></div>
-                <div class="scan-corner bottom-right"></div>
-
-            </div>
-
-
-            <div class="controls">
-
-                <button
-                    type="button"
-                    id="startButton">
-
-                    📷 Start Recognition
-
-                </button>
-
-                <button
-                    type="button"
-                    id="stopButton"
-                    disabled>
-
-                    Stop Camera
-
-                </button>
-
-            </div>
-
-        </div>
-
-
-        <!-- RIGHT SIDE -->
-
-        <div class="side-panel">
-
-            <div class="panel">
-
-                <h3>
-                    Recognition
-                </h3>
-
-                <p class="panel-description">
-                    SignLearn uses hand landmarks and
-                    an ASL alphabet model to recognize
-                    static signs.
-                </p>
-
-                <div class="ai-status">
-
-                    <div class="ai-icon">
-                        🧠
-                    </div>
-
-                    <div class="ai-text">
-
-                        <strong>
-                            Recognition Engine
-                        </strong>
-
-                        <span id="aiStatus">
-                            Waiting to start
-                        </span>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div class="panel results">
-
-                <h3>
-                    🔎 What I See
-                </h3>
-
-                <div id="recognition">
-
-                    <p class="result-empty">
-                        Start the camera to begin recognition.
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <div class="panel">
-
-                <h3>
-                    💡 Practice Tips
-                </h3>
-
-                <p class="panel-description">
-                    These tips can make recognition
-                    more reliable.
-                </p>
-
-                <ul class="tips">
-
-                    <li>
-                        <span class="tip-number">1</span>
-                        Make sure there is enough light.
-                    </li>
-
-                    <li>
-                        <span class="tip-number">2</span>
-                        Keep your hand clearly visible.
-                    </li>
-
-                    <li>
-                        <span class="tip-number">3</span>
-                        Keep the camera steady.
-                    </li>
-
-                </ul>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <section class="how">
-
-        <div class="how-heading">
-
-            <h2>
-                How Practice Works
-            </h2>
-
-            <p>
-                Start practicing in three simple steps.
-            </p>
-
-        </div>
-
-
-        <div class="steps">
-
-            <div class="step">
-
-                <div class="step-number">
-                    01
-                </div>
-
-                <h3>
-                    Start Your Camera
-                </h3>
-
-                <p>
-                    Click Start Recognition and allow
-                    your browser to access your camera.
-                </p>
-
-            </div>
-
-
-            <div class="step">
-
-                <div class="step-number">
-                    02
-                </div>
-
-                <h3>
-                    Show an ASL Sign
-                </h3>
-
-                <p>
-                    Place one hand clearly in front
-                    of the camera.
-                </p>
-
-            </div>
-
-
-            <div class="step">
-
-                <div class="step-number">
-                    03
-                </div>
-
-                <h3>
-                    Get Recognition
-                </h3>
-
-                <p>
-                    The AI analyzes your hand landmarks
-                    and displays the predicted letter.
-                </p>
-
-            </div>
-
-        </div>
-
-    </section>
-
-</main>
-
-
-<footer>
-
-    SignLearn • Learn • Practice • Quiz • Progress
-
-</footer>
-
-
-<!-- =====================================================
-     MEDIAPIPE HANDS
-===================================================== -->
-
-<script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
-
-
-<!-- =====================================================
-     TENSORFLOW.JS
-===================================================== -->
-
-<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js"></script>
-
-
 <script>
+/* =========================================================
+   SIGNLEARN - ASL RECOGNITION
+   IMPORTANT:
+   - Do NOT change the camera code.
+   - This section only handles ASL recognition.
+   ========================================================= */
 
-    /* =====================================================
-       ELEMENTS
-    ===================================================== */
+let aslModel = null;
+let hands = null;
+let recognitionReady = false;
+let recognizing = false;
 
-    const camera =
-        document.getElementById("camera");
+const MODEL_URL =
+    "https://huggingface.co/AmimulBmeIU/asl-alphabet-classifier/resolve/main/tfjs/model.json";
 
-    const canvas =
-        document.getElementById("canvas");
+const LABELS_URL =
+    "https://huggingface.co/AmimulBmeIU/asl-alphabet-classifier/resolve/main/tfjs/labels.json";
 
-    const ctx =
-        canvas.getContext("2d");
+let labels = [];
 
-    const startButton =
-        document.getElementById("startButton");
+/* ---------------------------------------------------------
+   Load external JavaScript library
+   --------------------------------------------------------- */
 
-    const stopButton =
-        document.getElementById("stopButton");
+function loadScript(src) {
+    return new Promise((resolve, reject) => {
 
-    const placeholder =
-        document.getElementById("cameraPlaceholder");
-
-    const cameraStatus =
-        document.getElementById("cameraStatus");
-
-    const statusLight =
-        document.getElementById("statusLight");
-
-    const aiStatus =
-        document.getElementById("aiStatus");
-
-    const recognition =
-        document.getElementById("recognition");
-
-
-    /* =====================================================
-       VARIABLES
-
-       CAMERA CODE IS KEPT SEPARATE FROM RECOGNITION.
-    ===================================================== */
-
-    let stream = null;
-
-    let recognizing = false;
-
-    let handModel = null;
-
-    let aslModel = null;
-
-    let recognitionBusy = false;
-
-    let lastPrediction = "";
-
-    let predictionCount = 0;
-
-
-    /* =====================================================
-       ASL LABELS
-
-       The model supports A-Y.
-
-       J and Z are motion-based signs and are not
-       handled by this static classifier.
-    ===================================================== */
-
-    const ASL_LABELS = [
-        "A",
-        "B",
-        "C",
-        "D",
-        "E",
-        "F",
-        "G",
-        "H",
-        "I",
-        "K",
-        "L",
-        "M",
-        "N",
-        "O",
-        "P",
-        "Q",
-        "R",
-        "S",
-        "T",
-        "U",
-        "V",
-        "W",
-        "X",
-        "Y"
-    ];
-
-
-    /* =====================================================
-       LOAD SCRIPT HELPER
-    ===================================================== */
-
-    function loadScript(src) {
-
-        return new Promise((resolve, reject) => {
-
-            const script =
-                document.createElement("script");
-
-            script.src = src;
-
-            script.onload = resolve;
-
-            script.onerror = reject;
-
-            document.head.appendChild(script);
-
-        });
-
-    }
-
-
-    /* =====================================================
-       LOAD ASL MODEL
-
-       IMPORTANT:
-
-       This is NOT COCO-SSD.
-
-       COCO-SSD cannot recognize ASL letters.
-
-       This model takes MediaPipe hand landmarks.
-    ===================================================== */
-
-    async function loadASLModel() {
-
-        if (aslModel) {
+        // Don't load the same script twice
+        if (document.querySelector(`script[src="${src}"]`)) {
+            resolve();
             return;
         }
 
-        try {
+        const script = document.createElement("script");
 
-            aiStatus.textContent =
-                "Loading ASL model...";
+        script.src = src;
+        script.async = true;
 
+        script.onload = () => resolve();
 
-            /*
-             * Browser-ready TFJS model.
-             *
-             * The model repository provides a TFJS
-             * version trained from MediaPipe landmarks.
-             */
+        script.onerror = () => {
+            reject(new Error("Could not load: " + src));
+        };
 
-            const modelURL =
-                "https://huggingface.co/AmimulBmeIU/asl-alphabet-classifier/resolve/main/tfjs/model.json";
-
-
-            aslModel =
-                await tf.loadLayersModel(modelURL);
+        document.head.appendChild(script);
+    });
+}
 
 
-            console.log(
-                "ASL model loaded successfully."
-            );
+/* ---------------------------------------------------------
+   Update recognition text
+   --------------------------------------------------------- */
 
+function setRecognitionStatus(title, message) {
 
-            aiStatus.textContent =
-                "ASL AI ready";
+    const titleElement =
+        document.getElementById("recognitionStatus");
 
+    const messageElement =
+        document.getElementById("recognitionMessage");
 
-        }
-
-        catch (error) {
-
-            console.error(
-                "ASL model loading error:",
-                error
-            );
-
-            aiStatus.textContent =
-                "ASL AI unavailable";
-
-            recognition.innerHTML = `
-                <p class="result-empty">
-                    The ASL model could not load.
-                    Check your internet connection
-                    and reload the page.
-                </p>
-            `;
-
-            throw error;
-
-        }
-
+    if (titleElement) {
+        titleElement.textContent = title;
     }
 
+    if (messageElement) {
+        messageElement.textContent = message;
+    }
+}
 
-    /* =====================================================
-       LOAD MEDIAPIPE HANDS
-    ===================================================== */
 
-    const hands =
-        new Hands({
-            locateFile: file => {
+/* ---------------------------------------------------------
+   Load ASL AI
+   --------------------------------------------------------- */
 
+async function loadAI() {
+
+    try {
+
+        setRecognitionStatus(
+            "Loading ASL AI...",
+            "Preparing the hand-recognition model."
+        );
+
+        /* TensorFlow.js */
+        await loadScript(
+            "https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js"
+        );
+
+        /* MediaPipe Hands */
+        await loadScript(
+            "https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"
+        );
+
+        /* -------------------------------------------------
+           Load labels
+           ------------------------------------------------- */
+
+        const labelsResponse = await fetch(LABELS_URL);
+
+        if (!labelsResponse.ok) {
+            throw new Error(
+                "Could not load ASL labels."
+            );
+        }
+
+        labels = await labelsResponse.json();
+
+
+        /* -------------------------------------------------
+           Load TensorFlow model
+           ------------------------------------------------- */
+
+        console.log("Loading ASL model...");
+
+        aslModel = await tf.loadLayersModel(MODEL_URL);
+
+        console.log("ASL model loaded.");
+        console.log("Input shape:", aslModel.inputs[0].shape);
+        console.log("Output shape:", aslModel.outputs[0].shape);
+
+
+        /* -------------------------------------------------
+           MediaPipe Hands
+           ------------------------------------------------- */
+
+        hands = new Hands({
+            locateFile: (file) => {
                 return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
-
             }
         });
 
 
-    hands.setOptions({
+        hands.setOptions({
 
-        maxNumHands: 1,
+            maxNumHands: 1,
 
-        modelComplexity: 1,
+            modelComplexity: 1,
 
-        minDetectionConfidence: 0.6,
+            minDetectionConfidence: 0.55,
 
-        minTrackingConfidence: 0.6
-
-    });
-
-
-    /* =====================================================
-       HAND RESULT
-
-       MediaPipe gives us 21 hand landmarks.
-
-       Those landmarks are passed to the ASL classifier.
-    ===================================================== */
-
-    hands.onResults(results => {
-
-        if (!recognizing) {
-            return;
-        }
-
-
-        ctx.clearRect(
-            0,
-            0,
-            canvas.width,
-            canvas.height
-        );
-
-
-        if (
-            !results.multiHandLandmarks ||
-            results.multiHandLandmarks.length === 0
-        ) {
-
-            recognition.innerHTML = `
-                <p class="result-empty">
-                    ✋ Show one hand clearly to the camera...
-                </p>
-            `;
-
-            return;
-        }
-
-
-        const landmarks =
-            results.multiHandLandmarks[0];
-
-
-        /*
-         * Draw hand skeleton.
-         */
-
-        drawConnectors(
-            ctx,
-            landmarks,
-            HAND_CONNECTIONS,
-            {
-                color: "#806fe8",
-                lineWidth: 3
-            }
-        );
-
-
-        drawLandmarks(
-            ctx,
-            landmarks,
-            {
-                color: "#6957e5",
-                lineWidth: 1,
-                radius: 3
-            }
-        );
-
-
-        /*
-         * Convert the 21 landmarks into
-         * x, y, z values.
-         */
-
-        const input = [];
-
-
-        landmarks.forEach(point => {
-
-            input.push(point.x);
-            input.push(point.y);
-            input.push(point.z);
+            minTrackingConfidence: 0.55
 
         });
 
 
-        recognizeASL(input);
-
-    });
+        hands.onResults(processHandResults);
 
 
-    /* =====================================================
-       NORMALIZE LANDMARKS
+        recognitionReady = true;
 
-       The model expects hand landmarks rather than
-       the complete camera image.
-    ===================================================== */
 
-    function normalizeLandmarks(values) {
+        setRecognitionStatus(
+            "ASL AI Ready",
+            "Show one hand clearly to the camera."
+        );
 
-        const points = [];
+        console.log("ASL recognition ready.");
+
+    } catch (error) {
+
+        console.error(
+            "ASL recognition error:",
+            error
+        );
+
+        recognitionReady = false;
+
+        /*
+           IMPORTANT:
+           The camera is NOT considered broken here.
+        */
+
+        setRecognitionStatus(
+            "ASL AI unavailable",
+            "The camera is working, but the recognition model could not load."
+        );
+
+        const whatISee =
+            document.getElementById("whatISee");
+
+        if (whatISee) {
+
+            whatISee.textContent =
+                "Camera is working, but ASL recognition failed to load.";
+
+        }
+
+        /*
+           Show the real error in the browser console
+           instead of pretending the camera failed.
+        */
+
+        console.error(
+            "Detailed recognition error:",
+            error.message
+        );
+    }
+}
+
+
+/* ---------------------------------------------------------
+   Convert MediaPipe landmarks to model input
+   --------------------------------------------------------- */
+
+function landmarksToTensor(landmarks) {
+
+    const values = [];
+
+    /*
+       The model expects 21 MediaPipe hand landmarks.
+
+       Each landmark contains:
+       x
+       y
+       z
+
+       21 × 3 = 63 values.
+    */
+
+    for (let i = 0; i < landmarks.length; i++) {
+
+        values.push(
+            landmarks[i].x,
+            landmarks[i].y,
+            landmarks[i].z
+        );
+    }
+
+    return tf.tensor2d(
+        [values],
+        [1, 63],
+        "float32"
+    );
+}
+
+
+/* ---------------------------------------------------------
+   Process detected hand
+   --------------------------------------------------------- */
+
+async function processHandResults(results) {
+
+    if (!recognitionReady || !aslModel) {
+        return;
+    }
+
+    const whatISee =
+        document.getElementById("whatISee");
+
+
+    /* No hand */
+    if (
+        !results.multiHandLandmarks ||
+        results.multiHandLandmarks.length === 0
+    ) {
+
+        if (whatISee) {
+            whatISee.textContent =
+                "No hand detected — place your hand in front of the camera.";
+        }
+
+        return;
+    }
+
+
+    const landmarks =
+        results.multiHandLandmarks[0];
+
+
+    let inputTensor = null;
+
+
+    try {
+
+        inputTensor =
+            landmarksToTensor(landmarks);
+
+
+        const prediction =
+            aslModel.predict(inputTensor);
+
+
+        /*
+           Some TensorFlow.js models return a Tensor,
+           while others can return an array.
+        */
+
+        const outputTensor =
+            Array.isArray(prediction)
+                ? prediction[0]
+                : prediction;
+
+
+        const probabilities =
+            await outputTensor.data();
+
+
+        /* Find highest probability */
+
+        let highestIndex = 0;
 
         for (
-            let i = 0;
-            i < values.length;
-            i += 3
+            let i = 1;
+            i < probabilities.length;
+            i++
         ) {
 
-            points.push({
-
-                x: values[i],
-
-                y: values[i + 1],
-
-                z: values[i + 2]
-
-            });
-
-        }
-
-
-        /*
-         * Wrist becomes the origin.
-         */
-
-        const wrist =
-            points[0];
-
-
-        points.forEach(point => {
-
-            point.x -= wrist.x;
-            point.y -= wrist.y;
-            point.z -= wrist.z;
-
-        });
-
-
-        /*
-         * Find largest distance so the hand
-         * is scale independent.
-         */
-
-        let maxDistance = 0;
-
-
-        points.forEach(point => {
-
-            const distance =
-                Math.sqrt(
-                    point.x * point.x +
-                    point.y * point.y +
-                    point.z * point.z
-                );
-
-            if (distance > maxDistance) {
-                maxDistance = distance;
-            }
-
-        });
-
-
-        if (maxDistance === 0) {
-            maxDistance = 1;
-        }
-
-
-        const normalized = [];
-
-
-        points.forEach(point => {
-
-            normalized.push(
-                point.x / maxDistance
-            );
-
-            normalized.push(
-                point.y / maxDistance
-            );
-
-            normalized.push(
-                point.z / maxDistance
-            );
-
-        });
-
-
-        return normalized;
-
-    }
-
-
-    /* =====================================================
-       RECOGNIZE ASL
-    ===================================================== */
-
-    async function recognizeASL(landmarks) {
-
-        if (
-            !aslModel ||
-            recognitionBusy ||
-            !recognizing
-        ) {
-            return;
-        }
-
-
-        recognitionBusy = true;
-
-
-        try {
-
-            const normalized =
-                normalizeLandmarks(
-                    landmarks
-                );
-
-
-            const tensor =
-                tf.tensor2d(
-                    [normalized],
-                    [1, normalized.length]
-                );
-
-
-            const prediction =
-                aslModel.predict(tensor);
-
-
-            const probabilities =
-                await prediction.data();
-
-
-            tensor.dispose();
-
-
-            if (prediction.dispose) {
-                prediction.dispose();
-            }
-
-
-            /*
-             * Find highest probability.
-             */
-
-            let bestIndex = 0;
-
-            let bestScore = probabilities[0];
-
-
-            for (
-                let i = 1;
-                i < probabilities.length;
-                i++
+            if (
+                probabilities[i] >
+                probabilities[highestIndex]
             ) {
 
-                if (
-                    probabilities[i] >
-                    bestScore
-                ) {
-
-                    bestScore =
-                        probabilities[i];
-
-                    bestIndex =
-                        i;
-
-                }
-
+                highestIndex = i;
             }
+        }
 
 
-            const letter =
-                ASL_LABELS[bestIndex];
+        const confidence =
+            probabilities[highestIndex];
 
 
-            const confidence =
-                Math.round(
-                    bestScore * 100
-                );
+        const letter =
+            labels[highestIndex] ||
+            String.fromCharCode(
+                65 + highestIndex
+            );
 
 
-            console.log(
-                "ASL:",
+        const percentage =
+            Math.round(confidence * 100);
+
+
+        /*
+           Only show reasonably confident predictions.
+        */
+
+        if (confidence >= 0.55) {
+
+            showASLResult(
                 letter,
-                confidence + "%"
+                percentage
             );
 
+        } else {
 
-            /*
-             * Don't show extremely uncertain
-             * predictions.
-             */
+            if (whatISee) {
 
-            if (confidence < 55) {
-
-                recognition.innerHTML = `
-                    <p class="result-empty">
-                        ✋ Hand detected — hold your
-                        sign steady...
-                    </p>
-                `;
-
-                return;
+                whatISee.textContent =
+                    "Hand detected — hold the sign steady.";
 
             }
-
-
-            /*
-             * Stability filter.
-
-             * The prediction needs to appear several
-             * times before we display it as a strong
-             * result.
-             */
-
-            if (
-                lastPrediction === letter
-            ) {
-
-                predictionCount++;
-
-            }
-
-            else {
-
-                lastPrediction =
-                    letter;
-
-                predictionCount =
-                    1;
-
-            }
-
-
-            if (predictionCount < 3) {
-
-                return;
-
-            }
-
-
-            recognition.innerHTML = `
-
-                <div class="detected-object">
-
-                    <div class="object-left">
-
-                        <span class="object-icon">
-                            ${letter}
-                        </span>
-
-                        <span>
-                            ASL Letter ${letter}
-                        </span>
-
-                    </div>
-
-                    <span class="confidence">
-                        ${confidence}%
-                    </span>
-
-                </div>
-
-            `;
-
         }
 
-        catch (error) {
 
-            console.error(
-                "Recognition error:",
-                error
-            );
+        if (Array.isArray(prediction)) {
 
+            prediction.forEach(tensor => {
+                if (tensor.dispose) {
+                    tensor.dispose();
+                }
+            });
+
+        } else if (prediction.dispose) {
+
+            prediction.dispose();
         }
 
-        finally {
 
-            recognitionBusy =
-                false;
+    } catch (error) {
 
+        console.error(
+            "Prediction error:",
+            error
+        );
+
+    } finally {
+
+        if (inputTensor) {
+            inputTensor.dispose();
         }
+    }
+}
 
+
+/* ---------------------------------------------------------
+   Display ASL result
+   --------------------------------------------------------- */
+
+function showASLResult(letter, confidence) {
+
+    const whatISee =
+        document.getElementById("whatISee");
+
+    if (whatISee) {
+
+        whatISee.innerHTML = `
+            <div style="
+                font-size: 42px;
+                font-weight: 800;
+                margin-bottom: 6px;
+            ">
+                ${letter}
+            </div>
+
+            <div style="
+                font-size: 14px;
+                opacity: 0.8;
+            ">
+                ASL Letter • ${confidence}% confidence
+            </div>
+        `;
     }
 
 
-    /* =====================================================
-       START CAMERA
+    /*
+       Also update common recognition-result
+       elements if your page already has them.
+    */
 
-       THIS IS THE CAMERA SECTION.
+    const resultElements = [
+        "recognizedSign",
+        "recognitionResult",
+        "resultText",
+        "detectedSign"
+    ];
 
-       It is intentionally kept separate from the
-       recognition model.
-    ===================================================== */
+    resultElements.forEach(id => {
 
-    async function startCamera() {
+        const element =
+            document.getElementById(id);
 
-        console.log(
-            "START CAMERA BUTTON CLICKED"
-        );
-
-
-        if (
-            !navigator.mediaDevices ||
-            !navigator.mediaDevices.getUserMedia
-        ) {
-
-            alert(
-                "Camera access is not available. " +
-                "Make sure you are using HTTPS."
-            );
-
-            return;
-
+        if (element) {
+            element.textContent = letter;
         }
 
+    });
+}
 
-        if (stream) {
-            return;
-        }
 
+/* ---------------------------------------------------------
+   Recognition loop
+   --------------------------------------------------------- */
+
+async function runRecognition() {
+
+    if (recognizing) {
+        return;
+    }
+
+    recognizing = true;
+
+
+    while (recognizing) {
 
         try {
 
-            cameraStatus.textContent =
-                "Requesting permission...";
-
-
-            stream =
-                await navigator.mediaDevices.getUserMedia({
-
-                    video: true,
-
-                    audio: false
-
-                });
-
-
-            console.log(
-                "CAMERA STREAM RECEIVED"
-            );
-
-
-            camera.srcObject =
-                stream;
-
-
-            await new Promise(resolve => {
-
-                if (
-                    camera.readyState >= 2
-                ) {
-
-                    resolve();
-
-                }
-
-                else {
-
-                    camera.onloadedmetadata =
-                        () => resolve();
-
-                }
-
-            });
-
-
-            await camera.play();
-
-
-            camera.style.display =
-                "block";
-
-            placeholder.style.display =
-                "none";
-
-
-            startButton.disabled =
-                true;
-
-            stopButton.disabled =
-                false;
-
-
-            recognizing =
-                true;
-
-
-            statusLight.classList.add(
-                "active"
-            );
-
-
-            cameraStatus.textContent =
-                "Camera Active";
-
-
-            recognition.innerHTML = `
-                <p class="result-empty">
-                    🧠 Loading ASL recognition...
-                </p>
-            `;
-
-
-            resizeCanvas();
-
-
             /*
-             * Load the actual recognition model.
-             */
+               Make sure the existing camera is actually
+               running before sending frames to MediaPipe.
+            */
 
-            await loadASLModel();
+            if (
+                !camera ||
+                camera.readyState < 2 ||
+                camera.videoWidth === 0 ||
+                camera.videoHeight === 0
+            ) {
 
+                await new Promise(
+                    resolve => setTimeout(resolve, 200)
+                );
 
-            if (aslModel) {
-
-                aiStatus.textContent =
-                    "ASL AI ready";
-
-
-                recognition.innerHTML = `
-                    <p class="result-empty">
-                        ✋ Show an ASL letter to the camera...
-                    </p>
-                `;
-
-
-                recognizeLoop();
-
+                continue;
             }
-
-        }
-
-        catch (error) {
-
-            console.error(
-                "CAMERA ERROR:",
-                error
-            );
-
-
-            if (stream) {
-
-                stream
-                    .getTracks()
-                    .forEach(
-                        track => track.stop()
-                    );
-
-            }
-
-
-            stream = null;
-
-
-            recognizing = false;
 
 
             if (
-                error.name ===
-                "NotAllowedError"
+                recognitionReady &&
+                hands
             ) {
 
-                cameraStatus.textContent =
-                    "Permission denied";
-
-
-                alert(
-                    "Camera permission was blocked.\n\n" +
-                    "Click the camera/lock icon beside " +
-                    "the website address and set Camera " +
-                    "to Allow, then reload the page."
-                );
-
-            }
-
-            else if (
-                error.name ===
-                "NotFoundError"
-            ) {
-
-                cameraStatus.textContent =
-                    "No camera found";
-
-
-                alert(
-                    "Chrome could not find a camera."
-                );
-
-            }
-
-            else {
-
-                cameraStatus.textContent =
-                    "Camera error";
-
-
-                alert(
-                    "Camera could not start.\n\n" +
-                    error.message
-                );
-
-            }
-
-        }
-
-    }
-
-
-    /* =====================================================
-       RECOGNITION LOOP
-    ===================================================== */
-
-    async function recognizeLoop() {
-
-        if (!recognizing) {
-            return;
-        }
-
-
-        if (
-            camera.readyState >= 2
-        ) {
-
-            await hands.send({
-                image: camera
-            });
-
-        }
-
-
-        requestAnimationFrame(
-            recognizeLoop
-        );
-
-    }
-
-
-    /* =====================================================
-       STOP CAMERA
-    ===================================================== */
-
-    function stopCamera() {
-
-        console.log(
-            "STOP CAMERA"
-        );
-
-
-        recognizing =
-            false;
-
-
-        lastPrediction =
-            "";
-
-
-        predictionCount =
-            0;
-
-
-        if (stream) {
-
-            stream
-                .getTracks()
-                .forEach(track => {
-
-                    track.stop();
-
+                await hands.send({
+                    image: camera
                 });
 
-        }
+            }
 
+        } catch (error) {
 
-        stream =
-            null;
-
-
-        camera.srcObject =
-            null;
-
-
-        camera.style.display =
-            "none";
-
-
-        placeholder.style.display =
-            "flex";
-
-
-        startButton.disabled =
-            false;
-
-
-        stopButton.disabled =
-            true;
-
-
-        statusLight.classList.remove(
-            "active"
-        );
-
-
-        cameraStatus.textContent =
-            "Ready";
-
-
-        aiStatus.textContent =
-            "Waiting to start";
-
-
-        ctx.clearRect(
-            0,
-            0,
-            canvas.width,
-            canvas.height
-        );
-
-
-        recognition.innerHTML = `
-            <p class="result-empty">
-                Start the camera to begin recognition.
-            </p>
-        `;
-
-    }
-
-
-    /* =====================================================
-       CANVAS
-    ===================================================== */
-
-    function resizeCanvas() {
-
-        if (
-            camera.videoWidth &&
-            camera.videoHeight
-        ) {
-
-            canvas.width =
-                camera.videoWidth;
-
-            canvas.height =
-                camera.videoHeight;
+            console.error(
+                "Recognition frame error:",
+                error
+            );
 
         }
 
+
+        /*
+           Don't process every single frame.
+           This keeps the browser responsive.
+        */
+
+        await new Promise(
+            resolve => setTimeout(resolve, 80)
+        );
+    }
+}
+
+
+/* ---------------------------------------------------------
+   Stop recognition
+   --------------------------------------------------------- */
+
+function stopRecognition() {
+
+    recognizing = false;
+
+    if (hands) {
+        try {
+            hands.close();
+        } catch (error) {
+            console.log(
+                "Hands cleanup:",
+                error
+            );
+        }
     }
 
+    hands = null;
 
-    /* =====================================================
-       BUTTONS
-    ===================================================== */
-
-    startButton.addEventListener(
-        "click",
-        startCamera
-    );
-
-
-    stopButton.addEventListener(
-        "click",
-        stopCamera
-    );
-
-
-    window.addEventListener(
-        "resize",
-        resizeCanvas
-    );
-
+    recognitionReady = false;
 
     console.log(
-        "SignLearn Practice loaded."
+        "ASL recognition stopped."
     );
+}
+
+
+/* ---------------------------------------------------------
+   IMPORTANT:
+   If your existing stopCamera() function already exists,
+   add ONLY this line inside it:
+   
+       stopRecognition();
+
+   DO NOT replace your camera code.
+   --------------------------------------------------------- */
 
 </script>
-
-</body>
-</html>
